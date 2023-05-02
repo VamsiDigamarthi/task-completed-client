@@ -1,0 +1,21 @@
+.notaccess {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.left-not {
+  width: 20%;
+}
+
+.right-not {
+  padding-right: 30px;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.not-img {
+  width: 97%;
+  height: 115%;
+}

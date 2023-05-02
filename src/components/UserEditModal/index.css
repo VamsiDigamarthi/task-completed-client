@@ -1,0 +1,15 @@
+.edit-input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 2rem;
+  width: 100%;
+}
+
+.edit-input-container > input {
+  width: 100%;
+  height: 35px;
+  border-radius: 7px;
+  border-color: brown;
+}

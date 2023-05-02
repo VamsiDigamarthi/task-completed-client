@@ -1,0 +1,241 @@
+.teams {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.side-bar-t {
+  flex: 1;
+}
+
+.right-side-team {
+  flex: 5;
+  padding: 0 20px;
+}
+
+.employ {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+/* .team-header {
+  position: fixed;
+  top: 0;
+} */
+
+.emp {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 25%;
+  height: 90px;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 10px;
+  border-radius: 7px;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  background: rgba(255, 0, 0, 8%);
+  backdrop-filter: blur(120px);
+  /* background-color: black; */
+  /* backdrop-filter: blur(20px); */
+}
+.team-leade-container {
+  margin: 20 0px;
+  margin-bottom: 20px;
+}
+
+.users-image-container {
+  width: 50px;
+  height: 50px;
+  border: 2px solid rgb(189, 226, 121);
+  border-radius: 50%;
+}
+
+.team-leade-container > p {
+  color: rgb(128, 179, 11);
+}
+
+.new-style-user {
+  margin-top: 2rem;
+}
+
+.team-leade-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.selected {
+  width: 250px;
+}
+.selected > :nth-child(1) {
+  width: 100%;
+  height: 30px;
+  background-color: transparent;
+  outline: none;
+  border: 1px solid red;
+  border-radius: 7px;
+  color: rgb(228, 14, 85);
+  font-size: 16px;
+}
+
+.task-user-container {
+  align-self: center;
+}
+
+.add-task-button {
+  width: 180px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+  background-color: transparent;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: none;
+  outline: none;
+}
+
+.add-task-button > button {
+  width: 100%;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  background-color: blueviolet;
+  font-size: 14px;
+}
+
+.team-right-side-container {
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+.loder-container {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+
+.loder-container .card {
+  position: relative;
+  width: 100px;
+  height: 90px;
+  /* background-color: #2a2a2a; */
+}
+
+.loder-container .card .percent {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.loder-container .card .percent svg {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  transform: rotate(270deg);
+}
+
+.loder-container .card .percent svg circle {
+  width: 100%;
+  height: 100%;
+  fill: transparent;
+  stroke-width: 2;
+  stroke: #191919;
+  transform: translate(8px, 6px);
+}
+
+.loder-container .card .percent svg circle:nth-child(2) {
+  stroke: var(--clr);
+  stroke-dasharray: 275;
+  stroke-dashoffset: calc(275 - (275 * var(--num)) / 100);
+  /* stroke-dasharray: 275;
+  stroke-dashoffset: 275; */
+  opacity: 0;
+  animation: fadeIn 1s linear forwards;
+  animation-delay: 2.5s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.dot {
+  position: absolute;
+  z-index: 10;
+  inset: 5px;
+  transform: rotate(calc(3.6deg * var(--num)));
+  animation: animateDot 2s linear forwards;
+}
+
+@keyframes animateDot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(calc(3.6deg * var(--num)));
+  }
+}
+
+.dot::before {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--clr);
+  top: -5px;
+  left: 50%;
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--clr), 0 0 30px var(--clr);
+}
+
+.number {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  opacity: 0;
+  animation: fadeIn 1s linear forwards;
+  animation-delay: 2.5s;
+  line-height: 5px;
+}
+
+.number h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: White;
+  font-weight: 700;
+  font-size: 2.5rem;
+}
+
+.number h3 span {
+  font-weight: 300;
+  color: #d6385d;
+  font-size: 0.7rem;
+}
+
+.number p {
+  font-weight: 300;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  margin-top: 5px;
+  color: rbga(255, 255, 255, 0.75);
+  letter-spacing: 2px;
+}
