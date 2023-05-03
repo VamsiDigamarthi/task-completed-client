@@ -6,6 +6,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import { LogIn } from "../../actions/AuthAction";
+import "./index.css";
 const Login = () => {
   const [user, setUser] = useState({
     username: "",
@@ -45,15 +46,15 @@ const Login = () => {
   // }
 
   return (
-    <div className="signup-container">
-      <div className="signup">
+    <div className="login-container">
+      <div className="login">
         <img
-          className="signup-img"
+          className="login-img"
           src="./images/undraw_Mobile_re_q4nk.png"
-          alt="signupimage"
+          alt="loginimage"
         />
-        <form onSubmit={submitForm} className="signup-form">
-          <h1 className="form-heading">Register</h1>
+        <form onSubmit={submitForm} className="login-form">
+          <h1 className="form-heading">Login</h1>
 
           <div className="form-input-container">
             <HiOutlineMail className="form-icons" />
@@ -77,7 +78,7 @@ const Login = () => {
               value={user.password}
             />
           </div>
-          <button className="signup-btn" type="submit">
+          <button className="login-btn" type="submit">
             Login
           </button>
           <p>

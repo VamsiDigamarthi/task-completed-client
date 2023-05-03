@@ -6,6 +6,7 @@ import SideBar from "../SideBar";
 import Header from "../Header";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import AddUserTeamModal from "../AddUserTeamModal";
 // const u = [
 //   {
 //     name: "ravi",
@@ -122,13 +123,37 @@ import axios from "axios";
 // ];
 
 const Teams = () => {
-  const [filterUser, setFilterUser] = useState([]);
+  // const [filterUser, setFilterUser] = useState([]);
   const [taskAddModal, setTaskAddModal] = useState(false);
   const [teamUserList, setTeamUserList] = useState([]);
   const [teamAllTask, setTeamAllTask] = useState([]);
+
+  // add User modal state
+
+  const [addUserModal, setAddUserModal] = useState(false);
+
   const [adminChangeTeamValue, setAdminChangeTeamValue] = useState("");
 
-  const a = {};
+  // const a = {};
+
+  // pagination start
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const [pageSize, setPageSize] = useState(2);
+  const [currentItems, setCurrentItems] = useState(
+    teamUserList.slice(0, pageSize)
+  );
+
+  const onPage = (index) => {
+    setCurrentPage(index);
+    let cuurentItem = teamUserList.slice(
+      index * pageSize,
+      pageSize * (index + 1)
+    );
+    setCurrentItems(cuurentItem);
+  };
+
+  // pagination end
 
   const UUU = useSelector((state) => state.authReducer.authData);
 
@@ -137,11 +162,41 @@ const Teams = () => {
   const teamUserAccess =
     UUU.role === "admin" ? { role: adminChangeTeamValue } : { role: UUU.role };
 
-  const getData = (n) => {
-    const filterTask = teamAllTask.filter((each) => each.username === n);
-    console.log(filterTask);
-    setFilterUser(filterTask);
+  const getTeamOfTeaks = async (n) => {
+    const role = { name: n };
+    const API = axios.create({ baseURL: "http://localhost:5000" });
+    API.post("/tasks/employee", role)
+      .then((res) => {
+        setTeamAllTask(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
+
+  const getData = (n) => {
+    getTeamOfTeaks(n);
+  };
+
+  // const getData = (n) => {
+  //   const filterTask = teamAllTask.filter((each) => each.username === n);
+  //   console.log(filterTask);
+  //   setFilterUser(filterTask);
+  // };
+
+  let loaderValue = 0;
+
+  const filtee = teamAllTask.filter((each) => each.status === "completed");
+
+  const compl = Math.round((filtee.length / teamAllTask.length) * 100);
+
+  console.log(compl);
+
+  if (compl >= 0) {
+    loaderValue = compl;
+  } else {
+    loaderValue = 0;
+  }
 
   const adminChangeTeam = (e) => {
     setAdminChangeTeamValue(e.target.value);
@@ -159,21 +214,20 @@ const Teams = () => {
       });
   };
 
-  const getTeamOfTeaks = async () => {
-    const API = axios.create({ baseURL: "http://localhost:5000" });
-    API.post("/team/allTaskFetch", teamUserAccess)
-      .then((res) => {
-        setTeamAllTask(res.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-
   useEffect(() => {
     getTeamOfEmployee();
-    getTeamOfTeaks();
+    // getTeamOfTeaks();
   }, [adminChangeTeamValue]);
+
+  // console.log(teamAllTask);
+  const [pageCount, setPageCount] = useState(
+    Math.ceil(teamUserList.length / pageSize)
+  );
+  console.log(teamUserList);
+
+  const v = Math.ceil(teamUserList.length / pageSize);
+
+  console.log(v);
 
   return (
     <div className="teams">
@@ -187,7 +241,9 @@ const Teams = () => {
         <div className="team-right-side-container">
           <div className="team-leade-container">
             <div>
-              <h2>{UUU.name}</h2>
+              <h2 style={{ color: "#44e3db" }}>
+                {UUU.name.charAt(0).toUpperCase() + UUU.name.slice(1)}
+              </h2>
               <p style={{ color: "#d6385d" }}>Welcome to Dash Board</p>
             </div>
             {UUU.role === "admin" ? (
@@ -203,25 +259,97 @@ const Teams = () => {
                 </select>
               </div>
             ) : (
-              <button className="add-task-button">
-                <button onClick={() => setTaskAddModal(true)}>
-                  Add User Task
+              <div className="team-add-user-container">
+                <div>
+                  <button
+                    onClick={() => setAddUserModal(true)}
+                    className="add-user-btn"
+                  >
+                    Add User
+                  </button>
+                </div>
+                <button className="add-task-button">
+                  <button onClick={() => setTaskAddModal(true)}>
+                    Add User Task
+                  </button>
                 </button>
-              </button>
+              </div>
             )}
           </div>
+          <div className="user-and-loader">
+            <div className="user-and-2">
+              <ul className="ul-container">
+                {/* page count user list add */}
+                {currentItems.map((i, index) => (
+                  <li
+                    className="user-card-container"
+                    onClick={() => getData(i.name)}
+                  >
+                    <img
+                      src="./images/photo-1494790108377-be9c29b29330.jpg"
+                      className="avatar"
+                      alt="avatar"
+                    />
+                    <div className="user-details-container">
+                      <h3 className="user-name">
+                        {i.name.charAt(0).toUpperCase() + i.name.slice(1)}
+                      </h3>
+                      <p className="user-designation"> software developer </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <div>
+                <button
+                  onClick={() => onPage(currentPage - 1)}
+                  disabled={currentPage === 0}
+                >
+                  prev
+                </button>
+                {Array(v)
+                  .fill(null)
+                  .map((page, index) => (
+                    <button onClick={() => onPage(index)} key={index}>
+                      {index + 1}
+                    </button>
+                  ))}
+                <button
+                  onClick={() => onPage(currentPage + 1)}
+                  disabled={currentPage === v - 1}
+                >
+                  next
+                </button>
+              </div>
+            </div>
 
-          <div className="employ">
-            {teamUserList.map((i, index) => (
-              <div className="emp" onClick={() => getData(i.name)}>
-                <div>
-                  <h3 style={{ color: "#d6385d" }}>{i.name}</h3>
-                  <span>no of tasks</span>
+            {teamAllTask.length !== 0 && (
+              <div className="loder-container">
+                <div className="card">
+                  <div
+                    className="percent"
+                    style={{
+                      "--clr": "#04fc43",
+                      "--num": loaderValue,
+                    }}
+                  >
+                    <div className="dot"></div>
+                    <svg>
+                      <circle cx="70" cy="70" r="70"></circle>
+                      <circle cx="70" cy="70" r="70"></circle>
+                    </svg>
+                    <div className="number">
+                      <h3 style={{ color: "#d6385d" }}>
+                        {loaderValue}
+                        <span>%</span>
+                      </h3>
+                      <p>tasks</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            ))}
+            )}
           </div>
-          {filterUser.length !== 0 ? (
+          {teamAllTask.length !== 0 ? (
             <>
               <table className="content-table">
                 <thead>
@@ -233,10 +361,10 @@ const Teams = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {filterUser.map((each) => (
+                  {teamAllTask.map((each) => (
                     <tr>
                       <td>{each.task}</td>
-                      <td>{each.date}</td>
+                      <td>{each.createdAt}</td>
                       <td>{each.status}</td>
                       <td>
                         <BiDetail id={each._id} />
@@ -245,29 +373,6 @@ const Teams = () => {
                   ))}
                 </tbody>
               </table>
-              {/* <div className="loder-container">
-                <div className="card">
-                  <div
-                    className="percent"
-                    style={{
-                      "--clr": "#04fc43",
-                      "--num": a[filterUser.username],
-                    }}
-                  >
-                    <div className="dot"></div>
-                    <svg>
-                      <circle cx="44" cy="44" r="44"></circle>
-                      <circle cx="44" cy="44" r="44"></circle>
-                    </svg>
-                    <div className="number">
-                      <h3 style={{ color: "#d6385d" }}>
-                        85<span>%</span>
-                      </h3>
-                      <p>tasks</p>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
             </>
           ) : (
             ""
@@ -277,6 +382,11 @@ const Teams = () => {
             setTaskAddModal={setTaskAddModal}
             teamUserList={teamUserList}
             getTeamOfTeaks={getTeamOfTeaks}
+          />
+          <AddUserTeamModal
+            addUserModal={addUserModal}
+            setAddUserModal={setAddUserModal}
+            getTeamOfEmployee={getTeamOfEmployee}
           />
         </div>
       </div>

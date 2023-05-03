@@ -1,34 +1,35 @@
 import React from "react";
 import "./index.css";
-import { IoIosCloseCircleOutline } from "react-icons/io";
+import { Modal, useMantineTheme } from "@mantine/core";
+function UserModal({ modal, setModal, datilsTask }) {
+  //   const [opened, { open, close }] = useDisclosure(false);
+  const theme = useMantineTheme();
 
-const UserModal = ({ modal, setModal, datilsTask }) => {
   return (
     <>
-      {modal && (
-        <div className="modal">
-          <div onClick={() => setModal(false)}></div>
-          <div className="modal-content">
-            <h2>Hello Modal</h2>
-            <p>
-              {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident
-              perferendis suscipit officia recusandae, eveniet quaerat assumenda
-              id fugit, dignissimos maxime non natus placeat illo iusto!
-              Sapiente dolorum id maiores dolores? Illum pariatur possimus
-              quaerat ipsum quos molestiae rem aspernatur dicta tenetur. Sunt
-              placeat tempora vitae enim incidunt porro fuga ea. */}
-              {datilsTask}
-            </p>
-
-            <IoIosCloseCircleOutline
-              className="close-modal"
-              onClick={() => setModal(false)}
-            />
-          </div>
-        </div>
-      )}
+      <Modal
+        centered
+        opened={modal}
+        onClose={() => setModal(false)}
+        title="Details"
+        overlayProps={{
+          color:
+            theme.colorScheme === "dark"
+              ? theme.colors.dark[9]
+              : theme.colors.gray[2],
+          opacity: 0.55,
+          blur: 2,
+        }}
+        transitionProps={{
+          transition: "fade",
+          duration: 300,
+          timingFunction: "linear",
+        }}
+      >
+        <p>{datilsTask}</p>
+      </Modal>
     </>
   );
-};
+}
 
 export default UserModal;

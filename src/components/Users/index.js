@@ -64,7 +64,7 @@ const Users = () => {
     );
     const compl = (filterPieValue.length / userDataTask.length) * 100;
     if (compl === 100) {
-      let a = [0, 100];
+      let a = [100, 0];
       setUpdate(a);
     } else {
       let arr = [];
@@ -109,16 +109,34 @@ const Users = () => {
             <tr>
               <th>Task</th>
               <th>Date</th>
+              <th>Update Date</th>
               <th>Status</th>
-              <th>Details</th>
+              <th>Details & Edit</th>
             </tr>
           </thead>
           <tbody>
             {userDataTask.map((each) => (
               <tr>
                 <td>{each.task}</td>
-                <td>11/04/2023</td>
-                <td>{each.status}</td>
+                <td>{each.createdAt}</td>
+                <td>{each.updatedAt}</td>
+                <td>
+                  <div
+                    style={{
+                      backgroundColor:
+                        each.status === "completed" ? "#14e610" : "#f53858",
+                      fontSize: "16px",
+                      fontWeight: 400,
+                      padding: "2px",
+                      color: "#ffffff",
+                      paddingLeft: "19px",
+                      borderTopRightRadius: "10px",
+                      borderBottomRightRadius: "10px",
+                    }}
+                  >
+                    {each.status}
+                  </div>
+                </td>
                 <td>
                   <BiDetail id={each._id} onClick={detailsAndModel} />
                   <FiEdit

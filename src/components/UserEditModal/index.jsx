@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./index.css";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import { Modal, useMantineTheme } from "@mantine/core";
 import axios from "axios";
 
 const UserEditModal = ({
@@ -31,35 +32,45 @@ const UserEditModal = ({
       });
   };
 
-  // console.log(editUserTask);
+  const theme = useMantineTheme();
 
   return (
     <>
-      {editModal && (
-        <div className="modal">
-          <div onClick={() => setEditModal(false)}></div>
-          <div className="modal-content">
-            <h2>Hello Modal</h2>
-            <form onSubmit={editSubmitTask}>
-              <div className="edit-input-container">
-                <select onChange={usernameChange}>
-                  <option disabled selected hidden>
-                    Please select your status
-                  </option>
-                  <option value="completed">completed</option>
-                  <option value="incompleted">incompleted</option>
-                </select>
+      <Modal
+        centered
+        opened={editModal}
+        onClose={() => setEditModal(false)}
+        title="Edit task"
+        overlayProps={{
+          color:
+            theme.colorScheme === "dark"
+              ? theme.colors.dark[9]
+              : theme.colors.gray[2],
+          opacity: 0.55,
+          blur: 2,
+        }}
+        transitionProps={{
+          transition: "fade",
+          duration: 300,
+          timingFunction: "linear",
+        }}
+      >
+        <form onSubmit={editSubmitTask}>
+          <div className="edit-input-container">
+            <select className="edit-selected" onChange={usernameChange}>
+              <option disabled selected hidden>
+                Please select your status
+              </option>
+              <option value="completed">completed</option>
+              <option value="incompleted">incompleted</option>
+            </select>
 
-                <button type="submit">Submit</button>
-              </div>
-            </form>
-            <IoIosCloseCircleOutline
-              className="close-modal"
-              onClick={() => setEditModal(false)}
-            />
+            <button className="edit-btn" type="submit">
+              Submit
+            </button>
           </div>
-        </div>
-      )}
+        </form>
+      </Modal>
     </>
   );
 };
