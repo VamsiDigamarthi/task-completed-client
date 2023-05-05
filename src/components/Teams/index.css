@@ -180,7 +180,7 @@
   height: 100%;
   fill: transparent;
   stroke-width: 4;
-  stroke: #191919;
+  stroke: #e32d6d;
   transform: translate(5px, 5px);
 }
 
@@ -301,6 +301,7 @@
   width: 60%;
   border-radius: 10px;
   gap: 1.1rem;
+  min-height: 120px;
 }
 
 .user-card-container {
@@ -330,4 +331,61 @@
   font-size: 11px;
   font-weight: 400;
   color: #e2d8f0;
+}
+
+.prev-btn {
+  background-color: transparent;
+  border: 1px solid #f2977c;
+  height: 22px;
+  width: 40px;
+}
+
+.number-btn {
+  background-color: transparent;
+  border: 1px solid #f2977c;
+  height: 22px;
+}
+
+.admin-teams-con {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 10px;
+}
+
+.admin-teams-con > h4 > span {
+  font-size: 25px;
+  font-weight: 800;
+  color: #e32d6d;
+  margin-left: 10px;
+}
+
+.team-card-inadmin {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.team-name {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.team-name > span {
+  font-size: 23px;
+  font-weight: bold;
+  color: #e32d6d;
+}
+
+.admin-team-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+}
+
+.team-leader-task-collaps {
+  margin: 25px 0px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 15px;
+  border-radius: 10px;
 }

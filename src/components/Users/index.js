@@ -138,11 +138,15 @@ const Users = () => {
                   </div>
                 </td>
                 <td>
-                  <BiDetail id={each._id} onClick={detailsAndModel} />
+                  <BiDetail
+                    id={each._id}
+                    onClick={detailsAndModel}
+                    style={{ cursor: "pointer" }}
+                  />
                   <FiEdit
                     id={each._id}
                     onClick={editAndModel}
-                    style={{ marginLeft: "50px" }}
+                    style={{ marginLeft: "50px", cursor: "pointer" }}
                   />
                 </td>
               </tr>

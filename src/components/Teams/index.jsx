@@ -7,6 +7,7 @@ import Header from "../Header";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import AddUserTeamModal from "../AddUserTeamModal";
+import TeamLeadTaska from "../TeamLeadTasks";
 // const u = [
 //   {
 //     name: "ravi",
@@ -128,11 +129,21 @@ const Teams = () => {
   const [teamUserList, setTeamUserList] = useState([]);
   const [teamAllTask, setTeamAllTask] = useState([]);
 
+  const [adminTeams, setAdminTeams] = useState([]);
+
   // add User modal state
 
   const [addUserModal, setAddUserModal] = useState(false);
 
   const [adminChangeTeamValue, setAdminChangeTeamValue] = useState("");
+
+  // teams leader details array
+
+  const [adminGetOneTeam, setAdminGetOneTeam] = useState([]);
+
+  const [teamLeaderTask, setTeamLeaderTask] = useState([]);
+
+  // team leader details array
 
   // const a = {};
 
@@ -140,6 +151,7 @@ const Teams = () => {
   const [currentPage, setCurrentPage] = useState(0);
 
   const [pageSize, setPageSize] = useState(2);
+
   const [currentItems, setCurrentItems] = useState(
     teamUserList.slice(0, pageSize)
   );
@@ -162,6 +174,9 @@ const Teams = () => {
   const teamUserAccess =
     UUU.role === "admin" ? { role: adminChangeTeamValue } : { role: UUU.role };
 
+  const adminAndTams =
+    UUU.role === "admin" ? { role: adminChangeTeamValue } : { role: UUU.role };
+
   const getTeamOfTeaks = async (n) => {
     const role = { name: n };
     const API = axios.create({ baseURL: "http://localhost:5000" });
@@ -178,19 +193,13 @@ const Teams = () => {
     getTeamOfTeaks(n);
   };
 
-  // const getData = (n) => {
-  //   const filterTask = teamAllTask.filter((each) => each.username === n);
-  //   console.log(filterTask);
-  //   setFilterUser(filterTask);
-  // };
-
   let loaderValue = 0;
 
   const filtee = teamAllTask.filter((each) => each.status === "completed");
 
   const compl = Math.round((filtee.length / teamAllTask.length) * 100);
 
-  console.log(compl);
+  // console.log(compl);
 
   if (compl >= 0) {
     loaderValue = compl;
@@ -198,8 +207,24 @@ const Teams = () => {
     loaderValue = 0;
   }
 
+  // const getOneTeamLeader = () => {
+  //   const API = axios.create({ baseURL: "http://localhost:5000" });
+
+  //   API.post("/team/oneteamleader", teamUserAccess)
+  //     .then((res) => {
+  //       // setTeamUserList(res.data);
+  //       // setAdminTeams(res.data);
+  //       setAdminGetOneTeam(res.data);
+  //     })
+
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // };
+
   const adminChangeTeam = (e) => {
     setAdminChangeTeamValue(e.target.value);
+    // getOneTeamLeader();
   };
 
   const getTeamOfEmployee = async () => {
@@ -209,25 +234,110 @@ const Teams = () => {
       .then((res) => {
         setTeamUserList(res.data);
       })
+
       .catch((e) => {
         console.log(e);
       });
   };
 
+  // get team leader tasks start
+
+  const getUserTask = async () => {
+    const userName = { name: UUU.name };
+
+    const API = axios.create({ baseURL: "http://localhost:5000" });
+
+    API.post("/tasks/employee", userName)
+      .then((res) => {
+        setTeamLeaderTask(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  // get team leader tasks end
+
+  useEffect(() => {
+    const getVVVaa = () => {
+      if (UUU.role === "admin" && adminGetOneTeam.length !== 0) {
+        const nameValue = adminGetOneTeam[0];
+        const { name } = nameValue;
+        console.log(nameValue);
+        console.log(name);
+        const userName =
+          UUU.role === "admin" ? { name: name } : { name: UUU.name };
+        const API = axios.create({ baseURL: "http://localhost:5000" });
+        API.post("/tasks/employee", userName)
+          .then((res) => {
+            setTeamLeaderTask(res.data);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
+    };
+    getVVVaa();
+  }, [adminGetOneTeam]);
+
   useEffect(() => {
     getTeamOfEmployee();
+
     // getTeamOfTeaks();
+    if (UUU.role === "admin") {
+      const adminrole = { role: UUU.role };
+
+      const getAllTeamsByAdmin = () => {
+        const API = axios.create({ baseURL: "http://localhost:5000" });
+
+        API.post("/team/user", adminrole)
+          .then((res) => {
+            setAdminTeams(res.data);
+          })
+
+          .catch((e) => {
+            console.log(e);
+          });
+      };
+
+      getAllTeamsByAdmin();
+    }
+
+    // api call fetch teams leader data
+    const getOneTeamLeader = () => {
+      const API = axios.create({ baseURL: "http://localhost:5000" });
+
+      API.post("/team/oneteamleader", adminAndTams)
+        .then((res) => {
+          setAdminGetOneTeam(res.data);
+        })
+
+        .catch((e) => {
+          console.log(e);
+        });
+    };
+    getOneTeamLeader();
+
+    getUserTask();
+
+    // api call fetch team leader data end
   }, [adminChangeTeamValue]);
 
   // console.log(teamAllTask);
-  const [pageCount, setPageCount] = useState(
-    Math.ceil(teamUserList.length / pageSize)
-  );
-  console.log(teamUserList);
+  // const [pageCount, setPageCount] = useState(
+  //   Math.ceil(teamUserList.length / pageSize)
+  // );
+  // console.log(teamUserList);
 
   const v = Math.ceil(teamUserList.length / pageSize);
 
-  console.log(v);
+  // console.log(adminTeams);
+
+  // console.log(v);
+
+  // console.log(adminGetOneTeam);
+
+  // console.log(teamLeaderTask);
 
   return (
     <div className="teams">
@@ -239,6 +349,7 @@ const Teams = () => {
           <Header />
         </div>
         <div className="team-right-side-container">
+          {/* login user details container start */}
           <div className="team-leade-container">
             <div>
               <h2 style={{ color: "#44e3db" }}>
@@ -252,10 +363,9 @@ const Teams = () => {
                   <option disabled selected hidden>
                     Please select team
                   </option>
-                  <option>software team</option>
-                  <option>market team</option>
-                  <option>Team3</option>
-                  <option>Team4</option>
+                  {adminTeams.map((each) => (
+                    <option>{each.role}</option>
+                  ))}
                 </select>
               </div>
             ) : (
@@ -276,6 +386,44 @@ const Teams = () => {
               </div>
             )}
           </div>
+          {/* login user details container end */}
+          {/* add team leaders */}
+          {adminChangeTeamValue && (
+            <div className="admin-teams-con">
+              {adminGetOneTeam.map((each) => (
+                <li className="team-card-inadmin">
+                  <div className="user-details-container">
+                    <h3 className="team-name">
+                      Team Leader{" "}
+                      <span>
+                        {each.name.charAt(0).toUpperCase() + each.name.slice(1)}
+                      </span>
+                    </h3>
+                    <p className="user-designation">Designation {each.role}</p>
+                  </div>
+                  <img
+                    src="https://preview.keenthemes.com/metronic-v4/theme/assets/pages/media/profile/profile_user.jpg"
+                    className="admin-team-image"
+                    alt="avatar"
+                  />
+                </li>
+              ))}
+            </div>
+          )}
+
+          {/* show team leader task */}
+          {teamLeaderTask.length !== 0 && (
+            <div className="team-leader-task-collaps">
+              <TeamLeadTaska
+                teamLeaderTask={teamLeaderTask}
+                getUserTask={getUserTask}
+              />
+            </div>
+          )}
+
+          {/* show team leader task */}
+
+          {/* add team leader end */}
           <div className="user-and-loader">
             <div className="user-and-2">
               <ul className="ul-container">
@@ -301,6 +449,7 @@ const Teams = () => {
               </ul>
               <div>
                 <button
+                  className="prev-btn"
                   onClick={() => onPage(currentPage - 1)}
                   disabled={currentPage === 0}
                 >
@@ -309,13 +458,18 @@ const Teams = () => {
                 {Array(v)
                   .fill(null)
                   .map((page, index) => (
-                    <button onClick={() => onPage(index)} key={index}>
+                    <button
+                      className="number-btn"
+                      onClick={() => onPage(index)}
+                      key={index}
+                    >
                       {index + 1}
                     </button>
                   ))}
                 <button
                   onClick={() => onPage(currentPage + 1)}
                   disabled={currentPage === v - 1}
+                  className="prev-btn"
                 >
                   next
                 </button>
@@ -355,7 +509,8 @@ const Teams = () => {
                 <thead>
                   <tr>
                     <th>Task</th>
-                    <th>Date</th>
+                    <th>Create</th>
+                    <th>Update</th>
                     <th>Status</th>
                     <th>Details</th>
                   </tr>
@@ -365,7 +520,29 @@ const Teams = () => {
                     <tr>
                       <td>{each.task}</td>
                       <td>{each.createdAt}</td>
-                      <td>{each.status}</td>
+                      <td>{each.updatedAt}</td>
+                      <td>
+                        <div
+                          style={{
+                            backgroundColor:
+                              each.status === "completed"
+                                ? "#b1f26f"
+                                : "#ff9cc5",
+                            // ? "#14e610"
+
+                            // : "#f53858",
+                            fontSize: "16px",
+                            fontWeight: 400,
+                            padding: "2px",
+                            color: "#ffffff",
+                            paddingLeft: "19px",
+                            borderTopRightRadius: "10px",
+                            borderBottomRightRadius: "10px",
+                          }}
+                        >
+                          {each.status}
+                        </div>
+                      </td>
                       <td>
                         <BiDetail id={each._id} />
                       </td>

@@ -2,23 +2,23 @@ import React, { useState } from "react";
 import { Modal, useMantineTheme } from "@mantine/core";
 import { AiOutlineUser } from "react-icons/ai";
 import { HiOutlineMail } from "react-icons/hi";
-import { RiLockPasswordLine } from "react-icons/ri";
+import { RiLockPasswordLine, RiTeamLine } from "react-icons/ri";
 import "./index.css";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-const AddUserTeamModal = ({
-  addUserModal,
-  setAddUserModal,
-  getTeamOfEmployee,
-}) => {
+const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
   const UUU = useSelector((state) => state.authReducer.authData);
+
+  //   console.log(UUU);
+  //   console.log(UUU._id);
 
   const [user, setUser] = useState({
     name: "",
-    role: "",
+
     username: "",
     password: "",
+    role: "",
     head: UUU.role,
   });
 
@@ -36,8 +36,10 @@ const AddUserTeamModal = ({
     API.post("/auth/register", user)
       .then((res) => {
         console.log(`api data ${res.data}`);
-        setAddUserModal(false);
-        getTeamOfEmployee();
+        setAddTeams(false);
+        // setAddUserModal(false);
+        // getTeamOfEmployee();
+        getAllTeamsByAdmin();
       })
       .catch((e) => {
         console.log(e);
@@ -52,8 +54,8 @@ const AddUserTeamModal = ({
     <>
       <Modal
         centered
-        opened={addUserModal}
-        onClose={() => setAddUserModal(false)}
+        opened={addTeams}
+        onClose={() => setAddTeams(false)}
         title="Register"
         overlayProps={{
           color:
@@ -106,7 +108,7 @@ const AddUserTeamModal = ({
             />
           </div>
 
-          <div className="form-input-container">
+          {/* <div className="form-input-container">
             <select
               className="employee-type"
               name="role"
@@ -117,10 +119,21 @@ const AddUserTeamModal = ({
               </option>
               <option value="employee">Employee</option>
             </select>
+          </div> */}
+          <div className="form-input-container">
+            <RiTeamLine className="form-icons" />
+            <input
+              placeholder="add teams"
+              className="form-input"
+              type="text"
+              onChange={usernameChange}
+              name="role"
+              value={user.role}
+            />
           </div>
 
-          <button className="signup-btn" type="submit">
-            SignUp
+          <button className="signup-btn new-add-signup-btn" type="submit">
+            Add team
           </button>
         </form>
       </Modal>
@@ -128,4 +141,4 @@ const AddUserTeamModal = ({
   );
 };
 
-export default AddUserTeamModal;
+export default AdminAddTeams;

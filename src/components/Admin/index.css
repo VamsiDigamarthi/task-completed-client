@@ -59,3 +59,28 @@
   align-items: center;
   margin: 30px 0px;
 }
+
+.admin-add-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 20px 110px;
+  gap: 2rem;
+}
+
+.admin-left-btn {
+  width: 150px;
+  height: 35px;
+  background-image: radial-gradient(#f7eb45, #ed784a);
+  border: none;
+  border-radius: 7px;
+}
+
+.admin-right-btn {
+  width: 150px;
+  height: 35px;
+  border: none;
+  border-radius: 7px;
+  background-image: radial-gradient(#9ae3de, #e645a0);
+}

@@ -8,6 +8,8 @@ import Login from "./components/Login";
 import Admin from "./components/Admin";
 import NotAccess from "./components/NotAccess";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 // import Protected from "./components/ProtectedRoute";
 
@@ -16,30 +18,81 @@ var USER_TYPE = {
   TEAM_LEADER: "software team",
   ADMIN: "admin",
   TEAM_LEADER_2: "market team",
+  TEAMS: [],
 };
 
 function App() {
   const UUU = useSelector((state) => state.authReducer.authData);
 
-  let CURRENT_USER = null;
+  // console.log(UUU.role);
 
+  const [allTeamMembers, setAllTeamMembers] = useState([]);
+
+  const arrayOfTeamsName = [];
+
+  // let CURRENT_USER = UUU ? UUU.role : <Navigate to="/employee" />;
+  // console.log(`current us ${CURRENT_USER}`);
+  let CURRENT_USER = null;
   if (UUU) {
-    if (UUU.role === USER_TYPE.EMPLOYEE) {
-      CURRENT_USER = UUU.role;
-      <Navigate to="/employee" />;
-    } else if (
-      UUU.role === USER_TYPE.TEAM_LEADER ||
-      UUU.role === USER_TYPE.TEAM_LEADER_2
-    ) {
-      CURRENT_USER = UUU.role;
-    } else if (UUU.role === USER_TYPE.ADMIN) {
-      CURRENT_USER = UUU.role;
-    } else {
-      console.log("nothing else");
-    }
-  } else {
-    console.log("user not");
+    CURRENT_USER = UUU.role;
   }
+
+  useEffect(() => {
+    const addNamesInArray = () => {
+      allTeamMembers?.forEach((each) => {
+        USER_TYPE.TEAMS.push(each.role);
+        // console.log("attakjhd");
+      });
+    };
+    addNamesInArray();
+  }, [allTeamMembers]);
+
+  useEffect(() => {
+    const fetchAllTeam = () => {
+      const adminrole = { role: "admin" };
+
+      const getAllTeamsByAdmin = () => {
+        const API = axios.create({ baseURL: "http://localhost:5000" });
+
+        API.post("/team/user", adminrole)
+          .then((res) => {
+            setAllTeamMembers(res.data);
+          })
+
+          .catch((e) => {
+            console.log(e);
+          });
+      };
+      getAllTeamsByAdmin();
+    };
+
+    fetchAllTeam();
+  }, []);
+
+  console.log(USER_TYPE.TEAMS);
+
+  // console.log("temas");
+  // console.log(allTeamMembers);
+
+  // console.log(arrayOfTeamsName);
+
+  // if (UUU) {
+  //   if (UUU.role === USER_TYPE.EMPLOYEE) {
+  //     CURRENT_USER = UUU.role;
+  //     // <Navigate to="/employee" />;
+  //   } else if (
+  //     UUU.role === USER_TYPE.TEAM_LEADER ||
+  //     UUU.role === USER_TYPE.TEAM_LEADER_2
+  //   ) {
+  //     CURRENT_USER = UUU.role;
+  //   } else if (UUU.role === USER_TYPE.ADMIN) {
+  //     CURRENT_USER = UUU.role;
+  //   } else {
+  //     console.log("nothing else");
+  //   }
+  // } else {
+  //   console.log("user not");
+  // }
 
   // const user = localStorage.getItem("profile");
 
@@ -49,25 +102,13 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
 
-        {/* <Route
-          path="/"
-          element={
-            CURRENT_USER === USER_TYPE.EMPLOYEE ? (
-              <Navigate to="/employee" />
-            ) : (
-              ""
-            )
-          }
-        /> */}
-
         <Route
           path="/"
           element={
             UUU ? (
               CURRENT_USER === USER_TYPE.EMPLOYEE ? (
                 <Navigate to="/employee" />
-              ) : CURRENT_USER === USER_TYPE.TEAM_LEADER ||
-                CURRENT_USER === USER_TYPE.TEAM_LEADER_2 ? (
+              ) : USER_TYPE.TEAMS.includes(CURRENT_USER) ? (
                 <Navigate to="/teams" />
               ) : (
                 <Navigate to="/dashboard" />
@@ -93,7 +134,7 @@ function App() {
           }
         />
 
-        <Route
+        {/* <Route
           path="/teams"
           element={
             UUU ? (
@@ -108,7 +149,24 @@ function App() {
               <Navigate to="/login" />
             )
           }
+        /> */}
+
+        <Route
+          path="/teams"
+          element={
+            UUU ? (
+              USER_TYPE.TEAMS.includes(CURRENT_USER) ||
+              CURRENT_USER === USER_TYPE.ADMIN ? (
+                <Teams />
+              ) : (
+                <NotAccess />
+              )
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
+
         <Route
           path="/employee"
           element={
