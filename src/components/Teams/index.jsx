@@ -8,146 +8,59 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import AddUserTeamModal from "../AddUserTeamModal";
 import TeamLeadTaska from "../TeamLeadTasks";
-// const u = [
-//   {
-//     name: "ravi",
-//     image:
-//       "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?cs=srgb&dl=pexels-pixabay-220453.jpg&fm=jpg",
-//   },
-//   {
-//     name: "vamsi",
-//     image:
-//       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSO1Fc5vaHDmiu5H6nUaxUvSQ7zOeNtdu1nUM1qECs&s",
-//   },
-//   {
-//     name: "mani",
-//     image:
-//       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80",
-//   },
-//   {
-//     name: "akhil",
-//     image:
-//       "https://newprofilepic2.photo-cdn.net//assets/images/article/profile.jpg",
-//   },
-//   {
-//     name: "sha",
-//     image:
-//       "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp",
-//   },
-// ];
-
-// const tasks = [
-//   {
-//     task: "project",
-//     date: "11/2/2023",
-//     name: "ravi",
-//     status: "completed",
-//   },
-//   {
-//     task: "project-1",
-//     date: "11/2/2023",
-//     name: "ravi",
-//     status: "incompleted",
-//   },
-//   {
-//     task: "project-2",
-//     date: "11/2/2023",
-//     name: "ravi",
-//     status: "completed",
-//   },
-//   {
-//     task: "project-3",
-//     date: "11/2/2023",
-//     name: "ravi",
-//     status: "in-completed",
-//   },
-//   {
-//     task: "project-4",
-//     date: "11/2/2023",
-//     name: "ravi",
-//     status: "completed",
-//   },
-//   {
-//     task: "project-1",
-//     date: "11/2/2023",
-//     name: "vamsi",
-//     status: "incompleted",
-//   },
-//   {
-//     task: "project-2",
-//     date: "11/2/2023",
-//     name: "vamsi",
-//     status: "incompleted",
-//   },
-//   {
-//     task: "project-3",
-//     date: "11/2/2023",
-//     name: "vamsi",
-//     status: "completed",
-//   },
-//   {
-//     task: "project-1",
-//     date: "11/2/2023",
-//     name: "akhil",
-//     status: "completed",
-//   },
-//   {
-//     task: "project-2",
-//     date: "11/2/2023",
-//     name: "akhil",
-//     status: "incompleted",
-//   },
-//   {
-//     task: "project-3",
-//     date: "11/2/2023",
-//     name: "akhil",
-//     status: "incompleted",
-//   },
-//   {
-//     task: "project-5",
-//     date: "11/2/2023",
-//     name: "akhil",
-//     status: "completed",
-//   },
-//   {
-//     task: "project-1",
-//     date: "11/2/2023",
-//     name: "mani",
-//     status: "completed",
-//   },
-//   {
-//     task: "project-2",
-//     date: "11/2/2023",
-//     name: "mani",
-//     status: "incompleted",
-//   },
-// ];
+import { AiOutlineDelete } from "react-icons/ai";
+import TeamDeleteTaskModal from "../TeamDeleteTaskModal";
 
 const Teams = () => {
-  // const [filterUser, setFilterUser] = useState([]);
-  const [taskAddModal, setTaskAddModal] = useState(false);
-  const [teamUserList, setTeamUserList] = useState([]);
-  const [teamAllTask, setTeamAllTask] = useState([]);
-
-  const [adminTeams, setAdminTeams] = useState([]);
-
-  // add User modal state
+  // teams leader states
+  //
+  //
 
   const [addUserModal, setAddUserModal] = useState(false);
 
+  const [taskAddModal, setTaskAddModal] = useState(false);
+
+  // team leader all employess state
+  const [teamUserList, setTeamUserList] = useState([]);
+
+  // employess all task state variable
+  const [teamAllTask, setTeamAllTask] = useState([]);
+
+  // team leader task state variable
+  const [teamLeaderTask, setTeamLeaderTask] = useState([]);
+
+  //
+  const [teamDeleteTask, setTeamDeleteTask] = useState(false);
+
+  const [deletedTaskDetails, setDeletedTaskDetails] = useState("");
+
+  //
+  //
+  //
+  // teams leader end states variables
+  //
+  // =======================================================================
+  //
+  // admin state variable start container
+  //
+  //
+
+  // admin change drop down to fetch corresponding task fetch
   const [adminChangeTeamValue, setAdminChangeTeamValue] = useState("");
 
-  // teams leader details array
+  const [adminTeams, setAdminTeams] = useState([]);
 
   const [adminGetOneTeam, setAdminGetOneTeam] = useState([]);
 
-  const [teamLeaderTask, setTeamLeaderTask] = useState([]);
+  //
+  //
+  // admin state variable end container
+  //
+  //  ==================================================================================
 
-  // team leader details array
-
-  // const a = {};
-
-  // pagination start
+  // pagination start container
+  //
+  //
   const [currentPage, setCurrentPage] = useState(0);
 
   const [pageSize, setPageSize] = useState(2);
@@ -164,9 +77,10 @@ const Teams = () => {
     );
     setCurrentItems(cuurentItem);
   };
-
-  // pagination end
-
+  //
+  //
+  // pagination end container
+  // ===========================================================================================
   const UUU = useSelector((state) => state.authReducer.authData);
 
   // const teamUserAccess = { role: UUU.role };
@@ -176,6 +90,12 @@ const Teams = () => {
 
   const adminAndTams =
     UUU.role === "admin" ? { role: adminChangeTeamValue } : { role: UUU.role };
+  //
+  // ========================------------==================================--------------------------========
+  // by click the employee corresponding task loaded apis start
+  //
+  //
+  //
 
   const getTeamOfTeaks = async (n) => {
     const role = { name: n };
@@ -193,13 +113,21 @@ const Teams = () => {
     getTeamOfTeaks(n);
   };
 
+  //
+  //
+  //
+  // by click the employee corresponding task loaded apis end
+  //
+  // ==========================================================================
+  //
+  // calculate the task percentage start container
+  //
+  //
   let loaderValue = 0;
 
   const filtee = teamAllTask.filter((each) => each.status === "completed");
 
   const compl = Math.round((filtee.length / teamAllTask.length) * 100);
-
-  // console.log(compl);
 
   if (compl >= 0) {
     loaderValue = compl;
@@ -207,25 +135,28 @@ const Teams = () => {
     loaderValue = 0;
   }
 
-  // const getOneTeamLeader = () => {
-  //   const API = axios.create({ baseURL: "http://localhost:5000" });
-
-  //   API.post("/team/oneteamleader", teamUserAccess)
-  //     .then((res) => {
-  //       // setTeamUserList(res.data);
-  //       // setAdminTeams(res.data);
-  //       setAdminGetOneTeam(res.data);
-  //     })
-
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
-  // };
+  //
+  //
+  // calculate the task percentage start container
+  //
+  // ===============================================================================
+  //
+  // admin change dropdown corresponding teams display start
+  //
+  //
 
   const adminChangeTeam = (e) => {
     setAdminChangeTeamValue(e.target.value);
-    // getOneTeamLeader();
   };
+
+  //
+  //
+  // admin change dropdown corresponding teams display end
+
+  // team leader all employess get api call start container
+  //
+  //
+  //
 
   const getTeamOfEmployee = async () => {
     const API = axios.create({ baseURL: "http://localhost:5000" });
@@ -240,7 +171,15 @@ const Teams = () => {
       });
   };
 
-  // get team leader tasks start
+  //
+  //
+  //
+  // team leader all employees get api call end container
+  // -------------------------------------------------------------------------------
+  // get team leader all task fetch api start container
+  //
+  //
+  //
 
   const getUserTask = async () => {
     const userName = { name: UUU.name };
@@ -256,7 +195,19 @@ const Teams = () => {
       });
   };
 
-  // get team leader tasks end
+  //
+  //
+  //
+  // get team leader all task fetch api start container
+  // -------------------------------------------------------------------------------------
+
+  const teamDeleteTaskFromId = (e) => {
+    const deleteTask = teamAllTask.filter(
+      (each) => each._id === e.currentTarget.id
+    );
+    setTeamDeleteTask(true);
+    setDeletedTaskDetails(deleteTask[0]);
+  };
 
   useEffect(() => {
     const getVVVaa = () => {
@@ -284,6 +235,7 @@ const Teams = () => {
     getTeamOfEmployee();
 
     // getTeamOfTeaks();
+
     if (UUU.role === "admin") {
       const adminrole = { role: UUU.role };
 
@@ -323,21 +275,9 @@ const Teams = () => {
     // api call fetch team leader data end
   }, [adminChangeTeamValue]);
 
-  // console.log(teamAllTask);
-  // const [pageCount, setPageCount] = useState(
-  //   Math.ceil(teamUserList.length / pageSize)
-  // );
-  // console.log(teamUserList);
-
   const v = Math.ceil(teamUserList.length / pageSize);
 
-  // console.log(adminTeams);
-
-  // console.log(v);
-
-  // console.log(adminGetOneTeam);
-
-  // console.log(teamLeaderTask);
+  console.log(deletedTaskDetails);
 
   return (
     <div className="teams">
@@ -357,6 +297,7 @@ const Teams = () => {
               </h2>
               <p style={{ color: "#d6385d" }}>Welcome to Dash Board</p>
             </div>
+
             {UUU.role === "admin" ? (
               <div className="selected">
                 <select onChange={adminChangeTeam}>
@@ -388,6 +329,7 @@ const Teams = () => {
           </div>
           {/* login user details container end */}
           {/* add team leaders */}
+          {/* login admin show the team leader details start container */}
           {adminChangeTeamValue && (
             <div className="admin-teams-con">
               {adminGetOneTeam.map((each) => (
@@ -411,7 +353,9 @@ const Teams = () => {
             </div>
           )}
 
-          {/* show team leader task */}
+          {/* login admin show the team leader details end container */}
+
+          {/* show team leader task  collapss container */}
           {teamLeaderTask.length !== 0 && (
             <div className="team-leader-task-collaps">
               <TeamLeadTaska
@@ -421,10 +365,11 @@ const Teams = () => {
             </div>
           )}
 
-          {/* show team leader task */}
+          {/* show team leader task  collapss container */}
 
           {/* add team leader end */}
           <div className="user-and-loader">
+            {/* all employee profiles start container */}
             <div className="user-and-2">
               <ul className="ul-container">
                 {/* page count user list add */}
@@ -475,7 +420,8 @@ const Teams = () => {
                 </button>
               </div>
             </div>
-
+            {/* all employee profiles end container */}
+            {/* // employeee calculate loader start container */}
             {teamAllTask.length !== 0 && (
               <div className="loder-container">
                 <div className="card">
@@ -501,8 +447,10 @@ const Teams = () => {
                   </div>
                 </div>
               </div>
+              // employeee calculate loader end container
             )}
           </div>
+          {/* employee all task by click employee image start container */}
           {teamAllTask.length !== 0 ? (
             <>
               <table className="content-table">
@@ -545,6 +493,11 @@ const Teams = () => {
                       </td>
                       <td>
                         <BiDetail id={each._id} />
+                        <AiOutlineDelete
+                          id={each._id}
+                          style={{ margin: "0px 18px" }}
+                          onClick={teamDeleteTaskFromId}
+                        />
                       </td>
                     </tr>
                   ))}
@@ -554,6 +507,9 @@ const Teams = () => {
           ) : (
             ""
           )}
+          {/* employee all task end container */}
+
+          {/* details and edit modals start container */}
           <EmployeAddModal
             taskAddModal={taskAddModal}
             setTaskAddModal={setTaskAddModal}
@@ -565,6 +521,13 @@ const Teams = () => {
             setAddUserModal={setAddUserModal}
             getTeamOfEmployee={getTeamOfEmployee}
           />
+          <TeamDeleteTaskModal
+            setTeamDeleteTask={setTeamDeleteTask}
+            teamDeleteTask={teamDeleteTask}
+            deletedTaskDetails={deletedTaskDetails}
+            getTeamOfTeaks={getTeamOfTeaks}
+          />
+          {/* details and edit modal end container */}
         </div>
       </div>
     </div>

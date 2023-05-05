@@ -24,17 +24,16 @@ var USER_TYPE = {
 function App() {
   const UUU = useSelector((state) => state.authReducer.authData);
 
-  // console.log(UUU.role);
-
   const [allTeamMembers, setAllTeamMembers] = useState([]);
+
+  console.log(UUU);
 
   const arrayOfTeamsName = [];
 
-  // let CURRENT_USER = UUU ? UUU.role : <Navigate to="/employee" />;
-  // console.log(`current us ${CURRENT_USER}`);
   let CURRENT_USER = null;
   if (UUU) {
     CURRENT_USER = UUU.role;
+    console.log(CURRENT_USER);
   }
 
   useEffect(() => {
@@ -69,7 +68,7 @@ function App() {
     fetchAllTeam();
   }, []);
 
-  console.log(USER_TYPE.TEAMS);
+  // console.log(USER_TYPE.TEAMS);
 
   // console.log("temas");
   // console.log(allTeamMembers);

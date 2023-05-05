@@ -5,7 +5,13 @@ import "./index.css";
 import { useState } from "react";
 import UserModal from "../UserModal";
 import UserEditModal from "../UserEditModal";
+import { useSelector } from "react-redux";
+import { RiDeleteBinLine } from "react-icons/ri";
+import TeamDeleteTaskModal from "../TeamDeleteTaskModal";
+
 function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
+  const UUU = useSelector((state) => state.authReducer.authData);
+
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
 
   const [modal, setModal] = useState(false);
@@ -14,6 +20,10 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
   const [editModal, setEditModal] = useState(false);
 
   const [editUserTask, setEditUserTask] = useState([]);
+
+  const [teamDeleteTask, setTeamDeleteTask] = useState(false);
+
+  const [deletedTaskDetails, setDeletedTaskDetails] = useState("");
 
   const detailsAndModel = (event) => {
     const desc = teamLeaderTask.filter(
@@ -31,6 +41,16 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
 
     setEditUserTask(edit);
     setEditModal(true);
+  };
+
+  const teamDeleteTaskFromId = (e) => {
+    const deleteTask = teamLeaderTask.filter(
+      (each) => each._id === e.currentTarget.id
+    );
+    console.log(deleteTask);
+    setTeamDeleteTask(true);
+    setDeletedTaskDetails(deleteTask[0]);
+    // setDeletedTaskDetails(deleteTask[0]);
   };
 
   return (
@@ -75,11 +95,19 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                   </td>
                   <td>
                     <BiDetail id={each._id} onClick={detailsAndModel} />
-                    <FiEdit
-                      id={each._id}
-                      onClick={editAndModel}
-                      style={{ marginLeft: "50px" }}
-                    />
+                    {UUU.role !== "admin" ? (
+                      <FiEdit
+                        id={each._id}
+                        onClick={editAndModel}
+                        style={{ marginLeft: "50px" }}
+                      />
+                    ) : (
+                      <RiDeleteBinLine
+                        id={each._id}
+                        style={{ margin: "0px 18px" }}
+                        onClick={teamDeleteTaskFromId}
+                      />
+                    )}
                   </td>
                 </tr>
               ))}
@@ -98,6 +126,12 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
               getUserTask={getUserTask}
             />
           )}
+          <TeamDeleteTaskModal
+            setTeamDeleteTask={setTeamDeleteTask}
+            teamDeleteTask={teamDeleteTask}
+            deletedTaskDetails={deletedTaskDetails}
+            // getTeamOfTeaks={getTeamOfTeaks}
+          />
         </div>
       </div>
     </div>

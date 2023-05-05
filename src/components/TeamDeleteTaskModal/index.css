@@ -1,0 +1,49 @@
+.delete-modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  line-height: 7px;
+}
+
+.delete-icons {
+  width: 30px;
+  height: 30px;
+  color: red;
+}
+
+.delete-modal > h3 {
+  font-weight: 500;
+}
+
+.delete-modal > p {
+  color: #bab9b1;
+}
+
+.delete-modal > div {
+  /* align-self: flex-end; */
+  display: flex;
+  gap: 1rem;
+  margin: 10px 0px;
+}
+
+.delete-modal > div > :nth-child(1) {
+  width: 100px;
+  height: 30px;
+  border: 1px solid grey;
+  background: transparent;
+  border-radius: 5px;
+}
+
+.delete-modal > div > :nth-child(2) {
+  width: 100px;
+  height: 32px;
+  background-color: red;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+}
