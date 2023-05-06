@@ -66,21 +66,27 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                 <th>Task</th>
                 <th>Date</th>
                 <th>Update Date</th>
+                <th>Expect Date</th>
                 <th>Status</th>
                 <th>Details & Edit</th>
               </tr>
             </thead>
             <tbody>
-              {teamLeaderTask.map((each) => (
-                <tr>
+              {teamLeaderTask.map((each, index) => (
+                <tr key={index}>
                   <td>{each.task}</td>
                   <td>{each.createdAt}</td>
                   <td>{each.updatedAt}</td>
+                  <td>{each.date}</td>
                   <td>
                     <div
                       style={{
                         backgroundColor:
-                          each.status === "completed" ? "#14e610" : "#f53858",
+                          each.status === "completed"
+                            ? "#14e610"
+                            : each.status === "incompleted"
+                            ? "#f53858"
+                            : "#e8ed58",
                         fontSize: "16px",
                         fontWeight: 400,
                         padding: "2px",

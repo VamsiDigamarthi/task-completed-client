@@ -16,6 +16,7 @@ const AdminAddTaskToTeam = ({
     status: "",
     username: "",
     description: "",
+    date: "",
     head: UUU.role,
   });
 
@@ -38,7 +39,13 @@ const AdminAddTaskToTeam = ({
       .catch((e) => {
         console.log(e);
       });
-    setTaskAddr({ task: "", status: "", username: "", description: "" });
+    setTaskAddr({
+      task: "",
+      status: "",
+      username: "",
+      description: "",
+      date: "",
+    });
   };
 
   const theme = useMantineTheme();
@@ -100,6 +107,19 @@ const AdminAddTaskToTeam = ({
               ))}
             </select>
           </div>
+          <div
+            className="modal-input-text  date-input"
+            style={{ margin: "10px 0px", height: "30px", padding: "0px 5px" }}
+          >
+            <label htmlFor="birthday">Expert Date : </label>
+            <input
+              type="date"
+              id="birthday"
+              name="date"
+              onChange={taskAddFun}
+              // className="modal-input-text  date-input"
+            />
+          </div>
           <textarea
             name="description"
             className="text-area"
@@ -108,9 +128,15 @@ const AdminAddTaskToTeam = ({
             cols="60"
           ></textarea>
           <div>
-            <button className="edit-btn" type="submit">
-              Submit
-            </button>
+            {taskAdd.task !== "" &&
+              taskAdd.status !== "" &&
+              taskAdd.username !== "" &&
+              taskAdd.description !== "" &&
+              taskAdd.date !== "" && (
+                <button className="edit-btn" type="submit">
+                  Submit
+                </button>
+              )}
           </div>
         </form>
       </Modal>

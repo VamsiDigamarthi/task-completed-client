@@ -19,6 +19,7 @@ const EmployeAddModal = ({
     status: "",
     username: "",
     description: "",
+    date: "",
     head: UUU.role,
   });
 
@@ -47,6 +48,12 @@ const EmployeAddModal = ({
   const theme = useMantineTheme();
 
   // console.log(taskAdd);
+
+  // const changeDateFromAddTask = (e) => {
+  //   console.log(e.target.value);
+  // };
+
+  console.log(taskAdd);
 
   return (
     <>
@@ -103,6 +110,19 @@ const EmployeAddModal = ({
               ))}
             </select>
           </div>
+          <div
+            className="modal-input-text  date-input"
+            style={{ margin: "10px 0px", height: "30px", padding: "0px 5px" }}
+          >
+            <label htmlFor="birthday">Expert Date : </label>
+            <input
+              type="date"
+              id="birthday"
+              name="date"
+              onChange={taskAddFun}
+              // className="modal-input-text  date-input"
+            />
+          </div>
           <textarea
             name="description"
             className="text-area"
@@ -111,9 +131,14 @@ const EmployeAddModal = ({
             cols="60"
           ></textarea>
           <div>
-            <button className="edit-btn" type="submit">
-              Submit
-            </button>
+            {taskAdd.task !== "" &&
+              taskAdd.status !== "" &&
+              taskAdd.username !== "" &&
+              taskAdd.description && (
+                <button className="edit-btn" type="submit">
+                  Submit
+                </button>
+              )}
           </div>
         </form>
       </Modal>

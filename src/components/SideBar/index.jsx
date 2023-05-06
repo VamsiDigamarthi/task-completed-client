@@ -22,7 +22,7 @@ const SideBar = () => {
   return (
     <div className="dash-board">
       <div>
-        <h3>Admin</h3>
+        <h3>Welcome</h3>
         <GiHamburgerMenu />
       </div>
       {/* second -constaioner */}

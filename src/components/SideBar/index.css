@@ -1,12 +1,15 @@
 .dash-board {
   padding: 10px 25px !important;
   height: 98%;
-  background-color: #151a4d;
+  /* background-color: #151a4d; */
+  /* background-color: #84918c; */
+  background-color: #211e1d;
   color: white;
   position: fixed;
   top: 0;
   left: 0;
   width: 150px;
+  /* filter: blur(1px); */
 }
 
 .dash-board > :nth-child(1) {
@@ -66,6 +69,17 @@
   justify-content: flex-start;
   align-items: center;
   gap: 0.7rem;
+}
+
+.logout > button {
+  background-color: #e8bb80;
+  width: 100px;
+  height: 35px;
+  border: none;
+  border-radius: 7px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .link {

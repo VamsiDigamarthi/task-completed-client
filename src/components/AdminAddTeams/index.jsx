@@ -72,7 +72,12 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
         }}
       >
         <form onSubmit={submitForm} className="signup-form">
-          <div className="form-input-container">
+          <div
+            className="form-input-container"
+            // style={{
+            //   border: user.name === "" ? "1px solid red" : "",
+            // }}
+          >
             <AiOutlineUser className="form-icons" />
             <input
               placeholder="Name"
@@ -108,22 +113,10 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
             />
           </div>
 
-          {/* <div className="form-input-container">
-            <select
-              className="employee-type"
-              name="role"
-              onChange={usernameChange}
-            >
-              <option disabled selected hidden>
-                Please select role of Employee
-              </option>
-              <option value="employee">Employee</option>
-            </select>
-          </div> */}
           <div className="form-input-container">
             <RiTeamLine className="form-icons" />
             <input
-              placeholder="add teams"
+              placeholder="add team name"
               className="form-input"
               type="text"
               onChange={usernameChange}
@@ -131,10 +124,14 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
               value={user.role}
             />
           </div>
-
-          <button className="signup-btn new-add-signup-btn" type="submit">
-            Add team
-          </button>
+          {user.name !== "" &&
+            user.role !== "" &&
+            user.username !== "" &&
+            user.password && (
+              <button className="signup-btn new-add-signup-btn" type="submit">
+                Add team
+              </button>
+            )}
         </form>
       </Modal>
     </>

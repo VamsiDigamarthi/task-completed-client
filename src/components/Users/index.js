@@ -86,6 +86,7 @@ const Users = () => {
 
   return (
     <div className="users">
+      <div className="blur blur-h"></div>
       <div className="side-bar">
         <SideBar />
       </div>
@@ -110,21 +111,27 @@ const Users = () => {
               <th>Task</th>
               <th>Date</th>
               <th>Update Date</th>
+              <th>Expert Date</th>
               <th>Status</th>
               <th>Details & Edit</th>
             </tr>
           </thead>
           <tbody>
-            {userDataTask.map((each) => (
-              <tr>
+            {userDataTask.map((each, index) => (
+              <tr key={index}>
                 <td>{each.task}</td>
                 <td>{each.createdAt}</td>
                 <td>{each.updatedAt}</td>
+                <td>{each.date}</td>
                 <td>
                   <div
                     style={{
                       backgroundColor:
-                        each.status === "completed" ? "#14e610" : "#f53858",
+                        each.status === "completed"
+                          ? "#14e610"
+                          : each.status === "incompleted"
+                          ? "#f53858"
+                          : "#e8ed58",
                       fontSize: "16px",
                       fontWeight: 400,
                       padding: "2px",
@@ -153,7 +160,10 @@ const Users = () => {
             ))}
           </tbody>
         </table>
+        {/* task details modal start */}
         <UserModal modal={modal} setModal={setModal} datilsTask={description} />
+        {/* task details modal end */}
+        {/* task change status modal start */}
         {editModal && (
           <UserEditModal
             editModal={editModal}
@@ -162,6 +172,7 @@ const Users = () => {
             getUserTask={getUserTask}
           />
         )}
+        {/* task change status modal end */}
       </div>
     </div>
   );

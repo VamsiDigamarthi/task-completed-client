@@ -61,13 +61,15 @@ const UserEditModal = ({
               <option disabled selected hidden>
                 Please select your status
               </option>
-              <option value="completed">completed</option>
-              <option value="incompleted">incompleted</option>
+              <option value="completed">Completed</option>
+              <option value="incompleted">Incompleted</option>
+              <option value="prograss">Prograss</option>
             </select>
-
-            <button className="edit-btn" type="submit">
-              Submit
-            </button>
+            {edit && (
+              <button disabled={edit === ""} className="edit-btn" type="submit">
+                Submit
+              </button>
+            )}
           </div>
         </form>
       </Modal>

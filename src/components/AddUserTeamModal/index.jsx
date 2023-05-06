@@ -118,10 +118,14 @@ const AddUserTeamModal = ({
               <option value="employee">Employee</option>
             </select>
           </div>
-
-          <button className="signup-btn" type="submit">
-            SignUp
-          </button>
+          {user.name !== "" &&
+            user.role !== "" &&
+            user.username !== "" &&
+            user.password && (
+              <button className="signup-btn" type="submit">
+                SignUp
+              </button>
+            )}
         </form>
       </Modal>
     </>

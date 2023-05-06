@@ -10,6 +10,7 @@ import AddUserTeamModal from "../AddUserTeamModal";
 import TeamLeadTaska from "../TeamLeadTasks";
 import { AiOutlineDelete } from "react-icons/ai";
 import TeamDeleteTaskModal from "../TeamDeleteTaskModal";
+import UserModal from "../UserModal";
 
 const Teams = () => {
   // teams leader states
@@ -33,6 +34,15 @@ const Teams = () => {
   const [teamDeleteTask, setTeamDeleteTask] = useState(false);
 
   const [deletedTaskDetails, setDeletedTaskDetails] = useState("");
+
+  const [clickUserHighletColor, setClickUserHighletColor] = useState(false);
+
+  const [clickUserHighletColorByName, setClickUserHighletColorByName] =
+    useState("");
+
+  const [description, setDescription] = useState("");
+
+  const [modal, setModal] = useState(false);
 
   //
   //
@@ -111,6 +121,8 @@ const Teams = () => {
 
   const getData = (n) => {
     getTeamOfTeaks(n);
+    setClickUserHighletColor(true);
+    setClickUserHighletColorByName(n);
   };
 
   //
@@ -208,6 +220,23 @@ const Teams = () => {
     setTeamDeleteTask(true);
     setDeletedTaskDetails(deleteTask[0]);
   };
+
+  // ====================================================================
+  //
+  // details icons click to open details modal start
+  //
+
+  const detailsAndModel = (event) => {
+    const desc = teamAllTask.filter(
+      (each) => each._id === event.currentTarget.id
+    );
+    console.log(desc[0].description);
+    setDescription(desc[0].description);
+    setModal(true);
+  };
+  //
+  //  details icons click to open details modal start
+  //
 
   useEffect(() => {
     const getVVVaa = () => {
@@ -332,8 +361,8 @@ const Teams = () => {
           {/* login admin show the team leader details start container */}
           {adminChangeTeamValue && (
             <div className="admin-teams-con">
-              {adminGetOneTeam.map((each) => (
-                <li className="team-card-inadmin">
+              {adminGetOneTeam.map((each, index) => (
+                <li key={index} className="team-card-inadmin">
                   <div className="user-details-container">
                     <h3 className="team-name">
                       Team Leader{" "}
@@ -375,8 +404,19 @@ const Teams = () => {
                 {/* page count user list add */}
                 {currentItems.map((i, index) => (
                   <li
+                    key={index}
                     className="user-card-container"
                     onClick={() => getData(i.name)}
+                    style={{
+                      backgroundColor:
+                        clickUserHighletColorByName === i.name &&
+                        clickUserHighletColor &&
+                        "#edeceb",
+                      borderRadius:
+                        clickUserHighletColorByName === i.name &&
+                        clickUserHighletColor &&
+                        "3px",
+                    }}
                   >
                     <img
                       src="./images/photo-1494790108377-be9c29b29330.jpg"
@@ -459,6 +499,7 @@ const Teams = () => {
                     <th>Task</th>
                     <th>Create</th>
                     <th>Update</th>
+                    <th>Expect Date</th>
                     <th>Status</th>
                     <th>Details</th>
                   </tr>
@@ -469,13 +510,16 @@ const Teams = () => {
                       <td>{each.task}</td>
                       <td>{each.createdAt}</td>
                       <td>{each.updatedAt}</td>
+                      <td>{each.date}</td>
                       <td>
                         <div
                           style={{
                             backgroundColor:
                               each.status === "completed"
-                                ? "#b1f26f"
-                                : "#ff9cc5",
+                                ? "#14e610"
+                                : each.status === "incompleted"
+                                ? "#f53858"
+                                : "#e8ed58",
                             // ? "#14e610"
 
                             // : "#f53858",
@@ -492,7 +536,11 @@ const Teams = () => {
                         </div>
                       </td>
                       <td>
-                        <BiDetail id={each._id} />
+                        <BiDetail
+                          id={each._id}
+                          onClick={detailsAndModel}
+                          style={{ cursor: "pointer" }}
+                        />
                         <AiOutlineDelete
                           id={each._id}
                           style={{ margin: "0px 18px" }}
@@ -510,23 +558,45 @@ const Teams = () => {
           {/* employee all task end container */}
 
           {/* details and edit modals start container */}
+          {/* task details modal start */}
+          <UserModal
+            modal={modal}
+            setModal={setModal}
+            datilsTask={description}
+          />
+          {/* task details modal end */}
+          {/* ==================================================== */}
+          {/* employee add task modal start */}
+
           <EmployeAddModal
             taskAddModal={taskAddModal}
             setTaskAddModal={setTaskAddModal}
             teamUserList={teamUserList}
             getTeamOfTeaks={getTeamOfTeaks}
           />
+
+          {/* employee add task modal end */}
+          {/* ================================================== */}
+          {/* employe added to team modal start */}
           <AddUserTeamModal
             addUserModal={addUserModal}
             setAddUserModal={setAddUserModal}
             getTeamOfEmployee={getTeamOfEmployee}
           />
+
+          {/* employe added to team modal end */}
+          {/* =============================================== */}
+          {/* task delete modal start */}
+
           <TeamDeleteTaskModal
             setTeamDeleteTask={setTeamDeleteTask}
             teamDeleteTask={teamDeleteTask}
             deletedTaskDetails={deletedTaskDetails}
             getTeamOfTeaks={getTeamOfTeaks}
           />
+
+          {/* task delete modal end */}
+          {/* ========================= */}
           {/* details and edit modal end container */}
         </div>
       </div>

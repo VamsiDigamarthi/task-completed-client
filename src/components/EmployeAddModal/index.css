@@ -140,3 +140,10 @@ body.active-modal {
   border-radius: 7px;
   border: 1px solid #f5bf36;
 }
+
+.date-input > input {
+  height: 86%;
+  width: 76%;
+  border: none;
+  outline: none;
+}

@@ -26,27 +26,30 @@ function App() {
 
   const [allTeamMembers, setAllTeamMembers] = useState([]);
 
-  console.log(UUU);
+  // console.log(UUU);
 
-  const arrayOfTeamsName = [];
+  // const arrayOfTeamsName = [];
 
   let CURRENT_USER = null;
   if (UUU) {
     CURRENT_USER = UUU.role;
-    console.log(CURRENT_USER);
+    // console.log(CURRENT_USER);
   }
 
+  const addNamesInArray = () => {
+    allTeamMembers?.forEach((each) => {
+      USER_TYPE.TEAMS.push(each.role);
+      // console.log("attakjhd");
+    });
+  };
+
   useEffect(() => {
-    const addNamesInArray = () => {
-      allTeamMembers?.forEach((each) => {
-        USER_TYPE.TEAMS.push(each.role);
-        // console.log("attakjhd");
-      });
-    };
     addNamesInArray();
   }, [allTeamMembers]);
 
   useEffect(() => {
+    // login admin fetch all teams api start
+
     const fetchAllTeam = () => {
       const adminrole = { role: "admin" };
 
@@ -66,7 +69,12 @@ function App() {
     };
 
     fetchAllTeam();
+    // login admin fetch all teams api end
   }, []);
+
+  addNamesInArray();
+
+  console.log(USER_TYPE.TEAMS);
 
   // console.log(USER_TYPE.TEAMS);
 
@@ -94,6 +102,11 @@ function App() {
   // }
 
   // const user = localStorage.getItem("profile");
+
+  console.log(CURRENT_USER);
+  console.log(USER_TYPE.TEAMS);
+
+  console.log(USER_TYPE.TEAMS.includes(CURRENT_USER));
 
   return (
     <div className="App">

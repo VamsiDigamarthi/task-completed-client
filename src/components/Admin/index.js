@@ -112,8 +112,8 @@ const Admin = () => {
 
           {/* add team and task container end */}
           <div className="teams-admin">
-            {employessTeams.map((each) => (
-              <div className="no-of-employee">
+            {employessTeams.map((each, index) => (
+              <div key={index} className="no-of-employee">
                 <p>{each.icons}</p>
                 <h3>{each.title}</h3>
                 <p>

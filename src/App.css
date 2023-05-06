@@ -47,3 +47,11 @@
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #ffffff;
 }
+
+.blur {
+  background: rgba(253, 120, 43, 0.69);
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(220px);
+  z-index: -9;
+}
