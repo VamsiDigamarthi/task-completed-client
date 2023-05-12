@@ -35,7 +35,7 @@ const AddUserTeamModal = ({
 
     API.post("/auth/register", user)
       .then((res) => {
-        console.log(`api data ${res.data}`);
+        //console.log(`api data ${res.data}`);
         setAddUserModal(false);
         getTeamOfEmployee();
       })

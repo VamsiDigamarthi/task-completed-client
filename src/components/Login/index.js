@@ -23,27 +23,11 @@ const Login = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    // navigate("/");
-    dispatch(LogIn(user, navigate));
-    // const API = axios.create({ baseURL: "http://localhost:5000" });
 
-    // API.post("/auth/login", user)
-    //   .then((res) => {
-    //     // setUserDataTask(res.data);
-    //     localStorage.setItem("user", JSON.stringify(res.data));
-    //     navigate("/");
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
+    dispatch(LogIn(user, navigate));
+
     setUser({ username: "", password: "" });
   };
-
-  // const x = localStorage.getItem("store");
-
-  // if (x) {
-  //   navigate("/");
-  // }
 
   return (
     <div className="login-container">

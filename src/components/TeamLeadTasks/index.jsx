@@ -29,7 +29,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
     const desc = teamLeaderTask.filter(
       (each) => each._id === event.currentTarget.id
     );
-    console.log(desc[0].description);
+    //console.log(desc[0].description);
     setDescription(desc[0].description);
     setModal(true);
   };
@@ -47,7 +47,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
     const deleteTask = teamLeaderTask.filter(
       (each) => each._id === e.currentTarget.id
     );
-    console.log(deleteTask);
+    //console.log(deleteTask);
     setTeamDeleteTask(true);
     setDeletedTaskDetails(deleteTask[0]);
     // setDeletedTaskDetails(deleteTask[0]);

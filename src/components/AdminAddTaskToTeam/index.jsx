@@ -12,6 +12,7 @@ const AdminAddTaskToTeam = ({
   const UUU = useSelector((state) => state.authReducer.authData);
 
   const [taskAdd, setTaskAddr] = useState({
+    //head: UUU._id,
     task: "",
     status: "",
     username: "",
@@ -31,7 +32,7 @@ const AdminAddTaskToTeam = ({
 
     API.post("/tasks/addtaks", taskAdd)
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
 
         setAdminAddTask(false);
         // getTeamOfTeaks();
@@ -45,6 +46,9 @@ const AdminAddTaskToTeam = ({
       username: "",
       description: "",
       date: "",
+      // new addded
+      head: UUU.role,
+      //head: UUU._id,
     });
   };
 
@@ -105,6 +109,10 @@ const AdminAddTaskToTeam = ({
               {adminAllTeams.map((each) => (
                 <option>{each.name}</option>
               ))}
+              {/* add new */}
+              {/* {adminAllTeams.map((each) => (
+                <option>{each.username}</option>
+              ))} */}
             </select>
           </div>
           <div

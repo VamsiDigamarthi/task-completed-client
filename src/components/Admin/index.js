@@ -65,6 +65,8 @@ const Admin = () => {
 
   const UUU = useSelector((state) => state.authReducer.authData);
 
+  // const adminrole = { role: UUU.role };
+
   const adminrole = { role: UUU.role };
 
   const getAllTeamsByAdmin = () => {
@@ -79,11 +81,23 @@ const Admin = () => {
       .catch((e) => {
         console.log(e);
       });
+
+    // API.get(`team/admin/team/${UUU._id}`)
+    //   .then((res) => {
+    //     // setTeamUserList(res.data);
+    //     setAdminAllTeams(res.data);
+    //   })
+
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
   };
 
   useEffect(() => {
     getAllTeamsByAdmin();
   }, []);
+
+  console.log(adminAllTeams);
 
   return (
     <>

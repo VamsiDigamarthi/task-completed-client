@@ -23,7 +23,7 @@ const UserEditModal = ({
     const API = axios.create({ baseURL: "http://localhost:5000" });
     API.put(`/tasks/${editUserTask}`, editChangeValue)
       .then((res) => {
-        console.log("edit Success");
+        //console.log("edit Success");
         getUserTask();
         setEditModal(false);
       })

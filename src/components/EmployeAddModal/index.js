@@ -34,7 +34,7 @@ const EmployeAddModal = ({
 
     API.post("/tasks/addtaks", taskAdd)
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
 
         setTaskAddModal(false);
         getTeamOfTeaks();
@@ -53,7 +53,7 @@ const EmployeAddModal = ({
   //   console.log(e.target.value);
   // };
 
-  console.log(taskAdd);
+  //console.log(taskAdd);
 
   return (
     <>

@@ -205,6 +205,19 @@ const Teams = () => {
       .catch((e) => {
         console.log(e);
       });
+
+    // new addedd get team taskd
+    // const userName = { username: UUU.username };
+
+    // const API = axios.create({ baseURL: "http://localhost:5000" });
+
+    // API.post("/tasks/employee", userName)
+    //   .then((res) => {
+    //     setTeamLeaderTask(res.data);
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
   };
 
   //
@@ -230,7 +243,7 @@ const Teams = () => {
     const desc = teamAllTask.filter(
       (each) => each._id === event.currentTarget.id
     );
-    console.log(desc[0].description);
+    //console.log(desc[0].description);
     setDescription(desc[0].description);
     setModal(true);
   };
@@ -239,12 +252,12 @@ const Teams = () => {
   //
 
   useEffect(() => {
+    // get team leader task container start
     const getVVVaa = () => {
       if (UUU.role === "admin" && adminGetOneTeam.length !== 0) {
         const nameValue = adminGetOneTeam[0];
         const { name } = nameValue;
-        console.log(nameValue);
-        console.log(name);
+
         const userName =
           UUU.role === "admin" ? { name: name } : { name: UUU.name };
         const API = axios.create({ baseURL: "http://localhost:5000" });
@@ -258,18 +271,24 @@ const Teams = () => {
       }
     };
     getVVVaa();
+    // get team leader task container end
   }, [adminGetOneTeam]);
 
+  // initial useEffect method
   useEffect(() => {
     getTeamOfEmployee();
 
     // getTeamOfTeaks();
+
+    //==============================================================================
+    // login admin show the team leader in drop down list start container
 
     if (UUU.role === "admin") {
       const adminrole = { role: UUU.role };
 
       const getAllTeamsByAdmin = () => {
         const API = axios.create({ baseURL: "http://localhost:5000" });
+        // if admin open drop down add select team old modal
 
         API.post("/team/user", adminrole)
           .then((res) => {
@@ -279,10 +298,26 @@ const Teams = () => {
           .catch((e) => {
             console.log(e);
           });
+
+        // ============
+
+        // ======== admin fetch data based on admin id
+
+        // API.get(`team/admin/team/${UUU._id}`)
+        //   .then((res) => {
+        //     // setTeamUserList(res.data);
+        //     setAdminTeams(res.data);
+        //   })
+
+        //   .catch((e) => {
+        //     console.log(e);
+        //   });
       };
 
       getAllTeamsByAdmin();
     }
+
+    // login admin show the team leader in drop down list start container
 
     // api call fetch teams leader data
     const getOneTeamLeader = () => {
@@ -306,7 +341,9 @@ const Teams = () => {
 
   const v = Math.ceil(teamUserList.length / pageSize);
 
-  console.log(deletedTaskDetails);
+  //console.log(deletedTaskDetails);
+
+  console.log(teamLeaderTask);
 
   return (
     <div className="teams">

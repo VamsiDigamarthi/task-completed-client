@@ -40,7 +40,7 @@ const Users = () => {
     const desc = userDataTask.filter(
       (each) => each._id === event.currentTarget.id
     );
-    console.log(desc[0].description);
+    //console.log(desc[0].description);
     setDescription(desc[0].description);
     setModal(true);
   };

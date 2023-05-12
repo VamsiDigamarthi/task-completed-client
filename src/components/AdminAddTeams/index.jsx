@@ -11,18 +11,27 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
   const UUU = useSelector((state) => state.authReducer.authData);
 
   //   console.log(UUU);
-  //   console.log(UUU._id);
+  //console.log(UUU._id);
 
   const [user, setUser] = useState({
+    // head: UUU._id,
     name: "",
+
+    head: UUU.role,
 
     username: "",
     password: "",
     role: "",
-    head: UUU.role,
   });
 
+  // const setHead = () => {
+  //   setUser({ ...user, head: UUU._id });
+  // };
+  // setHead();
+
   const usernameChange = (e) => {
+    // setUser({ ...user, head: UUU.role });
+    // setUser({ ...user, head: UUU._id });
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
@@ -35,7 +44,7 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
 
     API.post("/auth/register", user)
       .then((res) => {
-        console.log(`api data ${res.data}`);
+        //console.log(`api data ${res.data}`);
         setAddTeams(false);
         // setAddUserModal(false);
         // getTeamOfEmployee();
@@ -45,10 +54,10 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
         console.log(e);
       });
 
-    setUser({ name: "", username: "", password: "", role: "" });
+    setUser({ name: "", username: "", password: "", role: "", head: UUU.role });
   };
 
-  // console.log(user);
+  console.log(user);
 
   return (
     <>

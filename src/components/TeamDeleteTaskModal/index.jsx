@@ -18,7 +18,7 @@ function TeamDeleteTaskModal({
     API.delete(`/tasks/delete/${_id}`)
       .then((res) => {
         // getUserTask();
-        console.log(res.data);
+        //console.log(res.data);
         setTeamDeleteTask(false);
         getTeamOfTeaks(name);
       })
