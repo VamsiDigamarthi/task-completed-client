@@ -105,8 +105,12 @@ const EmployeAddModal = ({
               <option disabled selected hidden>
                 Plase select Employee
               </option>
-              {teamUserList.map((each) => (
+              {/* {teamUserList.map((each) => (
                 <option>{each.name}</option>
+              ))} */}
+              {/* new added task based on username */}
+              {teamUserList.map((each) => (
+                <option>{each.username}</option>
               ))}
             </select>
           </div>

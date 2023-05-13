@@ -95,11 +95,17 @@ const Teams = () => {
 
   // const teamUserAccess = { role: UUU.role };
 
-  const teamUserAccess =
-    UUU.role === "admin" ? { role: adminChangeTeamValue } : { role: UUU.role };
+  // access the all employee corresponding there teams
+  const nameValue = adminGetOneTeam[0];
+  //const { _id } = nameValue;
+  //console.log(nameValue);
 
+  const teamUserAccess =
+    UUU.role === "admin" ? { role: nameValue?._id } : { role: UUU._id }; //{ role: UUU.role };
+
+  // acces team leader and there task only
   const adminAndTams =
-    UUU.role === "admin" ? { role: adminChangeTeamValue } : { role: UUU.role };
+    UUU.role === "admin" ? { role: adminChangeTeamValue } : { role: UUU._id }; //{ role: UUU.role };
   //
   // ========================------------==================================--------------------------========
   // by click the employee corresponding task loaded apis start
@@ -108,9 +114,17 @@ const Teams = () => {
   //
 
   const getTeamOfTeaks = async (n) => {
-    const role = { name: n };
+    const role = { username: n };
     const API = axios.create({ baseURL: "http://localhost:5000" });
-    API.post("/tasks/employee", role)
+    // API.post("/tasks/employee", role)
+    //   .then((res) => {
+    //     setTeamAllTask(res.data);
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
+    //const API = axios.create({ baseURL: "http://localhost:5000" });
+    API.post("/tasks/teamleader/task", role)
       .then((res) => {
         setTeamAllTask(res.data);
       })
@@ -120,6 +134,7 @@ const Teams = () => {
   };
 
   const getData = (n) => {
+    //console.log(`===${n}`);
     getTeamOfTeaks(n);
     setClickUserHighletColor(true);
     setClickUserHighletColorByName(n);
@@ -158,7 +173,10 @@ const Teams = () => {
   //
 
   const adminChangeTeam = (e) => {
+    //setTeamUserList([]);
+    setCurrentItems([]);
     setAdminChangeTeamValue(e.target.value);
+    //console.log(e.target.value);
   };
 
   //
@@ -183,31 +201,27 @@ const Teams = () => {
       });
   };
 
+  // admindrop down change corresponding employes get useEffect start
+
+  useEffect(() => {
+    getTeamOfEmployee();
+    getTeamOfTeaks();
+  }, [adminGetOneTeam]);
+
+  // admindrop down change corresponding employes get useEffect end
+
   //
   //
   //
   // team leader all employees get api call end container
   // -------------------------------------------------------------------------------
-  // get team leader all task fetch api start container
+  // get team leader all task fetch api start container --if login as team leader--
   //
   //
   //
 
   const getUserTask = async () => {
-    const userName = { name: UUU.name };
-
-    const API = axios.create({ baseURL: "http://localhost:5000" });
-
-    API.post("/tasks/employee", userName)
-      .then((res) => {
-        setTeamLeaderTask(res.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-
-    // new addedd get team taskd
-    // const userName = { username: UUU.username };
+    // const userName = { name: UUU.name };
 
     // const API = axios.create({ baseURL: "http://localhost:5000" });
 
@@ -218,12 +232,25 @@ const Teams = () => {
     //   .catch((e) => {
     //     console.log(e);
     //   });
+
+    // new addedd get team taskd
+    const userName = { username: UUU.username };
+
+    const API = axios.create({ baseURL: "http://localhost:5000" });
+
+    API.post("/tasks/teamleader/task", userName)
+      .then((res) => {
+        setTeamLeaderTask(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   //
   //
   //
-  // get team leader all task fetch api start container
+  // get team leader all task fetch api start container  --if login as team leader--
   // -------------------------------------------------------------------------------------
 
   const teamDeleteTaskFromId = (e) => {
@@ -252,16 +279,31 @@ const Teams = () => {
   //
 
   useEffect(() => {
-    // get team leader task container start
+    // get team leader task container start --if login as admin--
     const getVVVaa = () => {
       if (UUU.role === "admin" && adminGetOneTeam.length !== 0) {
         const nameValue = adminGetOneTeam[0];
-        const { name } = nameValue;
+        // const { name } = nameValue;
+        // console.log(name)
+        // const userName =
+        //   UUU.role === "admin" ? { name: name } : { name: UUU.name };
+        // const API = axios.create({ baseURL: "http://localhost:5000" });
+        // API.post("/tasks/employee", userName)
+        //   .then((res) => {
+        //     setTeamLeaderTask(res.data);
+        //   })
+        //   .catch((e) => {
+        //     console.log(e);
+        //   });
 
-        const userName =
-          UUU.role === "admin" ? { name: name } : { name: UUU.name };
+        //==============================================
+
+        const { username } = nameValue;
+        const value = { username: username };
+        //console.log(`===========${username}`);
+
         const API = axios.create({ baseURL: "http://localhost:5000" });
-        API.post("/tasks/employee", userName)
+        API.post("/tasks/teamleader/task", value)
           .then((res) => {
             setTeamLeaderTask(res.data);
           })
@@ -271,7 +313,7 @@ const Teams = () => {
       }
     };
     getVVVaa();
-    // get team leader task container end
+    // get team leader task container end --if login as admin--
   }, [adminGetOneTeam]);
 
   // initial useEffect method
@@ -290,28 +332,28 @@ const Teams = () => {
         const API = axios.create({ baseURL: "http://localhost:5000" });
         // if admin open drop down add select team old modal
 
-        API.post("/team/user", adminrole)
-          .then((res) => {
-            setAdminTeams(res.data);
-          })
-
-          .catch((e) => {
-            console.log(e);
-          });
-
-        // ============
-
-        // ======== admin fetch data based on admin id
-
-        // API.get(`team/admin/team/${UUU._id}`)
+        // API.post("/team/user", adminrole)
         //   .then((res) => {
-        //     // setTeamUserList(res.data);
         //     setAdminTeams(res.data);
         //   })
 
         //   .catch((e) => {
         //     console.log(e);
         //   });
+
+        // ============
+
+        // ======== admin fetch data based on admin id
+
+        API.get(`team/admin/team/${UUU._id}`)
+          .then((res) => {
+            // setTeamUserList(res.data);
+            setAdminTeams(res.data);
+          })
+
+          .catch((e) => {
+            console.log(e);
+          });
       };
 
       getAllTeamsByAdmin();
@@ -343,7 +385,10 @@ const Teams = () => {
 
   //console.log(deletedTaskDetails);
 
-  console.log(teamLeaderTask);
+  //console.log(teamLeaderTask);
+
+  console.log(`employee list ${teamUserList}`);
+  console.log(currentItems);
 
   return (
     <div className="teams">
@@ -436,67 +481,69 @@ const Teams = () => {
           {/* add team leader end */}
           <div className="user-and-loader">
             {/* all employee profiles start container */}
-            <div className="user-and-2">
-              <ul className="ul-container">
-                {/* page count user list add */}
-                {currentItems.map((i, index) => (
-                  <li
-                    key={index}
-                    className="user-card-container"
-                    onClick={() => getData(i.name)}
-                    style={{
-                      backgroundColor:
-                        clickUserHighletColorByName === i.name &&
-                        clickUserHighletColor &&
-                        "#edeceb",
-                      borderRadius:
-                        clickUserHighletColorByName === i.name &&
-                        clickUserHighletColor &&
-                        "3px",
-                    }}
-                  >
-                    <img
-                      src="./images/photo-1494790108377-be9c29b29330.jpg"
-                      className="avatar"
-                      alt="avatar"
-                    />
-                    <div className="user-details-container">
-                      <h3 className="user-name">
-                        {i.name.charAt(0).toUpperCase() + i.name.slice(1)}
-                      </h3>
-                      <p className="user-designation"> software developer </p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <div>
-                <button
-                  className="prev-btn"
-                  onClick={() => onPage(currentPage - 1)}
-                  disabled={currentPage === 0}
-                >
-                  prev
-                </button>
-                {Array(v)
-                  .fill(null)
-                  .map((page, index) => (
-                    <button
-                      className="number-btn"
-                      onClick={() => onPage(index)}
+            {teamUserList.length !== 0 && (
+              <div className="user-and-2">
+                <ul className="ul-container">
+                  {/* page count user list add */}
+                  {currentItems.map((i, index) => (
+                    <li
                       key={index}
+                      className="user-card-container"
+                      onClick={() => getData(i.username)}
+                      style={{
+                        backgroundColor:
+                          clickUserHighletColorByName === i.name &&
+                          clickUserHighletColor &&
+                          "#edeceb",
+                        borderRadius:
+                          clickUserHighletColorByName === i.name &&
+                          clickUserHighletColor &&
+                          "3px",
+                      }}
                     >
-                      {index + 1}
-                    </button>
+                      <img
+                        src="./images/photo-1494790108377-be9c29b29330.jpg"
+                        className="avatar"
+                        alt="avatar"
+                      />
+                      <div className="user-details-container">
+                        <h3 className="user-name">
+                          {i.name.charAt(0).toUpperCase() + i.name.slice(1)}
+                        </h3>
+                        <p className="user-designation"> software developer </p>
+                      </div>
+                    </li>
                   ))}
-                <button
-                  onClick={() => onPage(currentPage + 1)}
-                  disabled={currentPage === v - 1}
-                  className="prev-btn"
-                >
-                  next
-                </button>
+                </ul>
+                <div>
+                  <button
+                    className="prev-btn"
+                    onClick={() => onPage(currentPage - 1)}
+                    disabled={currentPage === 0}
+                  >
+                    prev
+                  </button>
+                  {Array(v)
+                    .fill(null)
+                    .map((page, index) => (
+                      <button
+                        className="number-btn"
+                        onClick={() => onPage(index)}
+                        key={index}
+                      >
+                        {index + 1}
+                      </button>
+                    ))}
+                  <button
+                    onClick={() => onPage(currentPage + 1)}
+                    disabled={currentPage === v - 1}
+                    className="prev-btn"
+                  >
+                    next
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
             {/* all employee profiles end container */}
             {/* // employeee calculate loader start container */}
             {teamAllTask.length !== 0 && (

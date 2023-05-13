@@ -46,10 +46,18 @@ const Users = () => {
   };
 
   const getUserTask = async () => {
-    const userName = { name: UUU.name };
+    const userName = { username: UUU.username };
     const API = axios.create({ baseURL: "http://localhost:5000" });
 
-    API.post("/tasks/employee", userName)
+    // API.post("/tasks/employee", userName)
+    //   .then((res) => {
+    //     setUserDataTask(res.data);
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
+    console.log(userName);
+    API.post("/tasks/teamleader/task", userName)
       .then((res) => {
         setUserDataTask(res.data);
       })

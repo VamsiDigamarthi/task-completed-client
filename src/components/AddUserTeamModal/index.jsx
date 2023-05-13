@@ -19,10 +19,12 @@ const AddUserTeamModal = ({
     role: "",
     username: "",
     password: "",
-    head: UUU.role,
+    //head: UUU.role,
+    head: UUU._id,
   });
 
   const usernameChange = (e) => {
+    setUser({ ...user, head: UUU._id });
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
@@ -43,7 +45,7 @@ const AddUserTeamModal = ({
         console.log(e);
       });
 
-    setUser({ name: "", username: "", password: "", role: "" });
+    setUser({ name: "", username: "", password: "", role: "", head: UUU._id });
   };
 
   // console.log(user);

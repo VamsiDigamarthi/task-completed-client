@@ -12,13 +12,13 @@ const AdminAddTaskToTeam = ({
   const UUU = useSelector((state) => state.authReducer.authData);
 
   const [taskAdd, setTaskAddr] = useState({
-    //head: UUU._id,
+    head: UUU._id,
     task: "",
     status: "",
     username: "",
     description: "",
     date: "",
-    head: UUU.role,
+    //head: UUU.role,
   });
 
   const taskAddFun = (e) => {
@@ -106,13 +106,13 @@ const AdminAddTaskToTeam = ({
               <option disabled selected hidden>
                 Plase select Employee
               </option>
-              {adminAllTeams.map((each) => (
-                <option>{each.name}</option>
-              ))}
-              {/* add new */}
               {/* {adminAllTeams.map((each) => (
-                <option>{each.username}</option>
+                <option>{each.name}</option>
               ))} */}
+              {/* add new */}
+              {adminAllTeams.map((each) => (
+                <option>{each.username}</option>
+              ))}
             </select>
           </div>
           <div

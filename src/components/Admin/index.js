@@ -72,17 +72,7 @@ const Admin = () => {
   const getAllTeamsByAdmin = () => {
     const API = axios.create({ baseURL: "http://localhost:5000" });
 
-    API.post("/team/user", adminrole)
-      .then((res) => {
-        // setTeamUserList(res.data);
-        setAdminAllTeams(res.data);
-      })
-
-      .catch((e) => {
-        console.log(e);
-      });
-
-    // API.get(`team/admin/team/${UUU._id}`)
+    // API.post("/team/user", adminrole)
     //   .then((res) => {
     //     // setTeamUserList(res.data);
     //     setAdminAllTeams(res.data);
@@ -91,6 +81,16 @@ const Admin = () => {
     //   .catch((e) => {
     //     console.log(e);
     //   });
+
+    API.get(`team/admin/team/${UUU._id}`)
+      .then((res) => {
+        // setTeamUserList(res.data);
+        setAdminAllTeams(res.data);
+      })
+
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   useEffect(() => {

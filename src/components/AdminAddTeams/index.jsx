@@ -14,10 +14,10 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
   //console.log(UUU._id);
 
   const [user, setUser] = useState({
-    // head: UUU._id,
+    head: UUU._id,
     name: "",
 
-    head: UUU.role,
+    //head: UUU.role,
 
     username: "",
     password: "",
@@ -31,7 +31,7 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
 
   const usernameChange = (e) => {
     // setUser({ ...user, head: UUU.role });
-    // setUser({ ...user, head: UUU._id });
+    setUser({ ...user, head: UUU._id });
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
@@ -54,7 +54,7 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
         console.log(e);
       });
 
-    setUser({ name: "", username: "", password: "", role: "", head: UUU.role });
+    setUser({ name: "", username: "", password: "", role: "", head: UUU._id });
   };
 
   console.log(user);

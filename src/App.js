@@ -56,8 +56,22 @@ function App() {
       const getAllTeamsByAdmin = () => {
         const API = axios.create({ baseURL: "http://localhost:5000" });
 
-        API.post("/team/user", adminrole)
+        // API.post("/team/user", adminrole)
+        //   .then((res) => {
+        //     setAllTeamMembers(res.data);
+        //   })
+
+        //   .catch((e) => {
+        //     console.log(e);
+        //   });
+
+        // =========================================================
+
+        const id = "645dc464cdd5dfd4dea8ba4f";
+
+        API.get(`team/admin/team/${id}`)
           .then((res) => {
+            // setTeamUserList(res.data);
             setAllTeamMembers(res.data);
           })
 
@@ -76,37 +90,12 @@ function App() {
 
   console.log(USER_TYPE.TEAMS);
 
-  // console.log(USER_TYPE.TEAMS);
-
-  // console.log("temas");
-  // console.log(allTeamMembers);
-
-  // console.log(arrayOfTeamsName);
-
-  // if (UUU) {
-  //   if (UUU.role === USER_TYPE.EMPLOYEE) {
-  //     CURRENT_USER = UUU.role;
-  //     // <Navigate to="/employee" />;
-  //   } else if (
-  //     UUU.role === USER_TYPE.TEAM_LEADER ||
-  //     UUU.role === USER_TYPE.TEAM_LEADER_2
-  //   ) {
-  //     CURRENT_USER = UUU.role;
-  //   } else if (UUU.role === USER_TYPE.ADMIN) {
-  //     CURRENT_USER = UUU.role;
-  //   } else {
-  //     console.log("nothing else");
-  //   }
-  // } else {
-  //   console.log("user not");
-  // }
-
-  // const user = localStorage.getItem("profile");
-
   console.log(CURRENT_USER);
   console.log(USER_TYPE.TEAMS);
 
   console.log(USER_TYPE.TEAMS.includes(CURRENT_USER));
+
+  console.log(`team memb ${allTeamMembers}`);
 
   return (
     <div className="App">
