@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, useMantineTheme } from "@mantine/core";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser, AiOutlineAntDesign } from "react-icons/ai";
 import { HiOutlineMail } from "react-icons/hi";
 import { RiLockPasswordLine, RiTeamLine } from "react-icons/ri";
 import "./index.css";
@@ -22,6 +22,7 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
     username: "",
     password: "",
     role: "",
+    designation: "",
   });
 
   // const setHead = () => {
@@ -54,7 +55,14 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
         console.log(e);
       });
 
-    setUser({ name: "", username: "", password: "", role: "", head: UUU._id });
+    setUser({
+      name: "",
+      username: "",
+      password: "",
+      role: "",
+      designation: "",
+      head: UUU._id,
+    });
   };
 
   console.log(user);
@@ -115,10 +123,22 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
             <input
               placeholder="Password"
               className="form-input"
-              type="text"
+              type="password"
               onChange={usernameChange}
               name="password"
               value={user.password}
+            />
+          </div>
+
+          <div className="form-input-container">
+            <AiOutlineAntDesign className="form-icons" />
+            <input
+              placeholder="Designation"
+              className="form-input"
+              type="text"
+              onChange={usernameChange}
+              name="designation"
+              value={user.designation}
             />
           </div>
 

@@ -66,7 +66,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                 <th>Task</th>
                 <th>Date</th>
                 <th>Update Date</th>
-                <th>Expect Date</th>
+                <th>Expert Date</th>
                 <th>Status</th>
                 <th>Details & Edit</th>
               </tr>

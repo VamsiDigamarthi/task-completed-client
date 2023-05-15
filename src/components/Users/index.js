@@ -23,7 +23,7 @@ const Users = () => {
   const [description, setDescription] = useState("");
   const [options, setOptions] = useState({
     labels: ["Completed", "Incompleted"],
-    colors: ["#14e610", "#f53858"],
+    colors: ["#0a5c0d", "#b52134"], //#14e610  #f53858
   });
 
   const editAndModel = (e) => {
@@ -108,7 +108,9 @@ const Users = () => {
             >
               Hey
             </h1>
-            <h1 style={{ color: "#0987e0" }}>{UUU.name}</h1>
+            <h1 className="employee-name">
+              {UUU.name.charAt(0).toUpperCase() + UUU.name.slice(1)}
+            </h1>
           </div>
 
           <Chart options={options} series={update} type="donut" width="300" />
@@ -136,10 +138,10 @@ const Users = () => {
                     style={{
                       backgroundColor:
                         each.status === "completed"
-                          ? "#14e610"
+                          ? "#0a5c0d"
                           : each.status === "incompleted"
-                          ? "#f53858"
-                          : "#e8ed58",
+                          ? "#b52134"
+                          : "#a8ad09",
                       fontSize: "16px",
                       fontWeight: 400,
                       padding: "2px",

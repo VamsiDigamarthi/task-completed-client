@@ -3,7 +3,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid rgb(37, 51, 58);
 
   height: 10%;
 }
@@ -50,5 +50,6 @@
 
 .header-icons {
   font-size: 20px;
-  color: red;
+  color: rgb(37, 51, 58);
+  /* fill: rgb(37, 51, 58); */
 }

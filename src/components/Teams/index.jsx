@@ -97,11 +97,11 @@ const Teams = () => {
 
   // access the all employee corresponding there teams
   const nameValue = adminGetOneTeam[0];
+
   //const { _id } = nameValue;
-  //console.log(nameValue);
 
   const teamUserAccess =
-    UUU.role === "admin" ? { role: nameValue?._id } : { role: UUU._id }; //{ role: UUU.role };
+    UUU.role === "admin" ? { role: nameValue?._id } : { role: UUU._id }; //{ role: UUU.role };   --- "" replace { role: nameValue?._id }
 
   // acces team leader and there task only
   const adminAndTams =
@@ -387,8 +387,9 @@ const Teams = () => {
 
   //console.log(teamLeaderTask);
 
-  console.log(`employee list ${teamUserList}`);
-  console.log(currentItems);
+  //console.log(`teamuser list ${teamUserList}`);
+  console.log(teamUserList);
+  //console.log(nameValue);
 
   return (
     <div className="teams">
@@ -452,7 +453,9 @@ const Teams = () => {
                         {each.name.charAt(0).toUpperCase() + each.name.slice(1)}
                       </span>
                     </h3>
-                    <p className="user-designation">Designation {each.role}</p>
+                    <p className="user-designation">
+                      Designation {each.designation}
+                    </p>
                   </div>
                   <img
                     src="https://preview.keenthemes.com/metronic-v4/theme/assets/pages/media/profile/profile_user.jpg"
@@ -510,7 +513,7 @@ const Teams = () => {
                         <h3 className="user-name">
                           {i.name.charAt(0).toUpperCase() + i.name.slice(1)}
                         </h3>
-                        <p className="user-designation"> software developer </p>
+                        <p className="user-designation"> {i.designation} </p>
                       </div>
                     </li>
                   ))}
@@ -552,7 +555,7 @@ const Teams = () => {
                   <div
                     className="percent"
                     style={{
-                      "--clr": "#04fc43",
+                      "--clr": "#0a5c0d", //"#04fc43",
                       "--num": loaderValue,
                     }}
                   >
@@ -583,7 +586,7 @@ const Teams = () => {
                     <th>Task</th>
                     <th>Create</th>
                     <th>Update</th>
-                    <th>Expect Date</th>
+                    <th>Expert Date</th>
                     <th>Status</th>
                     <th>Details</th>
                   </tr>
@@ -600,10 +603,10 @@ const Teams = () => {
                           style={{
                             backgroundColor:
                               each.status === "completed"
-                                ? "#14e610"
+                                ? "#0a5c0d" //"#14e610"
                                 : each.status === "incompleted"
-                                ? "#f53858"
-                                : "#e8ed58",
+                                ? "#b52134"
+                                : "#a8ad09",
                             // ? "#14e610"
 
                             // : "#f53858",

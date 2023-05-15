@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, useMantineTheme } from "@mantine/core";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser, AiOutlineAntDesign } from "react-icons/ai";
 import { HiOutlineMail } from "react-icons/hi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import "./index.css";
@@ -21,6 +21,7 @@ const AddUserTeamModal = ({
     password: "",
     //head: UUU.role,
     head: UUU._id,
+    designation: "",
   });
 
   const usernameChange = (e) => {
@@ -45,7 +46,14 @@ const AddUserTeamModal = ({
         console.log(e);
       });
 
-    setUser({ name: "", username: "", password: "", role: "", head: UUU._id });
+    setUser({
+      name: "",
+      username: "",
+      password: "",
+      role: "",
+      head: UUU._id,
+      designation: "",
+    });
   };
 
   // console.log(user);
@@ -105,6 +113,18 @@ const AddUserTeamModal = ({
               onChange={usernameChange}
               name="password"
               value={user.password}
+            />
+          </div>
+
+          <div className="form-input-container">
+            <AiOutlineAntDesign className="form-icons" />
+            <input
+              placeholder="Designation"
+              className="form-input"
+              type="text"
+              onChange={usernameChange}
+              name="designation"
+              value={user.designation}
             />
           </div>
 

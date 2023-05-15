@@ -132,7 +132,7 @@
   border: none;
   border-radius: 8px;
   color: white;
-  background-color: #3bbfb2;
+  background-color: rgb(37, 51, 58);
   font-size: 14px;
   font-weight: 500;
   font-size: 16px;
@@ -283,7 +283,7 @@
 .add-user-btn {
   width: 150px;
   height: 40px;
-  border: 2px solid #3bbfb2;
+  border: 2px solid rgb(107, 109, 110);
   border-radius: 8px;
   color: black;
   background-color: transparent;

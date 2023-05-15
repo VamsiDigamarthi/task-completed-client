@@ -53,7 +53,7 @@ function App() {
     const fetchAllTeam = () => {
       const adminrole = { role: "admin" };
 
-      const getAllTeamsByAdmin = () => {
+      const getAllTeamsByAdmin = async () => {
         const API = axios.create({ baseURL: "http://localhost:5000" });
 
         // API.post("/team/user", adminrole)
@@ -67,9 +67,9 @@ function App() {
 
         // =========================================================
 
-        const id = "645dc464cdd5dfd4dea8ba4f";
+        //const id = "645dc464cdd5dfd4dea8ba4f";
 
-        API.get(`team/admin/team/${id}`)
+        await API.get("team/admin/team/645dc464cdd5dfd4dea8ba4f")
           .then((res) => {
             // setTeamUserList(res.data);
             setAllTeamMembers(res.data);
@@ -88,14 +88,14 @@ function App() {
 
   addNamesInArray();
 
-  console.log(USER_TYPE.TEAMS);
+  // console.log(USER_TYPE.TEAMS);
 
-  console.log(CURRENT_USER);
-  console.log(USER_TYPE.TEAMS);
+  // console.log(CURRENT_USER);
+  // console.log(USER_TYPE.TEAMS);
 
-  console.log(USER_TYPE.TEAMS.includes(CURRENT_USER));
+  // console.log(USER_TYPE.TEAMS.includes(CURRENT_USER));
 
-  console.log(`team memb ${allTeamMembers}`);
+  console.log(allTeamMembers);
 
   return (
     <div className="App">

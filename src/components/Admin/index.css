@@ -35,14 +35,14 @@
 }
 
 .no-of-employee > h3 {
-  color: blueviolet;
+  color: rgb(107, 108, 110);
 }
 
 .no-of-employee > p > span {
   font-weight: 700;
   font-size: 25px;
   padding-left: 10px;
-  color: blueviolet;
+  color: rgb(107, 108, 110);
 }
 
 .no-of-employee > :nth-child(1) {
@@ -72,9 +72,11 @@
 .admin-left-btn {
   width: 150px;
   height: 35px;
-  background-image: radial-gradient(#f7eb45, #ed784a);
+  /* background-image: radial-gradient(#f7eb45, #ed784a); */
+  background-color: rgb(107, 109, 110);
   border: none;
   border-radius: 7px;
+  color: white;
 }
 
 .admin-right-btn {
@@ -82,5 +84,7 @@
   height: 35px;
   border: none;
   border-radius: 7px;
-  background-image: radial-gradient(#9ae3de, #e645a0);
+  /* background-image: radial-gradient(#9ae3de, #e645a0); */
+  background-color: transparent;
+  border: 2px solid rgb(107, 108, 110);
 }

@@ -58,7 +58,8 @@
 }
 
 .content-table thead tr {
-  background-color: #009879;
+  /* background-color: #009879; */
+  background-color: rgb(53, 60, 63);
   color: #ffffff;
   text-align: left;
   font-weight: bold;
@@ -88,4 +89,8 @@
   position: absolute;
   top: 0;
   right: 0;
+}
+
+.employee-name {
+  color: rgb(37, 51, 58);
 }

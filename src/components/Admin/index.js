@@ -97,7 +97,7 @@ const Admin = () => {
     getAllTeamsByAdmin();
   }, []);
 
-  console.log(adminAllTeams);
+  //console.log(adminAllTeams);
 
   return (
     <>
