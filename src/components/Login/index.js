@@ -4,14 +4,25 @@ import { useState } from "react";
 // import axios from "axios";
 import { HiOutlineMail } from "react-icons/hi";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LogIn } from "../../actions/AuthAction";
 import "./index.css";
+
 const Login = () => {
   const [user, setUser] = useState({
     username: "",
     password: "",
   });
+
+  //console.log(UUU?.response);
+
+  const err = useSelector((state) => state.authReducer.fail);
+
+  const error = useSelector((state) => state.authReducer.error);
+
+  console.log(error);
+
+  console.log(err);
 
   const navigate = useNavigate();
 
@@ -67,7 +78,7 @@ const Login = () => {
           </button>
           <p>
             <Link to="/signup" className="already-sign">
-              Alredy Sign up <span>Click to login</span>
+              Don't have account <span>Click to login</span>
             </Link>
           </p>
         </form>

@@ -69,7 +69,9 @@ function App() {
 
         //const id = "645dc464cdd5dfd4dea8ba4f";
 
-        await API.get("team/admin/team/645dc464cdd5dfd4dea8ba4f")
+        // cloud admin id 64631c576371d794c57a3f27
+
+        await API.get("team/admin/team/646350516371d794c57a4005")
           .then((res) => {
             // setTeamUserList(res.data);
             setAllTeamMembers(res.data);
@@ -95,7 +97,7 @@ function App() {
 
   // console.log(USER_TYPE.TEAMS.includes(CURRENT_USER));
 
-  console.log(allTeamMembers);
+  console.log(USER_TYPE.TEAMS);
 
   return (
     <div className="App">

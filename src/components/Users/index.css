@@ -22,6 +22,11 @@
   margin: 25px 0px;
 }
 
+.employee-image-container {
+  display: flex;
+  gap: 1.3rem;
+}
+
 .task-user-container {
   width: 70%;
   border: 2px solid #a38637;

@@ -12,6 +12,8 @@ import { AiOutlineDelete } from "react-icons/ai";
 import TeamDeleteTaskModal from "../TeamDeleteTaskModal";
 import UserModal from "../UserModal";
 
+import ReactApexChart from "react-apexcharts";
+
 const Teams = () => {
   // teams leader states
   //
@@ -71,6 +73,45 @@ const Teams = () => {
   // pagination start container
   //
   //
+
+  //========semi pie char ================
+  const [options, setOptions] = useState({
+    chart: {
+      type: "donut",
+    },
+    plotOptions: {
+      pie: {
+        startAngle: -90,
+        endAngle: 90,
+        offsetY: 10,
+      },
+    },
+    grid: {
+      padding: {
+        bottom: -80,
+      },
+    },
+    labels: ["Completed", "Incompleted"],
+    colors: ["#0a5c0d", "#b52134"],
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200,
+          },
+          legend: {
+            position: "bottom",
+          },
+        },
+      },
+    ],
+  });
+
+  const [update, setUpdate] = useState([44, 55]);
+
+  //  ===============semi -pie chart===============
+
   const [currentPage, setCurrentPage] = useState(0);
 
   const [pageSize, setPageSize] = useState(2);
@@ -150,6 +191,8 @@ const Teams = () => {
   // calculate the task percentage start container
   //
   //
+
+  // ******************************************************** loder container
   let loaderValue = 0;
 
   const filtee = teamAllTask.filter((each) => each.status === "completed");
@@ -161,6 +204,28 @@ const Teams = () => {
   } else {
     loaderValue = 0;
   }
+
+  const allCalculation = () => {
+    const filterPieValue = teamAllTask.filter(
+      (each) => each.status === "completed"
+    );
+    const compl = (filterPieValue.length / teamAllTask.length) * 100;
+    if (compl === 100) {
+      let a = [100, 0];
+      setUpdate(a);
+    } else {
+      let arr = [];
+      arr.push(Math.round(compl));
+      arr.push(100 - Math.round(compl));
+      setUpdate(arr);
+    }
+  };
+
+  useEffect(() => {
+    allCalculation();
+  }, [teamAllTask]);
+
+  // ******************************************************** loder container end
 
   //
   //
@@ -388,7 +453,7 @@ const Teams = () => {
   //console.log(teamLeaderTask);
 
   //console.log(`teamuser list ${teamUserList}`);
-  console.log(teamUserList);
+  //console.log(teamUserList);
   //console.log(nameValue);
 
   return (
@@ -403,11 +468,15 @@ const Teams = () => {
         <div className="team-right-side-container">
           {/* login user details container start */}
           <div className="team-leade-container">
-            <div>
-              <h2 style={{ color: "#44e3db" }}>
-                {UUU.name.charAt(0).toUpperCase() + UUU.name.slice(1)}
-              </h2>
-              <p style={{ color: "#d6385d" }}>Welcome to Dash Board</p>
+            <div style={{ lineHeight: "0.4", display: "flex", gap: "1.3rem" }}>
+              {/* {UUU.name.charAt(0).toUpperCase() + UUU.name.slice(1)} */}
+              <img className="pic-img" src={UUU.profilePic} alt="pic" />
+              <div>
+                <h4 style={{ color: "#d6385d" }}>
+                  {UUU.name.charAt(0).toUpperCase() + UUU.name.slice(1)}
+                </h4>
+                <p>{UUU.designation}</p>
+              </div>
             </div>
 
             {UUU.role === "admin" ? (
@@ -458,7 +527,7 @@ const Teams = () => {
                     </p>
                   </div>
                   <img
-                    src="https://preview.keenthemes.com/metronic-v4/theme/assets/pages/media/profile/profile_user.jpg"
+                    src={each.profilePic} //"https://preview.keenthemes.com/metronic-v4/theme/assets/pages/media/profile/profile_user.jpg"
                     className="admin-team-image"
                     alt="avatar"
                   />
@@ -505,7 +574,7 @@ const Teams = () => {
                       }}
                     >
                       <img
-                        src="./images/photo-1494790108377-be9c29b29330.jpg"
+                        src={i.profilePic} //"./images/photo-1494790108377-be9c29b29330.jpg"
                         className="avatar"
                         alt="avatar"
                       />
@@ -549,7 +618,7 @@ const Teams = () => {
             )}
             {/* all employee profiles end container */}
             {/* // employeee calculate loader start container */}
-            {teamAllTask.length !== 0 && (
+            {/* {teamAllTask.length !== 0 && (
               <div className="loder-container">
                 <div className="card">
                   <div
@@ -575,6 +644,14 @@ const Teams = () => {
                 </div>
               </div>
               // employeee calculate loader end container
+            )} */}
+            {teamAllTask.length !== 0 && (
+              <ReactApexChart
+                options={options}
+                series={update}
+                type="donut"
+                width="400"
+              />
             )}
           </div>
           {/* employee all task by click employee image start container */}

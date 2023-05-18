@@ -389,3 +389,10 @@
   padding: 15px;
   border-radius: 10px;
 }
+
+.pic-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 8px;
+  margin-top: 10px;
+}

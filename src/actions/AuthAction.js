@@ -9,7 +9,7 @@ export const LogIn = (formData, navigate) => async (dispatch) => {
     navigate("/", { replace: true });
   } catch (e) {
     console.log(e);
-    dispatch({ type: "AUTH_FAIL" });
+    dispatch({ type: "AUTH_FAIL", data: e?.response.data });
   }
 };
 

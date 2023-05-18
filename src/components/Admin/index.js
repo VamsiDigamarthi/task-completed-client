@@ -108,20 +108,33 @@ const Admin = () => {
         <div className="right-a">
           <Header />
           {/* add team and task container */}
-
-          <div className="admin-add-btn">
-            <button
-              className="admin-left-btn"
-              onClick={() => setAddTeams(true)}
-            >
-              Add Teams
-            </button>
-            <button
-              className="admin-right-btn"
-              onClick={() => setAdminAddTask(true)}
-            >
-              Add Tasks to Teams
-            </button>
+          <div className="admin-image-container">
+            <div>
+              <img
+                className="admin-image"
+                src={UUU.profilePic} //"https://i.pinimg.com/736x/52/29/5f/52295fa7746c2d69256c25a88b6343f4.jpg"
+                alt="admin-image"
+              />
+              <div>
+                {/* {i.name.charAt(0).toUpperCase() + i.name.slice(1)} */}
+                <h2 className="admin-heading">{UUU.name}</h2>
+                <p className="admin-desc">{UUU.designation}</p>
+              </div>
+            </div>
+            <div className="admin-add-btn">
+              <button
+                className="admin-left-btn"
+                onClick={() => setAddTeams(true)}
+              >
+                Add Teams
+              </button>
+              <button
+                className="admin-right-btn"
+                onClick={() => setAdminAddTask(true)}
+              >
+                Add Tasks to Teams
+              </button>
+            </div>
           </div>
 
           {/* add team and task container end */}

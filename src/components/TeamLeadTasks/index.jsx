@@ -83,7 +83,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                       style={{
                         backgroundColor:
                           each.status === "completed"
-                            ? "#14e610"
+                            ? "#0e8214" //"#14e610"
                             : each.status === "incompleted"
                             ? "#f53858"
                             : "#e8ed58",

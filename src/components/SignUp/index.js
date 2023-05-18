@@ -1,59 +1,70 @@
 // import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser, AiOutlineAntDesign } from "react-icons/ai";
 import { HiOutlineMail } from "react-icons/hi";
-import { RiLockPasswordLine } from "react-icons/ri";
+import { RiLockPasswordLine, RiTeamLine } from "react-icons/ri";
+import FileBase64 from "react-file-base64";
+import axios from "axios";
 // import { BiUserPin } from "react-icons/bi";
 import "./index.css";
 const SignUp = () => {
-  const [isEmployee, setIsEmployee] = useState(false);
+  // const [isEmployee, setIsEmployee] = useState(false);
 
   const [user, setUser] = useState({
-    firstname: "",
-    lastname: "",
+    name: "",
     username: "",
     password: "",
+    role: "",
+    designation: "",
+    profilePic: "",
   });
 
   const usernameChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const employeeRole = (e) => {
-    console.log(e.target.value);
-    if (e.target.value === "employee") {
-      setIsEmployee(true);
-    } else {
-      setIsEmployee(false);
-    }
-  };
+  // const employeeRole = (e) => {
+  //   console.log(e.target.value);
+  //   if (e.target.value === "employee") {
+  //     setIsEmployee(true);
+  //   } else {
+  //     setIsEmployee(false);
+  //   }
+  // };
 
   const teamLeadeRole = () => {};
 
-  const submitForm = (e) => {};
+  // const submitForm = (e) => {};
 
-  //   const submitForm = async (e) => {
-  //     e.preventDefault();
+  const submitForm = async (e) => {
+    e.preventDefault();
 
-  //     const API = axios.create({ baseURL: "http://localhost:5000" });
+    const API = axios.create({ baseURL: "http://localhost:5000" });
 
-  //     API.post("/auth/register", user)
-  //       .then((res) => {
-  //         console.log(res.data);
-  //       })
-  //       .catch((e) => {
-  //         console.log(e);
-  //       });
+    API.post("/auth/register", user)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
 
-  //     setUser({ firstname: "", lastname: "", username: "", password: "" });
-  //   };
+    setUser({
+      name: "",
+      role: "",
+      username: "",
+      password: "",
+      profilePic: "",
+      designation: "",
+    });
+  };
 
   return (
-    <div className="signup-container">
-      <div className="signup">
+    <div className="login-container">
+      <div className="login">
         <img
-          className="signup-img"
+          className="login-img"
           src="./images/undraw_Mobile_re_q4nk.png"
           alt="signupimage"
         />
@@ -66,8 +77,8 @@ const SignUp = () => {
               className="form-input"
               type="text"
               onChange={usernameChange}
-              name="firstname"
-              value={user.firstname}
+              name="name"
+              value={user.name}
             />
           </div>
 
@@ -96,14 +107,46 @@ const SignUp = () => {
               value={user.password}
             />
           </div>
+
           <div className="form-input-container">
+            <RiTeamLine className="form-icons" />
+            <input
+              placeholder="role"
+              className="form-input"
+              type="text"
+              onChange={usernameChange}
+              name="role"
+              value={user.role}
+            />
+          </div>
+
+          <div className="form-input-container">
+            <AiOutlineAntDesign className="form-icons" />
+            <input
+              placeholder="Designation"
+              className="form-input"
+              type="text"
+              onChange={usernameChange}
+              name="designation"
+              value={user.designation}
+            />
+          </div>
+
+          <FileBase64
+            type="file"
+            multiple={false}
+            className="file-card"
+            onDone={({ base64 }) => setUser({ ...user, profilePic: base64 })}
+          />
+
+          {/* <div className="form-input-container">
             <select className="employee-type" onChange={employeeRole}>
               <option value="employee">Employee</option>
               <option value="team leader">Team Leader</option>
               <option value="admin">Admin</option>
             </select>
-          </div>
-          {isEmployee && (
+          </div> */}
+          {/* {isEmployee && (
             <div className="form-input-container">
               <select className="employee-type" onChange={teamLeadeRole}>
                 <option value="employee">team-1</option>
@@ -111,7 +154,7 @@ const SignUp = () => {
                 <option value="admin">team-3</option>
               </select>
             </div>
-          )}
+          )} */}
           {/* <p className="text-xs text-red-500">
             {passwordError && "username not valid"}
           </p> */}

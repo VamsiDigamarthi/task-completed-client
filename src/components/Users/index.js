@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import Chart from "react-apexcharts";
 import { FiEdit } from "react-icons/fi";
 import UserEditModal from "../UserEditModal";
+import { RiH4 } from "react-icons/ri";
 
 const Users = () => {
   const [modal, setModal] = useState(false);
@@ -101,16 +102,20 @@ const Users = () => {
       <div className="right-u">
         <Header />
         <div className="user-name-container">
-          <div>
-            <h1
+          <div className="employee-image-container">
+            {/* <h1
               className="stroke-text"
               style={{ color: "red", fontWeight: "bold" }}
             >
               Hey
-            </h1>
-            <h1 className="employee-name">
-              {UUU.name.charAt(0).toUpperCase() + UUU.name.slice(1)}
-            </h1>
+            </h1> */}
+            <img className="pic-img" src={UUU.profilePic} alt="pic" />
+            <div>
+              <h3 className="employee-name">
+                {UUU.name.charAt(0).toUpperCase() + UUU.name.slice(1)}
+              </h3>
+              <p>{UUU.designation}</p>
+            </div>
           </div>
 
           <Chart options={options} series={update} type="donut" width="300" />
@@ -149,6 +154,7 @@ const Users = () => {
                       paddingLeft: "19px",
                       borderTopRightRadius: "10px",
                       borderBottomRightRadius: "10px",
+                      borderTopLeftRadius: "7px",
                     }}
                   >
                     {each.status}

@@ -5,6 +5,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import "./index.css";
 import { useSelector } from "react-redux";
+import FileBase64 from "react-file-base64";
 import axios from "axios";
 
 const AddUserTeamModal = ({
@@ -22,6 +23,7 @@ const AddUserTeamModal = ({
     //head: UUU.role,
     head: UUU._id,
     designation: "",
+    profilePic: "",
   });
 
   const usernameChange = (e) => {
@@ -53,6 +55,7 @@ const AddUserTeamModal = ({
       role: "",
       head: UUU._id,
       designation: "",
+      profilePic: "",
     });
   };
 
@@ -127,6 +130,12 @@ const AddUserTeamModal = ({
               value={user.designation}
             />
           </div>
+
+          <FileBase64
+            type="file"
+            multiple={false}
+            onDone={({ base64 }) => setUser({ ...user, profilePic: base64 })}
+          />
 
           <div className="form-input-container">
             <select

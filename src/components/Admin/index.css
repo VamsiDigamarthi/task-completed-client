@@ -60,12 +60,41 @@
   margin: 30px 0px;
 }
 
+.admin-image-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px solid black; */
+}
+
+.admin-image-container > :nth-child(1) {
+  display: flex;
+  gap: 1.3rem;
+}
+
+.admin-heading {
+  font-weight: 700;
+  color: rgb(37, 51, 58);
+}
+
+.admin-desc {
+  font-weight: 600;
+  color: lightslategray;
+}
+
+.admin-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+}
+
 .admin-add-btn {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  margin: 20px 110px;
+  /* margin: 20px 110px; */
   gap: 2rem;
 }
 

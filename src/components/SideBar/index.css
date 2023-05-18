@@ -69,16 +69,23 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 0.7rem;
+  gap: 0.2rem;
 }
 
+/* .logout > :nth-child(1) {
+  background-color: #c4c7cc;
+  border-radius: 50%;
+  padding: 5px;
+} */
+
 .logout > button {
-  background-color: #e8bb80;
+  background-color: transparent;
+  color: #a63232;
   width: 100px;
   height: 35px;
   border: none;
   border-radius: 7px;
-  color: white;
+  /* //color: white; */
   font-size: 16px;
   font-weight: 600;
 }

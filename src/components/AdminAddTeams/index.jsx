@@ -3,6 +3,7 @@ import { Modal, useMantineTheme } from "@mantine/core";
 import { AiOutlineUser, AiOutlineAntDesign } from "react-icons/ai";
 import { HiOutlineMail } from "react-icons/hi";
 import { RiLockPasswordLine, RiTeamLine } from "react-icons/ri";
+import FileBase64 from "react-file-base64";
 import "./index.css";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -12,6 +13,8 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
 
   //   console.log(UUU);
   //console.log(UUU._id);
+
+  //const [profilePic, setProfilePic] = useState("");
 
   const [user, setUser] = useState({
     head: UUU._id,
@@ -23,6 +26,7 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
     password: "",
     role: "",
     designation: "",
+    profilePic: "",
   });
 
   // const setHead = () => {
@@ -34,7 +38,16 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
     // setUser({ ...user, head: UUU.role });
     setUser({ ...user, head: UUU._id });
     setUser({ ...user, [e.target.name]: e.target.value });
+
+    // if(e.target.files && e.target.files[0]){
+
+    // }
   };
+
+  // const profilePicChange = (e) => {
+  //   setProfilePic(e.target.files[0]);
+  //   //setUser({ ...user, profilePic: e.target.files[0] });
+  // };
 
   const theme = useMantineTheme();
 
@@ -62,6 +75,7 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
       role: "",
       designation: "",
       head: UUU._id,
+      profilePic: "",
     });
   };
 
@@ -142,10 +156,26 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
             />
           </div>
 
+          {/* <div className="form-input-container">
+            <AiOutlineAntDesign className="form-icons" />
+            <input
+              placeholder="Designation"
+              className="form-input"
+              type="file"
+              onChange={profilePicChange}
+              name="profilePic"
+              //value={user.profilePic}
+            />
+          </div> */}
+          <FileBase64
+            type="file"
+            multiple={false}
+            onDone={({ base64 }) => setUser({ ...user, profilePic: base64 })}
+          />
           <div className="form-input-container">
             <RiTeamLine className="form-icons" />
             <input
-              placeholder="add team name"
+              placeholder="role"
               className="form-input"
               type="text"
               onChange={usernameChange}
