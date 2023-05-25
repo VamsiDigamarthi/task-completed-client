@@ -18,6 +18,8 @@ const AdminAddTaskToTeam = ({
     username: "",
     description: "",
     date: "",
+    createdate: "",
+    project_id: "",
     //head: UUU.role,
   });
 
@@ -48,13 +50,15 @@ const AdminAddTaskToTeam = ({
       date: "",
       // new addded
       head: UUU.role,
+      createdate: "",
+      project_id: "",
       //head: UUU._id,
     });
   };
 
   const theme = useMantineTheme();
 
-  // console.log(taskAdd);
+  console.log(taskAdd);
 
   return (
     <>
@@ -79,11 +83,18 @@ const AdminAddTaskToTeam = ({
       >
         <form onSubmit={addTaskSubmit}>
           <div className="all-input-container">
+            <input
+              className="modal-input-text project-id"
+              type="text"
+              placeholder="project-id"
+              name="project_id"
+              onChange={taskAddFun}
+            />
             <div className="radios-buttons-container">
               <input
                 className="modal-input-text"
                 type="text"
-                placeholder="taskname"
+                placeholder="project-name"
                 name="task"
                 onChange={taskAddFun}
               />
@@ -94,7 +105,7 @@ const AdminAddTaskToTeam = ({
                   name="status"
                   onChange={taskAddFun}
                   type="checkbox"
-                  value="incompleted"
+                  value="In-completed"
                 />
               </div>
             </div>
@@ -114,6 +125,24 @@ const AdminAddTaskToTeam = ({
                 <option>{each.username}</option>
               ))}
             </select>
+          </div>
+          <div
+            className="modal-input-text  date-input"
+            style={{
+              margin: "10px 0px",
+              height: "30px",
+              padding: "0px 5px",
+              display: "flex",
+            }}
+          >
+            <label htmlFor="birthday">Create Date : </label>
+            <input
+              type="date"
+              id="birthday"
+              name="createdate"
+              onChange={taskAddFun}
+              // className="modal-input-text  date-input"
+            />
           </div>
           <div
             className="modal-input-text  date-input"

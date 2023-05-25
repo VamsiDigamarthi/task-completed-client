@@ -7,3 +7,28 @@
   padding: 6px;
   cursor: pointer;
 }
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-task-container {
+  width: 100%;
+}
+
+.user-task-container > table {
+  width: 99%;
+}
+
+.new-ul-user-list-container {
+  width: 250px;
+  min-height: 100px;
+}
+
+.new-ul-user-list-container {
+  /* border: 1px solid black; */
+  max-height: 130px;
+  overflow-y: auto;
+}

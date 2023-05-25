@@ -117,3 +117,8 @@
   background-color: transparent;
   border: 2px solid rgb(107, 108, 110);
 }
+
+.project-id {
+  height: 30px;
+  outline: none;
+}

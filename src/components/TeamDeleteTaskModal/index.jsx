@@ -8,6 +8,7 @@ function TeamDeleteTaskModal({
   setTeamDeleteTask,
   deletedTaskDetails,
   getTeamOfTeaks,
+  getUserTask,
 }) {
   //   const [opened, { open, close }] = useDisclosure(false);
   const theme = useMantineTheme();
@@ -21,6 +22,7 @@ function TeamDeleteTaskModal({
         //console.log(res.data);
         setTeamDeleteTask(false);
         getTeamOfTeaks(name);
+        //getUserTask();
       })
       .catch((e) => {
         console.log(e);

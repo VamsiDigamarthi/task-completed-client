@@ -12,6 +12,7 @@ const AddUserTeamModal = ({
   addUserModal,
   setAddUserModal,
   getTeamOfEmployee,
+  teamLeaderTask,
 }) => {
   const UUU = useSelector((state) => state.authReducer.authData);
 
@@ -24,6 +25,7 @@ const AddUserTeamModal = ({
     head: UUU._id,
     designation: "",
     profilePic: "",
+    project_id: "",
   });
 
   const usernameChange = (e) => {
@@ -56,6 +58,7 @@ const AddUserTeamModal = ({
       head: UUU._id,
       designation: "",
       profilePic: "",
+      project_id: "",
     });
   };
 
@@ -130,6 +133,23 @@ const AddUserTeamModal = ({
               value={user.designation}
             />
           </div>
+
+          {/* <div className="form-input-container">
+            <select
+              className="employee-type"
+              name="project_id"
+              onChange={usernameChange}
+            >
+              {teamLeaderTask?.map((each) => (
+                <>
+                  <option disabled selected hidden>
+                    Please select role of Employee
+                  </option>
+                  <option value={each.project_id}>{each.project_id}</option>
+                </>
+              ))}
+            </select>
+          </div> */}
 
           <FileBase64
             type="file"

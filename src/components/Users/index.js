@@ -21,6 +21,14 @@ const Users = () => {
 
   const [update, setUpdate] = useState([]);
 
+  //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+  //hours cal
+  const [completedHour, setCompletedHour] = useState("");
+
+  const [totalCalHour, setTotalCalHour] = useState("");
+
+  const [timerHour, setTimerHour] = useState("");
+
   const [description, setDescription] = useState("");
   const [options, setOptions] = useState({
     labels: ["Completed", "Incompleted"],
@@ -91,7 +99,101 @@ const Users = () => {
     allCalculation();
   }, [userDataTask]);
 
+  //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+  //  calculate hours task start container
+
+  const getTeamTaskCalHour = (c, e, ud, id, taskid, task, username) => {
+    setTotalCalHour("");
+    setCompletedHour("");
+    setTimerHour("");
+
+    const date1 = new Date(c).getTime();
+    const date2 = new Date(e).getTime();
+    const date3 = new Date(ud).getTime();
+    //console.log(date1);
+    // console.log(date2);
+    // console.log(date3);
+    const diffTime = Math.abs(date2 - date1);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    const total = diffDays * 8;
+
+    if (date3) {
+      if (date3 >= date1) {
+        const diffTime1 = Math.abs(date3 - date1);
+        const diffDays1 = Math.ceil(diffTime1 / (1000 * 60 * 60 * 24));
+        setCompletedHour(diffDays1 * 8);
+        const rr = diffDays1 * 8;
+        const values = {
+          projectId: id,
+          taskValue: taskid,
+          timer: rr,
+          totalHour: total,
+          taskName: task,
+          userName: username,
+        };
+
+        const API = axios.create({ baseURL: "http://localhost:5000" });
+
+        API.post("/time/value", values)
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
+    } else {
+      // const timer = setInterval(() => {
+      const datess = new Date();
+      const diffTime = Math.abs(datess - date1);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      setTimerHour(diffDays * 8);
+
+      const rr = `R-${diffDays * 8}`;
+      const values = {
+        projectId: id,
+        taskValue: taskid,
+        timer: rr,
+        totalHour: total,
+        taskName: task,
+        userName: username,
+      };
+
+      const API = axios.create({ baseURL: "http://localhost:5000" });
+
+      API.post("/time/value", values)
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      // }, 1000);
+    }
+
+    setTotalCalHour(diffDays * 8);
+    // console.log(id);
+    // console.log(taskid);
+    console.log(task);
+    console.log(username);
+  };
+
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //      const datess = new Date()
+  //      console.log(datess)
+  //   },1000)
+  // }, [])
+
+  // cal hour task end container
+  //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
   // console.log(editUserTask[0]._id);
+
+  // console.log(totalCalHour);
+
+  // console.log(completedHour);
 
   return (
     <div className="users">
@@ -117,26 +219,60 @@ const Users = () => {
               <p>{UUU.designation}</p>
             </div>
           </div>
+          {/* hour cal container */}
 
+          <div>
+            <p>
+              Total Hours : <span>{totalCalHour}</span>{" "}
+            </p>
+            {completedHour ? (
+              <p>
+                Completed Hours : <span>{completedHour}</span>{" "}
+              </p>
+            ) : (
+              <>
+                <p>
+                  Running Hour : <span>{timerHour}</span>
+                </p>
+              </>
+            )}
+          </div>
+
+          {/* hours cal container end */}
           <Chart options={options} series={update} type="donut" width="300" />
         </div>
         <table className="content-table">
           <thead>
             <tr>
+              <th>ProjectId</th>
               <th>Task</th>
-              <th>Date</th>
-              <th>Update Date</th>
-              <th>Expert Date</th>
+              <th>CreateDate</th>
+              <th>UpdateDate</th>
+              <th>ExpertDate</th>
               <th>Status</th>
               <th>Details & Edit</th>
             </tr>
           </thead>
           <tbody>
             {userDataTask.map((each, index) => (
-              <tr key={index}>
+              <tr
+                key={index}
+                onClick={() =>
+                  getTeamTaskCalHour(
+                    each.createdate,
+                    each.date,
+                    each.status === "completed" ? each.updatedAt : "",
+                    each.project_id,
+                    each._id,
+                    each.task,
+                    each.username
+                  )
+                }
+              >
+                <td>{each.project_id}</td>
                 <td>{each.task}</td>
-                <td>{each.createdAt}</td>
-                <td>{each.updatedAt}</td>
+                <td>{each.createdAt.slice(0, 10)}</td>
+                <td>{each.updatedAt.slice(0, 10)}</td>
                 <td>{each.date}</td>
                 <td>
                   <div
@@ -144,7 +280,7 @@ const Users = () => {
                       backgroundColor:
                         each.status === "completed"
                           ? "#0a5c0d"
-                          : each.status === "incompleted"
+                          : each.status === "In-completed"
                           ? "#b52134"
                           : "#a8ad09",
                       fontSize: "16px",

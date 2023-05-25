@@ -11,6 +11,7 @@ const EmployeAddModal = ({
   setTaskAddModal,
   teamUserList,
   getTeamOfTeaks,
+  teamLeaderTask,
 }) => {
   const UUU = useSelector((state) => state.authReducer.authData);
 
@@ -21,6 +22,8 @@ const EmployeAddModal = ({
     description: "",
     date: "",
     head: UUU.role,
+    createdate: "",
+    project_id: "",
   });
 
   const taskAddFun = (e) => {
@@ -42,7 +45,14 @@ const EmployeAddModal = ({
       .catch((e) => {
         console.log(e);
       });
-    setTaskAddr({ task: "", status: "", username: "", description: "" });
+    setTaskAddr({
+      task: "",
+      status: "",
+      username: "",
+      description: "",
+      createdate: "",
+      project_id: "",
+    });
   };
 
   const theme = useMantineTheme();
@@ -93,7 +103,7 @@ const EmployeAddModal = ({
                   name="status"
                   onChange={taskAddFun}
                   type="checkbox"
-                  value="incompleted"
+                  value="In-completed"
                 />
               </div>
             </div>
@@ -116,6 +126,24 @@ const EmployeAddModal = ({
           </div>
           <div
             className="modal-input-text  date-input"
+            style={{
+              margin: "10px 0px",
+              height: "30px",
+              padding: "0px 5px",
+              display: "flex",
+            }}
+          >
+            <label htmlFor="birthday">Create Date : </label>
+            <input
+              type="date"
+              id="birthday"
+              name="createdate"
+              onChange={taskAddFun}
+              // className="modal-input-text  date-input"
+            />
+          </div>
+          <div
+            className="modal-input-text  date-input"
             style={{ margin: "10px 0px", height: "30px", padding: "0px 5px" }}
           >
             <label htmlFor="birthday">Expert Date : </label>
@@ -126,6 +154,25 @@ const EmployeAddModal = ({
               onChange={taskAddFun}
               // className="modal-input-text  date-input"
             />
+          </div>
+          <div
+            className="form-input-container"
+            style={{ marginBottom: "10px" }}
+          >
+            <select
+              className="employee-type"
+              name="project_id"
+              onChange={taskAddFun}
+            >
+              {teamLeaderTask?.map((each) => (
+                <>
+                  <option disabled selected hidden>
+                    Please select role of Employee
+                  </option>
+                  <option value={each.project_id}>{each.project_id}</option>
+                </>
+              ))}
+            </select>
           </div>
           <textarea
             name="description"

@@ -12,7 +12,10 @@ import { AiOutlineDelete } from "react-icons/ai";
 import TeamDeleteTaskModal from "../TeamDeleteTaskModal";
 import UserModal from "../UserModal";
 
+import { GoProject } from "react-icons/go";
+
 import ReactApexChart from "react-apexcharts";
+import ProjectIdModal from "../ProjectIdModal/projectIdModal";
 
 const Teams = () => {
   // teams leader states
@@ -33,9 +36,9 @@ const Teams = () => {
   const [teamLeaderTask, setTeamLeaderTask] = useState([]);
 
   //
-  const [teamDeleteTask, setTeamDeleteTask] = useState(false);
+  // const [teamDeleteTask, setTeamDeleteTask] = useState(false);
 
-  const [deletedTaskDetails, setDeletedTaskDetails] = useState("");
+  // const [deletedTaskDetails, setDeletedTaskDetails] = useState("");
 
   const [clickUserHighletColor, setClickUserHighletColor] = useState(false);
 
@@ -63,6 +66,16 @@ const Teams = () => {
   const [adminTeams, setAdminTeams] = useState([]);
 
   const [adminGetOneTeam, setAdminGetOneTeam] = useState([]);
+
+  const [totalCalHour, setTotalCalHour] = useState("");
+
+  const [completedHour, setCompletedHour] = useState("");
+
+  // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  const [projectModal, setProjectModal] = useState(false);
+
+  const [projectSetUserId, setProjectSetUserId] = useState("");
 
   //
   //
@@ -127,6 +140,8 @@ const Teams = () => {
       pageSize * (index + 1)
     );
     setCurrentItems(cuurentItem);
+    setTotalCalHour("");
+    setCompletedHour("");
   };
   //
   //
@@ -179,6 +194,8 @@ const Teams = () => {
     getTeamOfTeaks(n);
     setClickUserHighletColor(true);
     setClickUserHighletColorByName(n);
+    setTotalCalHour("");
+    setCompletedHour("");
   };
 
   //
@@ -253,6 +270,9 @@ const Teams = () => {
   //
   //
 
+  //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+  // team leader employees fetch api call change to specific project click corresponding employee fecth
+
   const getTeamOfEmployee = async () => {
     const API = axios.create({ baseURL: "http://localhost:5000" });
 
@@ -265,6 +285,8 @@ const Teams = () => {
         console.log(e);
       });
   };
+
+  //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
   // admindrop down change corresponding employes get useEffect start
 
@@ -318,13 +340,13 @@ const Teams = () => {
   // get team leader all task fetch api start container  --if login as team leader--
   // -------------------------------------------------------------------------------------
 
-  const teamDeleteTaskFromId = (e) => {
-    const deleteTask = teamAllTask.filter(
-      (each) => each._id === e.currentTarget.id
-    );
-    setTeamDeleteTask(true);
-    setDeletedTaskDetails(deleteTask[0]);
-  };
+  // const teamDeleteTaskFromId = (e) => {
+  //   const deleteTask = teamAllTask.filter(
+  //     (each) => each._id === e.currentTarget.id
+  //   );
+  //   setTeamDeleteTask(true);
+  //   setDeletedTaskDetails(deleteTask[0]);
+  // };
 
   // ====================================================================
   //
@@ -384,7 +406,7 @@ const Teams = () => {
   // initial useEffect method
   useEffect(() => {
     getTeamOfEmployee();
-
+    getUserTask();
     // getTeamOfTeaks();
 
     //==============================================================================
@@ -441,8 +463,6 @@ const Teams = () => {
     };
     getOneTeamLeader();
 
-    getUserTask();
-
     // api call fetch team leader data end
   }, [adminChangeTeamValue]);
 
@@ -452,9 +472,34 @@ const Teams = () => {
 
   //console.log(teamLeaderTask);
 
+  // const getTeamTaskCalHour = (r, p, b) => {
+  //   // console.log(r, p);
+  //   const date1 = new Date(r);
+  //   const date2 = new Date(p);
+  //   const date3 = new Date(b);
+  //   const diffTime = Math.abs(date2 - date1);
+  //   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  //   const diffTime1 = Math.abs(date3 - date1);
+  //   const diffDays1 = Math.ceil(diffTime1 / (1000 * 60 * 60 * 24));
+
+  //   // console.log(diffTime + " milliseconds");
+  //   // console.log(diffDays + " days");
+  //   // console.log(diffDays * 24);
+  //   setTotalCalHour(diffDays * 8);
+  //   setCompletedHour(diffDays1 * 8);
+  // };
+
+  const projectIdValueUpdate = (id) => {
+    setProjectModal(true);
+    setProjectSetUserId(id);
+  };
+
   //console.log(`teamuser list ${teamUserList}`);
   //console.log(teamUserList);
   //console.log(nameValue);
+
+  //console.log(teamLeaderTask);
 
   return (
     <div className="teams">
@@ -539,25 +584,21 @@ const Teams = () => {
           {/* login admin show the team leader details end container */}
 
           {/* show team leader task  collapss container */}
-          {teamLeaderTask.length !== 0 && (
-            <div className="team-leader-task-collaps">
-              <TeamLeadTaska
-                teamLeaderTask={teamLeaderTask}
-                getUserTask={getUserTask}
-              />
-            </div>
-          )}
 
-          {/* show team leader task  collapss container */}
+          {/* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */}
 
-          {/* add team leader end */}
-          <div className="user-and-loader">
-            {/* all employee profiles start container */}
-            {teamUserList.length !== 0 && (
-              <div className="user-and-2">
-                <ul className="ul-container">
-                  {/* page count user list add */}
-                  {currentItems.map((i, index) => (
+          {teamUserList.length !== 0 && (
+            <div className="user-and-2">
+              <ul className="ul-container">
+                {/* page count user list add */}
+                {currentItems.map((i, index) => (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
                     <li
                       key={index}
                       className="user-card-container"
@@ -584,80 +625,79 @@ const Teams = () => {
                         </h3>
                         <p className="user-designation"> {i.designation} </p>
                       </div>
+                      {/* <div style={{ maginLeft: "50px" }}>
+                        {teamLeaderTask.map((each) => (
+                          // <select>
+                          //   <option value={each.project_id}>
+                          //     {each.project_id}
+                          //   </option>
+                          // </select>
+                          <>
+                            <input
+                              value={each.project_id}
+                              type="checkbox"
+                              id="inp"
+                            />
+                            <label>{each.project_id}</label>
+                          </>
+                        ))}
+                      </div> */}
                     </li>
-                  ))}
-                </ul>
-                <div>
-                  <button
-                    className="prev-btn"
-                    onClick={() => onPage(currentPage - 1)}
-                    disabled={currentPage === 0}
-                  >
-                    prev
-                  </button>
-                  {Array(v)
-                    .fill(null)
-                    .map((page, index) => (
-                      <button
-                        className="number-btn"
-                        onClick={() => onPage(index)}
-                        key={index}
-                      >
-                        {index + 1}
-                      </button>
-                    ))}
-                  <button
-                    onClick={() => onPage(currentPage + 1)}
-                    disabled={currentPage === v - 1}
-                    className="prev-btn"
-                  >
-                    next
-                  </button>
-                </div>
-              </div>
-            )}
-            {/* all employee profiles end container */}
-            {/* // employeee calculate loader start container */}
-            {/* {teamAllTask.length !== 0 && (
-              <div className="loder-container">
-                <div className="card">
-                  <div
-                    className="percent"
-                    style={{
-                      "--clr": "#0a5c0d", //"#04fc43",
-                      "--num": loaderValue,
-                    }}
-                  >
-                    <div className="dot"></div>
-                    <svg>
-                      <circle cx="70" cy="70" r="70"></circle>
-                      <circle cx="70" cy="70" r="70"></circle>
-                    </svg>
-                    <div className="number">
-                      <h3 style={{ color: "#d6385d" }}>
-                        {loaderValue}
-                        <span>%</span>
-                      </h3>
-                      <p>tasks</p>
-                    </div>
+                    <li>
+                      <GoProject onClick={() => projectIdValueUpdate(i._id)} />
+                    </li>
                   </div>
-                </div>
+                ))}
+              </ul>
+              <div>
+                <button
+                  className="prev-btn"
+                  onClick={() => onPage(currentPage - 1)}
+                  disabled={currentPage === 0}
+                >
+                  prev
+                </button>
+                {Array(v)
+                  .fill(null)
+                  .map((page, index) => (
+                    <button
+                      className="number-btn"
+                      onClick={() => onPage(index)}
+                      key={index}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+                <button
+                  onClick={() => onPage(currentPage + 1)}
+                  disabled={currentPage === v - 1}
+                  className="prev-btn"
+                >
+                  next
+                </button>
               </div>
-              // employeee calculate loader end container
-            )} */}
-            {teamAllTask.length !== 0 && (
-              <ReactApexChart
-                options={options}
-                series={update}
-                type="donut"
-                width="400"
+            </div>
+          )}
+
+          {/* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */}
+
+          {teamLeaderTask.length !== 0 && (
+            <div className="team-leader-task-collaps">
+              <TeamLeadTaska
+                teamLeaderTask={teamLeaderTask}
+                getUserTask={getUserTask}
               />
-            )}
-          </div>
+            </div>
+          )}
+
+          {/* show team leader task  collapss container */}
+
+          {/* add team leader end */}
+
           {/* employee all task by click employee image start container */}
           {teamAllTask.length !== 0 ? (
             <>
-              <table className="content-table">
+              {/* <table className="content-table">
                 <thead>
                   <tr>
                     <th>Task</th>
@@ -670,10 +710,18 @@ const Teams = () => {
                 </thead>
                 <tbody>
                   {teamAllTask.map((each) => (
-                    <tr>
+                    <tr
+                      onClick={() =>
+                        getTeamTaskCalHour(
+                          each.createdate,
+                          each.date,
+                          each.updatedAt
+                        )
+                      }
+                    >
                       <td>{each.task}</td>
-                      <td>{each.createdAt}</td>
-                      <td>{each.updatedAt}</td>
+                      <td>{each.createdate}</td>
+                      <td>{each.updatedAt.slice(0, 10)}</td>
                       <td>{each.date}</td>
                       <td>
                         <div
@@ -681,9 +729,9 @@ const Teams = () => {
                             backgroundColor:
                               each.status === "completed"
                                 ? "#0a5c0d" //"#14e610"
-                                : each.status === "incompleted"
+                                : each.status === "In-completed"
                                 ? "#b52134"
-                                : "#a8ad09",
+                                : "#b8ad14",
                             // ? "#14e610"
 
                             // : "#f53858",
@@ -694,6 +742,7 @@ const Teams = () => {
                             paddingLeft: "19px",
                             borderTopRightRadius: "10px",
                             borderBottomRightRadius: "10px",
+                            borderTopLeftRadius: "7px",
                           }}
                         >
                           {each.status}
@@ -708,13 +757,13 @@ const Teams = () => {
                         <AiOutlineDelete
                           id={each._id}
                           style={{ margin: "0px 18px" }}
-                          onClick={teamDeleteTaskFromId}
+                          // onClick={teamDeleteTaskFromId}
                         />
                       </td>
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </table> */}
             </>
           ) : (
             ""
@@ -737,6 +786,7 @@ const Teams = () => {
             setTaskAddModal={setTaskAddModal}
             teamUserList={teamUserList}
             getTeamOfTeaks={getTeamOfTeaks}
+            teamLeaderTask={teamLeaderTask}
           />
 
           {/* employee add task modal end */}
@@ -746,17 +796,26 @@ const Teams = () => {
             addUserModal={addUserModal}
             setAddUserModal={setAddUserModal}
             getTeamOfEmployee={getTeamOfEmployee}
+            //teamleader task props below
+            teamLeaderTask={teamLeaderTask}
           />
 
           {/* employe added to team modal end */}
           {/* =============================================== */}
           {/* task delete modal start */}
 
-          <TeamDeleteTaskModal
+          {/* <TeamDeleteTaskModal
             setTeamDeleteTask={setTeamDeleteTask}
             teamDeleteTask={teamDeleteTask}
             deletedTaskDetails={deletedTaskDetails}
             getTeamOfTeaks={getTeamOfTeaks}
+          /> */}
+
+          <ProjectIdModal
+            setProjectModal={setProjectModal}
+            projectModal={projectModal}
+            teamLeaderTask={teamLeaderTask}
+            projectSetUserId={projectSetUserId}
           />
 
           {/* task delete modal end */}
