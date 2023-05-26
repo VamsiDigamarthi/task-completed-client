@@ -102,98 +102,159 @@ const Users = () => {
   //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
   //  calculate hours task start container
 
-  const getTeamTaskCalHour = (c, e, ud, id, taskid, task, username) => {
+  const getTeamTaskCalHour = (
+    c,
+    e,
+    ud,
+    id,
+    taskid,
+    task,
+    username,
+    actualCom,
+    actualExp
+  ) => {
     setTotalCalHour("");
     setCompletedHour("");
     setTimerHour("");
 
+    let total;
+
     const date1 = new Date(c).getTime();
     const date2 = new Date(e).getTime();
     const date3 = new Date(ud).getTime();
+    const actualDate = new Date(actualCom).getTime();
+    const actualExpt = new Date(actualExp).getTime();
     //console.log(date1);
-    // console.log(date2);
-    // console.log(date3);
-    const diffTime = Math.abs(date2 - date1);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-    const total = diffDays * 8;
-
-    if (date3) {
-      if (date3 >= date1) {
-        const diffTime1 = Math.abs(date3 - date1);
-        const diffDays1 = Math.ceil(diffTime1 / (1000 * 60 * 60 * 24));
-        setCompletedHour(diffDays1 * 8);
-        const rr = diffDays1 * 8;
-        const values = {
-          projectId: id,
-          taskValue: taskid,
-          timer: rr,
-          totalHour: total,
-          taskName: task,
-          userName: username,
-        };
-
-        const API = axios.create({ baseURL: "http://localhost:5000" });
-
-        API.post("/time/value", values)
-          .then((res) => {
-            console.log(res.data);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      }
-    } else {
-      // const timer = setInterval(() => {
-      const datess = new Date();
-      const diffTime = Math.abs(datess - date1);
+    // console.log(actualCom);
+    // console.log(actualExp);
+    if (actualDate && actualExpt) {
+      const diffTime = Math.abs(actualExpt - actualDate);
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      setTimerHour(diffDays * 8);
-
-      const rr = `R-${diffDays * 8}`;
-      const values = {
-        projectId: id,
-        taskValue: taskid,
-        timer: rr,
-        totalHour: total,
-        taskName: task,
-        userName: username,
-      };
-
-      const API = axios.create({ baseURL: "http://localhost:5000" });
-
-      API.post("/time/value", values)
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-      // }, 1000);
+      total = diffDays * 8;
+    } else {
+      const diffTime = Math.abs(date2 - date1);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      total = diffDays * 8;
     }
 
-    setTotalCalHour(diffDays * 8);
+    if (date3) {
+      if (actualDate) {
+        console.log("djkd");
+        if (date3 >= actualDate) {
+          console.log("updated date big");
+          const diffTime1 = Math.abs(date3 - actualDate);
+          const diffDays1 = Math.ceil(diffTime1 / (1000 * 60 * 60 * 24));
+          setCompletedHour(diffDays1 * 8);
+          const rr = diffDays1 * 8;
+          const values = {
+            projectId: id,
+            taskValue: taskid,
+            timer: rr,
+            totalHour: total,
+            taskName: task,
+            userName: username,
+          };
+
+          const API = axios.create({ baseURL: "http://localhost:5000" });
+
+          API.post("/time/value", values)
+            .then((res) => {
+              console.log(res.data);
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        }
+      } else {
+        if (date3 >= date1) {
+          const diffTime1 = Math.abs(date3 - date1);
+          const diffDays1 = Math.ceil(diffTime1 / (1000 * 60 * 60 * 24));
+          setCompletedHour(diffDays1 * 8);
+          const rr = diffDays1 * 8;
+          const values = {
+            projectId: id,
+            taskValue: taskid,
+            timer: rr,
+            totalHour: total,
+            taskName: task,
+            userName: username,
+          };
+
+          const API = axios.create({ baseURL: "http://localhost:5000" });
+
+          API.post("/time/value", values)
+            .then((res) => {
+              console.log(res.data);
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        }
+      }
+    } else {
+      const datess = new Date();
+
+      if (actualCom) {
+        if (datess >= actualCom) {
+          const diffTime = Math.abs(datess - actualCom);
+          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+          setTimerHour(diffDays * 8);
+
+          const rr = `R-${diffDays * 8}`;
+          const values = {
+            projectId: id,
+            taskValue: taskid,
+            timer: rr,
+            totalHour: total,
+            taskName: task,
+            userName: username,
+          };
+
+          const API = axios.create({ baseURL: "http://localhost:5000" });
+
+          API.post("/time/value", values)
+            .then((res) => {
+              console.log(res.data);
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        }
+      } else {
+        if (datess >= date1) {
+          const diffTime = Math.abs(datess - date1);
+          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+          setTimerHour(diffDays * 8);
+
+          const rr = `R-${diffDays * 8}`;
+          const values = {
+            projectId: id,
+            taskValue: taskid,
+            timer: rr,
+            totalHour: total,
+            taskName: task,
+            userName: username,
+          };
+
+          const API = axios.create({ baseURL: "http://localhost:5000" });
+
+          API.post("/time/value", values)
+            .then((res) => {
+              console.log(res.data);
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        }
+      }
+    }
+
+    setTotalCalHour(total);
     // console.log(id);
     // console.log(taskid);
-    console.log(task);
-    console.log(username);
+    // console.log(task);
+    // console.log(username);
   };
-
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //      const datess = new Date()
-  //      console.log(datess)
-  //   },1000)
-  // }, [])
-
-  // cal hour task end container
-  //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
-  // console.log(editUserTask[0]._id);
-
-  // console.log(totalCalHour);
-
-  // console.log(completedHour);
 
   return (
     <div className="users">
@@ -249,6 +310,8 @@ const Users = () => {
               <th>CreateDate</th>
               <th>UpdateDate</th>
               <th>ExpertDate</th>
+              <th>ActualComDate</th>
+              <th>ActualComDate</th>
               <th>Status</th>
               <th>Details & Edit</th>
             </tr>
@@ -265,7 +328,9 @@ const Users = () => {
                     each.project_id,
                     each._id,
                     each.task,
-                    each.username
+                    each.username,
+                    each.actualComDate ? each.actualComDate : "",
+                    each.actualExptDate ? each.actualExptDate : ""
                   )
                 }
               >
@@ -274,6 +339,8 @@ const Users = () => {
                 <td>{each.createdAt.slice(0, 10)}</td>
                 <td>{each.updatedAt.slice(0, 10)}</td>
                 <td>{each.date}</td>
+                <td>{each.actualComDate}</td>
+                <td>{each.actualExptDate}</td>
                 <td>
                   <div
                     style={{

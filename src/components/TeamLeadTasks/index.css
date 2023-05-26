@@ -32,3 +32,29 @@
   max-height: 130px;
   overflow-y: auto;
 }
+
+.ee {
+  width: 100%;
+}
+
+.total-container {
+  background-color: antiquewhite;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  box-shadow: 0 0 20px rbga(0, 0, 0, 0.15);
+}
+
+.total-span {
+  color: #80190e;
+  font-size: 29px;
+  font-weight: bold;
+}
+
+.employee-cont {
+  box-shadow: 0 0 20px rbga(0, 0, 0, 0.15) !important;
+  width: 260px;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 15px;
+}

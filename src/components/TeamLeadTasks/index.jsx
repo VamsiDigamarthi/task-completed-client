@@ -13,8 +13,12 @@ import ReactApexChart from "react-apexcharts";
 import { AiOutlineDelete } from "react-icons/ai";
 import { GrView } from "react-icons/gr";
 
+import Chart from "react-apexcharts";
+
 import axios from "axios";
 import TimerAllDetailsModal from "../TimerAllDetailsModal/TimerAllDetailsModal";
+import ActualCreateDateModal from "../ActualCreateDateModal/ActualCreateDateModal";
+import TimerChart from "../TimerChart/TimerChart";
 
 function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
   const UUU = useSelector((state) => state.authReducer.authData);
@@ -55,6 +59,13 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
   const [timeValuesCalProject, setTimeValuesCalProject] = useState([]);
 
   const [timerModal, setTimerModal] = useState(false);
+
+  // actual completed date and actual expt date state variable
+
+  const [actualCompletedDate, setActualCompletedDate] = useState(false);
+
+  const [actualCompletedDateTaskDetails, setActualCompletedDateTaskDetails] =
+    useState([]);
 
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   //description modal state
@@ -274,9 +285,26 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
     setTimerModal(true);
   };
 
-  console.log(timerStoreEmployeeTask);
+  // admin edit click accual date and accual expert data create modal
+  const adminClickEditAccDateSet = (e) => {
+    const edit = teamLeaderTask.filter(
+      (each) => each._id === e.currentTarget.id
+    );
+    //console.log(edit);
+    setActualCompletedDate(true);
+    setActualCompletedDateTaskDetails(edit);
+  };
 
-  console.log(`value ${timerAllValue}`);
+  const teamLeaderClickEditAccDateSet = (e) => {
+    const edit = teamAllTask.filter((each) => each._id === e.currentTarget.id);
+    //console.log(edit);
+    setActualCompletedDate(true);
+    setActualCompletedDateTaskDetails(edit);
+  };
+
+  // console.log(timerStoreEmployeeTask);
+
+  // console.log(`value ${timerAllValue}`);
 
   return (
     <div className="TeamLeadTaska">
@@ -286,7 +314,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
       {/* <div> */}
       <div {...getCollapseProps()}>
         <div className="content">
-          <table className="content-table">
+          <table className="content-table ee">
             <thead>
               <tr>
                 <th>ProjectId</th>
@@ -294,6 +322,8 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                 <th>CreateDate</th>
                 <th>Update Date</th>
                 <th>Expert Date</th>
+                <th>ActualComDate</th>
+                <th>ActualComDate</th>
                 <th>Status</th>
                 <th>Details & Edit</th>
               </tr>
@@ -316,6 +346,8 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                   <td>{each.createdate}</td>
                   <td>{each.updatedAt.slice(0, 10)}</td>
                   <td>{each.date}</td>
+                  <td>{each.actualComDate}</td>
+                  <td>{each.actualExptDate}</td>
                   <td>
                     <div
                       style={{
@@ -347,18 +379,25 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                         style={{ marginLeft: "50px" }}
                       />
                     ) : (
-                      <RiDeleteBinLine
-                        id={each._id}
-                        style={{ margin: "0px 18px" }}
-                        onClick={teamDeleteTaskFromId}
-                      />
+                      <>
+                        <RiDeleteBinLine
+                          id={each._id}
+                          style={{ margin: "0px 18px" }}
+                          onClick={teamDeleteTaskFromId}
+                        />
+                        <FiEdit
+                          id={each._id}
+                          onClick={adminClickEditAccDateSet}
+                          // style={{ marginLeft: "50px" }}
+                        />
+                      </>
                     )}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          {totalCalHour && (
+          {/* {totalCalHour && (
             <>
               <div>
                 <p>Total Hours : {totalCalHour}</p>
@@ -368,7 +407,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                 <GrView onClick={timerModalDetails} />
               </div>
             </>
-          )}
+          )} */}
 
           <UserModal
             modal={modal}
@@ -395,6 +434,64 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
             setTimerModal={setTimerModal}
             timeValuesCalProject={timeValuesCalProject}
           />
+          {/* actual create date and accual expert date modal start container */}
+
+          <ActualCreateDateModal
+            setActualCompletedDate={setActualCompletedDate}
+            actualCompletedDate={actualCompletedDate}
+            actualCompletedDateTaskDetails={actualCompletedDateTaskDetails}
+          />
+
+          {/* actual create date and actual expert date modal end container */}
+        </div>
+        <div
+          style={{
+            height: "250px",
+            // border: "1px solid black",
+            marginTop: "20px",
+            marginBottom: "20px",
+          }}
+        >
+          {totalCalHour && (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "20px",
+                boxShadow: "0 0 20px rbga(0, 0, 0, 0.15)",
+              }}
+            >
+              <div
+                className="total-container"
+                style={{
+                  display: "flex",
+                  gap: "2rem",
+                  alignItems: "center",
+                  justifyContent: "space-around",
+                }}
+              >
+                <div>
+                  <p>
+                    Total Hours :
+                    <span className="total-span"> {totalCalHour} </span>
+                  </p>
+                  <p>
+                    Completed Hours :
+                    <span className="total-span"> {timerAllValue} </span>
+                  </p>
+                </div>
+                <div style={{ color: "#118a2f" }}>
+                  <GrView onClick={timerModalDetails} />
+                </div>
+              </div>
+
+              <TimerChart
+                totalCalHour={totalCalHour}
+                timerAllValue={timerAllValue}
+              />
+            </div>
+          )}
         </div>
         <div
           style={{
@@ -446,19 +543,24 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
             </ul>
           )}
           {timerStoreEmployeeTask.length !== 0 && (
-            <div>
+            <div className="employee-cont">
               {timerStoreEmployeeTask.map((each) => (
                 <div>
                   <p>
-                    Total Hours : <span>{each.totalHour}</span>
+                    Total Hours :{" "}
+                    <span className="total-span">{each.totalHour}</span>
                   </p>
                   {each.timer.split("-")[0] === "R" ? (
                     <p>
-                      Running Hour : <span>{each.timer.split("-")[1]}</span>
+                      Running Hour :{" "}
+                      <span className="total-span">
+                        {each.timer.split("-")[1]}
+                      </span>
                     </p>
                   ) : (
                     <p>
-                      Completed Hours : <span>{each.timer}</span>{" "}
+                      Completed Hours :{" "}
+                      <span className="total-span">{each.timer}</span>{" "}
                     </p>
                   )}
                 </div>
@@ -488,6 +590,8 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                   <th>Create</th>
                   <th>Update</th>
                   <th>Expert Date</th>
+                  <th>ActualComDate</th>
+                  <th>ActualComDate</th>
                   <th>Status</th>
                   <th>Details</th>
                 </tr>
@@ -500,6 +604,8 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                     <td>{each.createdate}</td>
                     <td>{each.updatedAt.slice(0, 10)}</td>
                     <td>{each.date}</td>
+                    <td>{each.actualComDate}</td>
+                    <td>{each.actualExptDate}</td>
                     <td>
                       <div
                         style={{
@@ -536,6 +642,13 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                         style={{ margin: "0px 18px" }}
                         onClick={teamDeleteTaskFromIds}
                       />
+                      {UUU.role !== "admin" && (
+                        <FiEdit
+                          id={each._id}
+                          onClick={teamLeaderClickEditAccDateSet}
+                          // style={{ marginLeft: "50px" }}
+                        />
+                      )}
                     </td>
                   </tr>
                 ))}

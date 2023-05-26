@@ -9,6 +9,7 @@ function UserModal({ modal, setModal, datilsTask }) {
     <>
       <Modal
         centered
+        size="50%"
         opened={modal}
         onClose={() => setModal(false)}
         title="Details"
