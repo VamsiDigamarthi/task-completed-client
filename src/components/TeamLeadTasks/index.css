@@ -52,9 +52,19 @@
 }
 
 .employee-cont {
-  box-shadow: 0 0 20px rbga(0, 0, 0, 0.15) !important;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   width: 260px;
-  border: 1px solid black;
+
   border-radius: 10px;
   padding: 15px;
+}
+
+.para-total-hour {
+  font-size: 18px;
+  font-weight: 600;
+  color: #a1a09f;
+}
+
+.fff {
+  font-size: 22px;
 }

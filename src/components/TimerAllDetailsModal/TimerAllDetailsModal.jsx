@@ -12,10 +12,34 @@ const TimerAllDetailsModal = ({
 
   console.log(timeValuesCalProject);
 
+  let newArray = [];
+
+  let uniqueObject = {};
+
+  for (let i in timeValuesCalProject) {
+    const objTitle = timeValuesCalProject[i]["taskValue"];
+
+    uniqueObject[objTitle] = timeValuesCalProject[i];
+  }
+
+  for (let i in uniqueObject) {
+    newArray.push(uniqueObject[i]);
+  }
+
+  console.log(newArray);
+
+  // const jsonObject = timeValuesCalProject?.map(JSON.stringify);
+
+  // const uniqueSet = new Set(jsonObject);
+
+  // const uniqueArray = Array.from(uniqueSet).map(JSON.parse);
+
+  // console.log(uniqueArray);
+
   return (
     <>
       <Modal
-        size="50%"
+        size="65%"
         centered
         opened={timerModal}
         onClose={() => setTimerModal(false)}
@@ -46,7 +70,7 @@ const TimerAllDetailsModal = ({
               </tr>
             </thead>
             <tbody>
-              {timeValuesCalProject.map((each, index) => (
+              {newArray.map((each, index) => (
                 <tr>
                   <td>{each.userName}</td>
                   <td>{each.taskName}</td>

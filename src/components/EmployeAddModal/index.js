@@ -167,7 +167,7 @@ const EmployeAddModal = ({
               {teamLeaderTask?.map((each) => (
                 <>
                   <option disabled selected hidden>
-                    Please select role of Employee
+                    Please select project Id
                   </option>
                   <option value={each.project_id}>{each.project_id}</option>
                 </>

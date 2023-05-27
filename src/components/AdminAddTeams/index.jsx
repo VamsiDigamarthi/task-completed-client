@@ -79,7 +79,7 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
     });
   };
 
-  console.log(user);
+  //console.log(user);
 
   return (
     <>

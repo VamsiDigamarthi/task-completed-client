@@ -1,5 +1,5 @@
 import { useCollapse } from "react-collapsed";
-import { BiDetail } from "react-icons/bi";
+import { BiDetail, BiSearchAlt } from "react-icons/bi";
 import { FiEdit } from "react-icons/fi";
 import "./index.css";
 import { useEffect, useState } from "react";
@@ -39,6 +39,8 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
   const [totalCalHour, setTotalCalHour] = useState("");
 
   const [completedHour, setCompletedHour] = useState("");
+
+  const [inputSearchValue, setInputSearchValue] = useState("");
 
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // user list based on select project click
@@ -260,6 +262,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
     // setClickUserHighletColorByName(n);
     // setTotalCalHour("");
     // setCompletedHour("");
+    setTimerStoreEmployeeTask([]);
   };
 
   // ftech the timer based on employee task
@@ -269,8 +272,10 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
 
     API.get(`/time/taskvalue/${id}`)
       .then((res) => {
-        // console.log(res.data);
-        setTimerStoreEmployeeTask(res.data);
+        console.log(res.data[0]);
+        const arrayOfObject = res.data[0];
+        const array = Array(arrayOfObject);
+        setTimerStoreEmployeeTask(array);
       })
       .catch((e) => {
         console.log(e);
@@ -306,6 +311,19 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
 
   // console.log(`value ${timerAllValue}`);
 
+  const searchInput = (e) => {
+    // console.log(e.target.value);
+    setInputSearchValue(e.target.value);
+  };
+
+  const valuesFilter = teamLeaderTask.filter((each) =>
+    each.status
+      .split("-")[0]
+      .concat(each.status.split("-")[1])
+      .toLocaleLowerCase()
+      .includes(inputSearchValue.toLocaleLowerCase())
+  );
+
   return (
     <div className="TeamLeadTaska">
       <div className="header" {...getToggleProps()}>
@@ -313,6 +331,14 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
       </div>
       {/* <div> */}
       <div {...getCollapseProps()}>
+        <div className="employee-serach-container">
+          <div>
+            <input type="text" onChange={searchInput} />
+            <div>
+              <BiSearchAlt className="employee-seacrh-icon" />
+            </div>
+          </div>
+        </div>
         <div className="content">
           <table className="content-table ee">
             <thead>
@@ -323,13 +349,13 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                 <th>Update Date</th>
                 <th>Expert Date</th>
                 <th>ActualComDate</th>
-                <th>ActualComDate</th>
+                <th>ActualExptDate</th>
                 <th>Status</th>
                 <th>Details & Edit</th>
               </tr>
             </thead>
             <tbody>
-              {teamLeaderTask.map((each, index) => (
+              {valuesFilter.map((each, index) => (
                 <tr
                   key={index}
                   onClick={() =>
@@ -373,11 +399,22 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                   <td>
                     <BiDetail id={each._id} onClick={detailsAndModel} />
                     {UUU.role !== "admin" ? (
-                      <FiEdit
+                      <button
                         id={each._id}
                         onClick={editAndModel}
-                        style={{ marginLeft: "50px" }}
-                      />
+                        disabled={each.status === "completed"}
+                        style={{
+                          background: "transparent",
+                          border: "none",
+                          width: "fit-content",
+                        }}
+                      >
+                        <FiEdit
+                          // id={each._id}
+                          // onClick={editAndModel}
+                          style={{ marginLeft: "50px" }}
+                        />
+                      </button>
                     ) : (
                       <>
                         <RiDeleteBinLine
@@ -462,6 +499,11 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                 boxShadow: "0 0 20px rbga(0, 0, 0, 0.15)",
               }}
             >
+              <TimerChart
+                totalCalHour={totalCalHour}
+                timerAllValue={timerAllValue}
+              />
+
               <div
                 className="total-container"
                 style={{
@@ -472,11 +514,11 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                 }}
               >
                 <div>
-                  <p>
+                  <p className="para-total-hour">
                     Total Hours :
                     <span className="total-span"> {totalCalHour} </span>
                   </p>
-                  <p>
+                  <p className="para-total-hour">
                     Completed Hours :
                     <span className="total-span"> {timerAllValue} </span>
                   </p>
@@ -485,11 +527,6 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                   <GrView onClick={timerModalDetails} />
                 </div>
               </div>
-
-              <TimerChart
-                totalCalHour={totalCalHour}
-                timerAllValue={timerAllValue}
-              />
             </div>
           )}
         </div>
@@ -546,21 +583,21 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
             <div className="employee-cont">
               {timerStoreEmployeeTask.map((each) => (
                 <div>
-                  <p>
+                  <p className="para-total-hour">
                     Total Hours :{" "}
-                    <span className="total-span">{each.totalHour}</span>
+                    <span className="total-span fff">{each.totalHour}</span>
                   </p>
                   {each.timer.split("-")[0] === "R" ? (
-                    <p>
+                    <p className="para-total-hour">
                       Running Hour :{" "}
-                      <span className="total-span">
+                      <span className="total-span fff">
                         {each.timer.split("-")[1]}
                       </span>
                     </p>
                   ) : (
-                    <p>
+                    <p className="para-total-hour">
                       Completed Hours :{" "}
-                      <span className="total-span">{each.timer}</span>{" "}
+                      <span className="total-span fff">{each.timer}</span>{" "}
                     </p>
                   )}
                 </div>

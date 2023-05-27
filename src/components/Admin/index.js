@@ -97,7 +97,7 @@ const Admin = () => {
     getAllTeamsByAdmin();
   }, []);
 
-  //console.log(adminAllTeams);
+  console.log(adminAllTeams);
 
   return (
     <>
@@ -132,19 +132,36 @@ const Admin = () => {
                 className="admin-right-btn"
                 onClick={() => setAdminAddTask(true)}
               >
-                Add Tasks to Teams
+                Add Project to Teams
               </button>
             </div>
           </div>
 
           {/* add team and task container end */}
-          <div className="teams-admin">
+          {/* <div className="teams-admin">
             {employessTeams.map((each, index) => (
               <div key={index} className="no-of-employee">
                 <p>{each.icons}</p>
                 <h3>{each.title}</h3>
                 <p>
                   Employees<span>{each.noOfEmployess}</span>
+                </p>
+              </div>
+            ))}
+          </div> */}
+
+          <div className="admin-employee-f-container">
+            {adminAllTeams.map((each) => (
+              <div className="admin-employess-s-container">
+                <img
+                  className="admin-employee-images-card"
+                  src={each.profilePic}
+                />
+                <p className="para-name">
+                  {each.name.charAt(0).toUpperCase() + each.name.slice(1)}
+                </p>
+                <p className="admin-emp-role">
+                  <span>{each.role}</span>
                 </p>
               </div>
             ))}

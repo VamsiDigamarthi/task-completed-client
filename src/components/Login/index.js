@@ -20,9 +20,9 @@ const Login = () => {
 
   const error = useSelector((state) => state.authReducer.error);
 
-  console.log(error);
+  // console.log(error);
 
-  console.log(err);
+  // console.log(err);
 
   const navigate = useNavigate();
 
