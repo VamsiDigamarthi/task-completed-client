@@ -125,7 +125,7 @@
 
 .admin-employee-f-container {
   display: flex;
-  gap: 2rem;
+  gap: 4.5rem 2rem;
   margin-top: 60px;
   flex-wrap: wrap;
 }

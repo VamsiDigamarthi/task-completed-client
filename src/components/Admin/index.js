@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { SpinnerCircular } from "spinners-react";
 import "./index.css";
 import SideBar from "../SideBar";
 import Header from "../Header";
@@ -44,24 +44,26 @@ const Admin = () => {
 
   const [adminAllTeams, setAdminAllTeams] = useState([]);
 
-  const [options, setOptions] = useState({
-    colors: ["#ff0000", "#f0f", "#ded821"],
-  });
+  const [loading, setLoading] = useState(false);
 
-  const [series, setSeries] = useState([
-    {
-      name: "software team",
-      data: [100, 200, 400, 150],
-    },
-    {
-      name: "market team",
-      data: [80, 100, 300, 270],
-    },
-    {
-      name: "projects team",
-      data: [140, 500, 200, 80],
-    },
-  ]);
+  // const [options, setOptions] = useState({
+  //   colors: ["#ff0000", "#f0f", "#ded821"],
+  // });
+
+  // const [series, setSeries] = useState([
+  //   {
+  //     name: "software team",
+  //     data: [100, 200, 400, 150],
+  //   },
+  //   {
+  //     name: "market team",
+  //     data: [80, 100, 300, 270],
+  //   },
+  //   {
+  //     name: "projects team",
+  //     data: [140, 500, 200, 80],
+  //   },
+  // ]);
 
   const UUU = useSelector((state) => state.authReducer.authData);
 
@@ -81,11 +83,13 @@ const Admin = () => {
     //   .catch((e) => {
     //     console.log(e);
     //   });
-
+    setLoading(true);
     API.get(`team/admin/team/${UUU._id}`)
       .then((res) => {
         // setTeamUserList(res.data);
+
         setAdminAllTeams(res.data);
+        setLoading(false);
       })
 
       .catch((e) => {
@@ -150,24 +154,37 @@ const Admin = () => {
             ))}
           </div> */}
 
-          <div className="admin-employee-f-container">
-            {adminAllTeams.map((each) => (
-              <div className="admin-employess-s-container">
-                <img
-                  className="admin-employee-images-card"
-                  src={each.profilePic}
-                />
-                <p className="para-name">
-                  {each.name.charAt(0).toUpperCase() + each.name.slice(1)}
-                </p>
-                <p className="admin-emp-role">
-                  <span>{each.role}</span>
-                </p>
-              </div>
-            ))}
-          </div>
+          {loading ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "300px",
+              }}
+            >
+              <SpinnerCircular enabled={loading} />
+            </div>
+          ) : (
+            <div className="admin-employee-f-container">
+              {adminAllTeams.map((each) => (
+                <div className="admin-employess-s-container">
+                  <img
+                    className="admin-employee-images-card"
+                    src={each.profilePic}
+                  />
+                  <p className="para-name">
+                    {each.name.charAt(0).toUpperCase() + each.name.slice(1)}
+                  </p>
+                  <p className="admin-emp-role">
+                    <span>{each.role}</span>
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
 
-          <div className="charts-container">
+          {/* <div className="charts-container">
             <Chart
               options={options}
               series={series}
@@ -175,7 +192,7 @@ const Admin = () => {
               width={1000}
               height={400}
             />
-          </div>
+          </div> */}
         </div>
       </div>
       <AdminAddTeams

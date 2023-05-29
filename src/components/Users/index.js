@@ -41,6 +41,9 @@ const Users = () => {
   const [timerHour, setTimerHour] = useState("");
 
   const [description, setDescription] = useState("");
+
+  const [userTasKTimer, setUserTaskTimer] = useState([]);
+
   const [options, setOptions] = useState({
     labels: ["Completed", "Incompleted"],
     colors: ["#0a5c0d", "#b52134"], //#14e610  #f53858
@@ -298,34 +301,42 @@ const Users = () => {
         each.status === "completed" ? new Date(each.updatedAt).getTime() : "";
 
       const actualDate = each.actualComDate
-        ? new Date(each.actualCom).getTime()
+        ? new Date(each.actualComDate).getTime()
         : "";
       const actualExpt = each.actualExptDate
-        ? new Date(each.actualExp).getTime()
+        ? new Date(each.actualExptDate).getTime()
         : "";
 
-      console.log(date1);
-      console.log(date2);
-      console.log(date3);
+      // console.log(date1);
+      // console.log(date2);
+      // console.log(date3);
 
-      if (actualDate && actualExpt) {
+      if (actualDate !== "" && actualExpt !== "") {
         const diffTime = Math.abs(actualExpt - actualDate);
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         total = diffDays * 8;
+        console.log(`act ${total}`);
       } else {
         const diffTime = Math.abs(date2 - date1);
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         total = diffDays * 8;
+        console.log(total);
       }
 
       if (date3) {
         if (actualDate) {
           console.log("djkd");
+          // let total;
           if (date3 >= actualDate) {
             console.log("updated date big");
+            //
+            // const diffTime = Math.abs(actualExpt - actualDate);
+            // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            // total = diffDays * 8;
+            //
             const diffTime1 = Math.abs(date3 - actualDate);
             const diffDays1 = Math.ceil(diffTime1 / (1000 * 60 * 60 * 24));
-            setCompletedHour(diffDays1 * 8);
+            // setCompletedHour(diffDays1 * 8);
             const rr = diffDays1 * 8;
             const values = {
               projectId: each.project_id,
@@ -340,7 +351,7 @@ const Users = () => {
 
             API.post("/time/value", values)
               .then((res) => {
-                console.log(res.data);
+                //console.log(res.data);
               })
               .catch((e) => {
                 console.log(e);
@@ -365,7 +376,7 @@ const Users = () => {
 
             API.post("/time/value", values)
               .then((res) => {
-                console.log(res.data);
+                //console.log(res.data);
               })
               .catch((e) => {
                 console.log(e);
@@ -395,7 +406,25 @@ const Users = () => {
 
             API.post("/time/value", values)
               .then((res) => {
-                console.log(res.data);
+                //console.log(res.data);
+              })
+              .catch((e) => {
+                console.log(e);
+              });
+          } else {
+            const values = {
+              taskValue: each._id,
+              timer: "R-0",
+              totalHour: total,
+              taskName: each.task,
+              userName: each.username,
+            };
+
+            const API = axios.create({ baseURL: "http://localhost:5000" });
+
+            API.post("/time/value", values)
+              .then((res) => {
+                //console.log(res.data);
               })
               .catch((e) => {
                 console.log(e);
@@ -421,7 +450,7 @@ const Users = () => {
 
             API.post("/time/value", values)
               .then((res) => {
-                console.log(res.data);
+                //console.log(res.data);
               })
               .catch((e) => {
                 console.log(e);
@@ -433,6 +462,23 @@ const Users = () => {
       // jkdjjjj
     });
   }, [userDataTask]);
+
+  const fetchTheTimersBasedOnTask = (id) => {
+    const API = axios.create({ baseURL: "http://localhost:5000" });
+
+    API.get(`/time/taskvalue/${id}`)
+      .then((res) => {
+        console.log(res.data[0]);
+        const arrayOfObject = res.data[0];
+        const array = Array(arrayOfObject);
+        //
+        //console.log(array);
+        setUserTaskTimer(array);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   return (
     <div className="users">
@@ -459,7 +505,7 @@ const Users = () => {
             </div>
           </div>
           {/* hour cal container */}
-          {totalCalHour && (
+          {/* {totalCalHour && (
             <div className="employee-timer-container">
               {totalCalHour && (
                 <>
@@ -479,6 +525,38 @@ const Users = () => {
                   )}
                 </>
               )}
+            </div>
+          )} */}
+
+          {/* {userTasKTimer && (
+            <div>
+              {userTasKTimer.map((each) => )}
+            </div>
+          )} */}
+
+          {userTasKTimer.length !== 0 && (
+            <div className="employee-cont">
+              {userTasKTimer.map((each) => (
+                <div>
+                  <p className="para-total-hour">
+                    Total Hours :{" "}
+                    <span className="total-span fff">{each.totalHour}</span>
+                  </p>
+                  {each.timer.split("-")[0] === "R" ? (
+                    <p className="para-total-hour">
+                      Running Hour :{" "}
+                      <span className="total-span fff">
+                        {each.timer.split("-")[1]}
+                      </span>
+                    </p>
+                  ) : (
+                    <p className="para-total-hour">
+                      Completed Hours :{" "}
+                      <span className="total-span fff">{each.timer}</span>{" "}
+                    </p>
+                  )}
+                </div>
+              ))}
             </div>
           )}
 
@@ -527,6 +605,7 @@ const Users = () => {
                 //     each.actualExptDate ? each.actualExptDate : ""
                 //   )
                 // }
+                onClick={() => fetchTheTimersBasedOnTask(each._id)}
               >
                 <td>{each.project_id}</td>
                 <td>{each.task}</td>
