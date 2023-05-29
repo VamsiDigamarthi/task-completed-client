@@ -11,22 +11,44 @@ function TeamDeleteTaskModal({
   getUserTask,
 }) {
   //   const [opened, { open, close }] = useDisclosure(false);
+  const id = deletedTaskDetails?._id;
+  console.log(id);
   const theme = useMantineTheme();
   const { _id, name } = deletedTaskDetails;
   const deleteTaskButton = (e) => {
     e.preventDefault();
-    const API = axios.create({ baseURL: "http://localhost:5000" });
-    API.delete(`/tasks/delete/${_id}`)
-      .then((res) => {
-        // getUserTask();
-        //console.log(res.data);
-        setTeamDeleteTask(false);
-        getTeamOfTeaks(name);
-        //getUserTask();
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    const deleteTask = () => {
+      const API = axios.create({ baseURL: "http://localhost:5000" });
+      API.delete(`/tasks/delete/${_id}`)
+        .then((res) => {
+          // getUserTask();
+          //console.log(res.data);
+          setTeamDeleteTask(false);
+          getTeamOfTeaks(name);
+          //getUserTask();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    };
+
+    const timerDeleteBasedOnTask = () => {
+      const API = axios.create({ baseURL: "http://localhost:5000" });
+      API.delete(`time/delete/timer/${_id}`)
+        .then((res) => {
+          // getUserTask();
+          console.log(res.data);
+          setTeamDeleteTask(false);
+          // getTeamOfTeaks(name);
+          //getUserTask();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    };
+
+    deleteTask();
+    timerDeleteBasedOnTask();
   };
 
   return (
