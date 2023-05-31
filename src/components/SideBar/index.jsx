@@ -30,11 +30,12 @@ const SideBar = () => {
         <div className="dash-img">
           <img
             className="img-dash"
-            src="https://expertphotography.b-cdn.net/wp-content/uploads/2018/10/cool-profile-pictures-retouching-1.jpg"
+            // src="https://expertphotography.b-cdn.net/wp-content/uploads/2018/10/cool-profile-pictures-retouching-1.jpg"
+            src="./images/brihaspathi.png"
             alt="im"
           />
         </div>
-        <h3>Honey</h3>
+        {/* <h3>Honey</h3> */}
       </div>
 
       <Link to={"/dashboard"} className="link">

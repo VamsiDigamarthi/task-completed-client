@@ -76,11 +76,17 @@ const Login = () => {
           <button className="login-btn" type="submit">
             Login
           </button>
-          <p>
-            <Link to="/signup" className="already-sign">
-              Don't have account <span>Click to login</span>
-            </Link>
-          </p>
+
+          <div>
+            {/* <p>
+              <Link to="/signup" className="already-sign">
+                Don't have account <span>Click to login</span>
+              </Link>
+            </p> */}
+            <p className="reset-pass">
+              <Link to="/resetpassword">Reset your password</Link>
+            </p>
+          </div>
         </form>
       </div>
     </div>

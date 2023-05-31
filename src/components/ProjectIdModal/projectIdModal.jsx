@@ -13,6 +13,7 @@ const ProjectIdModal = ({
   const [inputValue, setInputValue] = useState(null);
 
   const [employees, setEmployees] = useState({});
+
   //   const editSubmitTask = (e) => {
   //     e.preventDefault();
   //     const API = axios.create({ baseURL: "http://localhost:5000" });
@@ -47,6 +48,7 @@ const ProjectIdModal = ({
   };
 
   useEffect(() => {
+    setEmployees({});
     const API = axios.create({ baseURL: "http://localhost:5000" });
 
     API.get(`auth/project/${projectSetUserId}`)
@@ -110,7 +112,7 @@ const ProjectIdModal = ({
         <div>
           <h5>which project assign</h5>
           {rrr?.map((each) => (
-            <li>{each}</li>
+            <p>{each}</p>
           ))}
           {/* {Array(employees).map((each) => (
             <ul>

@@ -643,6 +643,14 @@ const Teams = () => {
                         ))}
                       </div> */}
                     </li>
+                    {/* {UUU.role !== "admin" && (
+                      <li>
+                        <GoProject
+                          onClick={() => projectIdValueUpdate(i._id)}
+                        />
+                      </li>
+                    )} */}
+
                     <li>
                       <GoProject onClick={() => projectIdValueUpdate(i._id)} />
                     </li>

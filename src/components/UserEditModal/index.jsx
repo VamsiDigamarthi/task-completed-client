@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./index.css";
-import { IoIosCloseCircleOutline } from "react-icons/io";
+
 import { Modal, useMantineTheme } from "@mantine/core";
 import axios from "axios";
 

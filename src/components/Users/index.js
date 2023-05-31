@@ -9,16 +9,18 @@ import { useSelector } from "react-redux";
 import Chart from "react-apexcharts";
 import { FiEdit } from "react-icons/fi";
 import UserEditModal from "../UserEditModal";
-import { RiH4 } from "react-icons/ri";
 
-const fff = [
-  {
-    name: "completed",
-  },
-  {
-    name: "incompletd",
-  },
-];
+import { RiEdit2Line } from "react-icons/ri";
+import ProfileEditModal from "../ProfileEditModal/ProfileEditModal";
+
+// const fff = [
+//   {
+//     name: "completed",
+//   },
+//   {
+//     name: "incompletd",
+//   },
+// ];
 
 const Users = () => {
   const [modal, setModal] = useState(false);
@@ -43,6 +45,10 @@ const Users = () => {
   const [description, setDescription] = useState("");
 
   const [userTasKTimer, setUserTaskTimer] = useState([]);
+
+  const [editProfileModal, setEditProfileModal] = useState(false);
+
+  // const [editProfileUserDetails, setEditProfileUserDetails] = useState([]);
 
   const [options, setOptions] = useState({
     labels: ["Completed", "Incompleted"],
@@ -480,6 +486,10 @@ const Users = () => {
       });
   };
 
+  const profileEditModal = () => {
+    setEditProfileModal(true);
+  };
+
   return (
     <div className="users">
       <div className="blur blur-h"></div>
@@ -564,104 +574,115 @@ const Users = () => {
           <Chart options={options} series={update} type="donut" width="300" />
         </div>
         {/* search container start */}
-        <div className="employee-serach-container">
+        <div className="search-edit-profile-container">
           <div>
-            <input type="text" onChange={searchInput} />
+            <RiEdit2Line
+              onClick={profileEditModal}
+              className="profile-edit-image"
+            />
+          </div>
+          <div className="employee-serach-container">
             <div>
-              <BiSearchAlt className="employee-seacrh-icon" />
+              <input type="text" onChange={searchInput} />
+              <div>
+                <BiSearchAlt className="employee-seacrh-icon" />
+              </div>
             </div>
           </div>
         </div>
+
         {/* search container end */}
-        <table className="content-table">
-          <thead>
-            <tr>
-              <th>ProjectId</th>
-              <th>Task</th>
-              <th>CreateDate</th>
-              <th>UpdateDate</th>
-              <th>ExpertDate</th>
-              <th>ActualComDate</th>
-              <th>ActualComDate</th>
-              <th>Status</th>
-              <th>Details & Edit</th>
-            </tr>
-          </thead>
-          <tbody>
-            {valuesFilter.map((each, index) => (
-              <tr
-                key={index}
-                // onLoad={onLoadPageValue}
-                // onClick={() =>
-                //   getTeamTaskCalHour(
-                //     each.createdate,
-                //     each.date,
-                //     each.status === "completed" ? each.updatedAt : "",
-                //     each.project_id,
-                //     each._id,
-                //     each.task,
-                //     each.username,
-                //     each.actualComDate ? each.actualComDate : "",
-                //     each.actualExptDate ? each.actualExptDate : ""
-                //   )
-                // }
-                onClick={() => fetchTheTimersBasedOnTask(each._id)}
-              >
-                <td>{each.project_id}</td>
-                <td>{each.task}</td>
-                <td>{each.createdAt.slice(0, 10)}</td>
-                <td>{each.updatedAt.slice(0, 10)}</td>
-                <td>{each.date}</td>
-                <td>{each.actualComDate}</td>
-                <td>{each.actualExptDate}</td>
-                <td>
-                  <div
-                    style={{
-                      backgroundColor:
-                        each.status === "completed"
-                          ? "#0a5c0d"
-                          : each.status === "In-completed"
-                          ? "#b52134"
-                          : "#a8ad09",
-                      fontSize: "16px",
-                      fontWeight: 400,
-                      padding: "2px",
-                      color: "#ffffff",
-                      paddingLeft: "19px",
-                      borderTopRightRadius: "10px",
-                      borderBottomRightRadius: "10px",
-                      borderTopLeftRadius: "7px",
-                    }}
-                  >
-                    {each.status}
-                  </div>
-                </td>
-                <td>
-                  <BiDetail
-                    id={each._id}
-                    onClick={detailsAndModel}
-                    style={{ cursor: "pointer" }}
-                  />
-                  <button
-                    id={each._id}
-                    onClick={editAndModel}
-                    disabled={each.status === "completed"}
-                    style={{
-                      background: "transparent",
-                      border: "none",
-                      width: "fit-content",
-                    }}
-                  >
-                    <FiEdit
-                      // disabled={true}
-                      style={{ marginLeft: "50px", cursor: "pointer" }}
-                    />
-                  </button>
-                </td>
+        {valuesFilter.length !== 0 && (
+          <table className="content-table">
+            <thead>
+              <tr>
+                <th>ProjectId</th>
+                <th>Task</th>
+                <th>CreateDate</th>
+                <th>UpdateDate</th>
+                <th>ExpertDate</th>
+                <th>ActualComDate</th>
+                <th>ActualComDate</th>
+                <th>Status</th>
+                <th>Details & Edit</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {valuesFilter.map((each, index) => (
+                <tr
+                  key={index}
+                  // onLoad={onLoadPageValue}
+                  // onClick={() =>
+                  //   getTeamTaskCalHour(
+                  //     each.createdate,
+                  //     each.date,
+                  //     each.status === "completed" ? each.updatedAt : "",
+                  //     each.project_id,
+                  //     each._id,
+                  //     each.task,
+                  //     each.username,
+                  //     each.actualComDate ? each.actualComDate : "",
+                  //     each.actualExptDate ? each.actualExptDate : ""
+                  //   )
+                  // }
+                  onClick={() => fetchTheTimersBasedOnTask(each._id)}
+                >
+                  <td>{each.project_id}</td>
+                  <td>{each.task}</td>
+                  <td>{each.createdAt.slice(0, 10)}</td>
+                  <td>{each.updatedAt.slice(0, 10)}</td>
+                  <td>{each.date}</td>
+                  <td>{each.actualComDate}</td>
+                  <td>{each.actualExptDate}</td>
+                  <td>
+                    <div
+                      style={{
+                        backgroundColor:
+                          each.status === "completed"
+                            ? "#0a5c0d"
+                            : each.status === "In-completed"
+                            ? "#b52134"
+                            : "#a8ad09",
+                        fontSize: "16px",
+                        fontWeight: 400,
+                        padding: "2px",
+                        color: "#ffffff",
+                        paddingLeft: "19px",
+                        borderTopRightRadius: "10px",
+                        borderBottomRightRadius: "10px",
+                        borderTopLeftRadius: "7px",
+                      }}
+                    >
+                      {each.status}
+                    </div>
+                  </td>
+                  <td>
+                    <BiDetail
+                      id={each._id}
+                      onClick={detailsAndModel}
+                      style={{ cursor: "pointer" }}
+                    />
+                    <button
+                      id={each._id}
+                      onClick={editAndModel}
+                      disabled={each.status === "completed"}
+                      style={{
+                        background: "transparent",
+                        border: "none",
+                        width: "fit-content",
+                      }}
+                    >
+                      <FiEdit
+                        // disabled={true}
+                        style={{ marginLeft: "50px", cursor: "pointer" }}
+                      />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
         {/* task details modal start */}
         <UserModal modal={modal} setModal={setModal} datilsTask={description} />
         {/* task details modal end */}
@@ -675,6 +696,14 @@ const Users = () => {
           />
         )}
         {/* task change status modal end */}
+
+        {/* profile Edit Modal start container */}
+        <ProfileEditModal
+          editProfileModal={editProfileModal}
+          setEditProfileModal={setEditProfileModal}
+        />
+
+        {/* profile edit modal end Container */}
       </div>
     </div>
   );

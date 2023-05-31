@@ -165,3 +165,13 @@
 .admin-emp-role {
   color: #cec5b6;
 }
+
+.admin-team-delete {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.admin-team-delete > :nth-child(1) {
+  color: #7a2a25;
+}

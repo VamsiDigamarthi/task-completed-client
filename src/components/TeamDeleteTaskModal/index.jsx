@@ -11,8 +11,8 @@ function TeamDeleteTaskModal({
   getUserTask,
 }) {
   //   const [opened, { open, close }] = useDisclosure(false);
-  const id = deletedTaskDetails?._id;
-  console.log(id);
+  // const id = deletedTaskDetails?._id;
+  // console.log(id);
   const theme = useMantineTheme();
   const { _id, name } = deletedTaskDetails;
   const deleteTaskButton = (e) => {

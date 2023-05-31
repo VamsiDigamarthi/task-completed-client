@@ -69,6 +69,8 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
   const [actualCompletedDateTaskDetails, setActualCompletedDateTaskDetails] =
     useState([]);
 
+  const [searchTaskBasedOnProject, setSearchTaskBasedOnProject] = useState("");
+
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   //description modal state
 
@@ -181,7 +183,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
     API.get(`auth/project/click/user/${id}`)
       .then((res) => {
         //setTeamUserList(res.data);
-        console.log(res.data);
+        // console.log(res.data);
         setUserListBasedOnProjectClick(res.data);
         setTeamAllTask([]);
         //res.data;
@@ -206,9 +208,30 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
       });
   };
 
+  // new added timer values
+  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  // timer chat calculation change and duplicates remove form fetching data table
+
   let timerAllValue = 0;
 
-  timeValuesCalProject?.forEach((each) => {
+  let newArray = [];
+
+  let uniqueObject = {};
+
+  for (let i in timeValuesCalProject) {
+    const objTitle = timeValuesCalProject[i]["taskValue"];
+
+    uniqueObject[objTitle] = timeValuesCalProject[i];
+  }
+
+  for (let i in uniqueObject) {
+    newArray.push(uniqueObject[i]);
+  }
+
+  newArray?.forEach((each) => {
+    // filter the date in duplivates
+
     if (each.timer.split("-")[0] === "R") {
       let www = each.timer.split("-")[1];
 
@@ -220,7 +243,17 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
     }
   });
 
-  const getTeamTaskCalHour = (create, up, id) => {
+  // timer chat calculation change and duplicates remove form fetching data table
+  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  // new added timer values
+
+  const getTeamTaskCalHour = (
+    create,
+    up,
+    id,
+    actualComDate,
+    actualExptDate
+  ) => {
     setTotalCalHour("");
     setCompletedHour("");
     setTimerStoreEmployeeTask([]);
@@ -229,10 +262,31 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
     // console.log(r, p);
     const date1 = new Date(create).getTime();
     const date2 = new Date(up).getTime();
-    const diffTime = Math.abs(date2 - date1);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    // const diffTime = Math.abs(date2 - date1);
+    // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-    setTotalCalHour(diffDays * 8);
+    // console.log(actualComDate);
+    // console.log(actualExptDate);
+
+    const actualStart = new Date(actualComDate).getDate();
+
+    const actualEnd = new Date(actualExptDate).getDate();
+    console.log(actualStart);
+
+    if (actualComDate) {
+      const diffTime = Math.abs(actualEnd - actualStart);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      // total = diffDays * 8;
+      console.log("is not emplty if");
+      setTotalCalHour(diffDays * 8);
+    } else {
+      const diffTime = Math.abs(date2 - date1);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      console.log("is  emplty else");
+      setTotalCalHour(diffDays * 8);
+    }
+
+    //setTotalCalHour(diffDays * 8);
   };
 
   const getTeamOfTeaks = async (n) => {
@@ -257,6 +311,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
 
   const getData = (n) => {
     //console.log(`===${n}`);
+    // setSearchTaskBasedOnProject("");
     getTeamOfTeaks(n);
     // setClickUserHighletColor(true);
     // setClickUserHighletColorByName(n);
@@ -324,6 +379,18 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
       .includes(inputSearchValue.toLocaleLowerCase())
   );
 
+  const employeeTaskSeacrhBasedOnProjectId = (e) => {
+    setSearchTaskBasedOnProject(e.target.value);
+  };
+
+  const filterEmployeeTask = teamAllTask?.filter((each) =>
+    each.project_id.split("-")[2].includes(searchTaskBasedOnProject)
+  );
+
+  // searchTaskBasedOnProject
+
+  console.log(filterEmployeeTask);
+
   return (
     <div className="TeamLeadTaska">
       <div className="header" {...getToggleProps()}>
@@ -363,7 +430,9 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                       each.createdate,
                       each.date,
                       // each.status === "completed" ? each.updatedAt : "",
-                      each.project_id
+                      each.project_id,
+                      each.actualComDate && each.actualComDate,
+                      each.actualExptDate && each.actualExptDate
                     )
                   }
                 >
@@ -523,6 +592,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                     <span className="total-span"> {timerAllValue} </span>
                   </p>
                 </div>
+
                 <div style={{ color: "#118a2f" }}>
                   <GrView onClick={timerModalDetails} />
                 </div>
@@ -617,8 +687,25 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
           </div>
         </div>
         <div></div>
+
+        {/* seacrh constainer start */}
+
+        <div
+          className="employee-serach-container"
+          style={{ marginTop: "20px" }}
+        >
+          <div>
+            <input type="text" onChange={employeeTaskSeacrhBasedOnProjectId} />
+            <div>
+              <BiSearchAlt className="employee-seacrh-icon" />
+            </div>
+          </div>
+        </div>
+
+        {/* seacrh container end */}
+
         <div className="user-task-container">
-          {teamAllTask.length !== 0 && (
+          {filterEmployeeTask.length !== 0 && (
             <table className="content-table">
               <thead>
                 <tr>
@@ -634,7 +721,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                 </tr>
               </thead>
               <tbody>
-                {teamAllTask.map((each) => (
+                {filterEmployeeTask.map((each) => (
                   <tr onClick={() => fetchTheTimersBasedOnTask(each._id)}>
                     <td>{each.project_id}</td>
                     <td>{each.task}</td>

@@ -14,6 +14,9 @@ import { useSelector } from "react-redux";
 import AdminAddTaskToTeam from "../AdminAddTaskToTeam";
 // import User from "../Users";
 
+import { RiDeleteBin5Line } from "react-icons/ri";
+import AdminDeleteTeamsModal from "../AdminDeleteTeamsModal";
+
 const employessTeams = [
   {
     title: "Software Team",
@@ -45,6 +48,10 @@ const Admin = () => {
   const [adminAllTeams, setAdminAllTeams] = useState([]);
 
   const [loading, setLoading] = useState(false);
+
+  const [deletedTeams, setDeletedTeams] = useState([]);
+
+  const [adminDeleteModal, setAdminDeleteModal] = useState(false);
 
   // const [options, setOptions] = useState({
   //   colors: ["#ff0000", "#f0f", "#ded821"],
@@ -103,6 +110,15 @@ const Admin = () => {
 
   console.log(adminAllTeams);
 
+  const deletedAdminToTeamLeadr = (event) => {
+    const desc = adminAllTeams.filter(
+      (each) => each._id === event.currentTarget.id
+    );
+    console.log(desc);
+    setDeletedTeams(desc[0]);
+    setAdminDeleteModal(true);
+  };
+
   return (
     <>
       <div className="admin">
@@ -141,19 +157,6 @@ const Admin = () => {
             </div>
           </div>
 
-          {/* add team and task container end */}
-          {/* <div className="teams-admin">
-            {employessTeams.map((each, index) => (
-              <div key={index} className="no-of-employee">
-                <p>{each.icons}</p>
-                <h3>{each.title}</h3>
-                <p>
-                  Employees<span>{each.noOfEmployess}</span>
-                </p>
-              </div>
-            ))}
-          </div> */}
-
           {loading ? (
             <div
               style={{
@@ -173,6 +176,12 @@ const Admin = () => {
                     className="admin-employee-images-card"
                     src={each.profilePic}
                   />
+                  <div className="admin-team-delete">
+                    <RiDeleteBin5Line
+                      id={each._id}
+                      onClick={deletedAdminToTeamLeadr}
+                    />
+                  </div>
                   <p className="para-name">
                     {each.name.charAt(0).toUpperCase() + each.name.slice(1)}
                   </p>
@@ -204,6 +213,12 @@ const Admin = () => {
         setAdminAddTask={setAdminAddTask}
         adminAddTask={adminAddTask}
         adminAllTeams={adminAllTeams}
+      />
+      <AdminDeleteTeamsModal
+        setAdminDeleteModal={setAdminDeleteModal}
+        deletedTeams={deletedTeams}
+        adminDeleteModal={adminDeleteModal}
+        getAllTeamsByAdmin={getAllTeamsByAdmin}
       />
     </>
   );

@@ -10,7 +10,7 @@ const TimerAllDetailsModal = ({
 }) => {
   const theme = useMantineTheme();
 
-  console.log(timeValuesCalProject);
+  //console.log(timeValuesCalProject);
 
   let newArray = [];
 
@@ -26,7 +26,7 @@ const TimerAllDetailsModal = ({
     newArray.push(uniqueObject[i]);
   }
 
-  console.log(newArray);
+  //console.log(newArray);
 
   // const jsonObject = timeValuesCalProject?.map(JSON.stringify);
 

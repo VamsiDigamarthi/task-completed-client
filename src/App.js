@@ -10,6 +10,7 @@ import NotAccess from "./components/NotAccess";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ResetPassword from "./components/ResetPassword/ResetPassword";
 
 // import Protected from "./components/ProtectedRoute";
 
@@ -104,6 +105,8 @@ function App() {
       <Routes>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
+
+        <Route path="/resetpassword" element={<ResetPassword />} />
 
         <Route
           path="/"
