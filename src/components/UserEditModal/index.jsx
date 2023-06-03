@@ -10,18 +10,21 @@ const UserEditModal = ({
   editUserTask,
   getUserTask,
 }) => {
-  const [edit, setEdit] = useState("");
+  const [edit, setEdit] = useState({
+    updatedDate: "",
+    status: "",
+  });
 
   const usernameChange = (e) => {
-    setEdit(e.target.value);
+    setEdit({ ...edit, [e.target.name]: e.target.value });
   };
 
-  const editChangeValue = { status: edit };
+  // const editChangeValue = { status: edit };
 
   const editSubmitTask = (e) => {
     e.preventDefault();
     const API = axios.create({ baseURL: "http://localhost:5000" });
-    API.put(`/tasks/${editUserTask}`, editChangeValue)
+    API.put(`/tasks/${editUserTask}`, edit)
       .then((res) => {
         //console.log("edit Success");
         getUserTask();
@@ -33,6 +36,8 @@ const UserEditModal = ({
   };
 
   const theme = useMantineTheme();
+
+  console.log(edit);
 
   return (
     <>
@@ -57,7 +62,30 @@ const UserEditModal = ({
       >
         <form onSubmit={editSubmitTask}>
           <div className="edit-input-container">
-            <select className="edit-selected" onChange={usernameChange}>
+            <div
+              className="modal-input-text  date-input"
+              style={{
+                margin: "10px 0px",
+                height: "30px",
+                padding: "0px 5px",
+                display: "flex",
+                width: "96%",
+              }}
+            >
+              <label htmlFor="birthday">Create Date : </label>
+              <input
+                type="datetime-local"
+                id="birthday"
+                name="updatedDate"
+                onChange={usernameChange}
+                // className="modal-input-text  date-input"
+              />
+            </div>
+            <select
+              name="status"
+              className="edit-selected"
+              onChange={usernameChange}
+            >
               <option disabled selected hidden>
                 Please select your status
               </option>

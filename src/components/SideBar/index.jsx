@@ -1,12 +1,13 @@
 import React from "react";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { GiHumanTarget } from "react-icons/gi";
-import { AiFillHome, AiOutlineTeam } from "react-icons/ai";
+import { AiFillHome, AiOutlineTeam, AiOutlineDashboard } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import "./index.css";
 import { Link } from "react-router-dom";
 //import { Navigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+// import {AiOutlineDashboard} from 'react-icons/ai'
 
 // import { logout } from "../../actions/AuthActions";
 
@@ -37,6 +38,14 @@ const SideBar = () => {
         </div>
         {/* <h3>Honey</h3> */}
       </div>
+
+      <Link to={"/superadmin"} className="link">
+        <div className="dash-home">
+          <AiOutlineDashboard />
+
+          <h5>Super Admin</h5>
+        </div>
+      </Link>
 
       <Link to={"/dashboard"} className="link">
         <div className="dash-home">

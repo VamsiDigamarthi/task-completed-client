@@ -175,3 +175,17 @@
 .admin-team-delete > :nth-child(1) {
   color: #7a2a25;
 }
+
+.selectAdminChangeValue {
+  width: 100%;
+  /* border: 1px solid black; */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-top: 28px;
+}
+
+.dropdown {
+  width: 30%;
+}

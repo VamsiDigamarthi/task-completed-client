@@ -58,7 +58,7 @@ const AdminAddTaskToTeam = ({
 
   const theme = useMantineTheme();
 
-  //console.log(taskAdd);
+  console.log(taskAdd);
 
   return (
     <>
@@ -137,7 +137,7 @@ const AdminAddTaskToTeam = ({
           >
             <label htmlFor="birthday">Create Date : </label>
             <input
-              type="date"
+              type="datetime-local"
               id="birthday"
               name="createdate"
               onChange={taskAddFun}
@@ -150,7 +150,7 @@ const AdminAddTaskToTeam = ({
           >
             <label htmlFor="birthday">Expert Date : </label>
             <input
-              type="date"
+              type="datetime-local"
               id="birthday"
               name="date"
               onChange={taskAddFun}

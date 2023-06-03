@@ -68,3 +68,15 @@
 .fff {
   font-size: 22px;
 }
+
+.change {
+  font-size: 18px;
+  padding-left: 10px;
+  /* font-size: 16px; */
+}
+
+.change::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: #cdcae3;
+  /* color: #414045; */
+}

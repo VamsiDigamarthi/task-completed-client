@@ -17,6 +17,8 @@ import AdminAddTaskToTeam from "../AdminAddTaskToTeam";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import AdminDeleteTeamsModal from "../AdminDeleteTeamsModal";
 
+import { BiDetail } from "react-icons/bi";
+
 const employessTeams = [
   {
     title: "Software Team",
@@ -40,6 +42,8 @@ const employessTeams = [
   },
 ];
 
+const taskStatus = ["completed", "In-completed", "In-progress"];
+
 const Admin = () => {
   const [addTeams, setAddTeams] = useState(false);
 
@@ -52,6 +56,10 @@ const Admin = () => {
   const [deletedTeams, setDeletedTeams] = useState([]);
 
   const [adminDeleteModal, setAdminDeleteModal] = useState(false);
+
+  const [accessAllProjectToAdmin, setAccessAllProjectToAdmin] = useState([]);
+
+  const [selectedDropDwonAdmin, setSelectedDropDwonAdmin] = useState("");
 
   // const [options, setOptions] = useState({
   //   colors: ["#ff0000", "#f0f", "#ded821"],
@@ -104,11 +112,27 @@ const Admin = () => {
       });
   };
 
+  const accessAllProjectsToAdmin = () => {
+    const API = axios.create({ baseURL: "http://localhost:5000" });
+    API.get(`/tasks/admin/allprojects/${UUU._id}`)
+      .then((res) => {
+        // setTeamUserList(res.data);
+
+        setAccessAllProjectToAdmin(res.data);
+        // setLoading(false);
+      })
+
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
   useEffect(() => {
     getAllTeamsByAdmin();
+    accessAllProjectsToAdmin();
   }, []);
 
-  console.log(adminAllTeams);
+  // console.log(adminAllTeams);
 
   const deletedAdminToTeamLeadr = (event) => {
     const desc = adminAllTeams.filter(
@@ -118,6 +142,16 @@ const Admin = () => {
     setDeletedTeams(desc[0]);
     setAdminDeleteModal(true);
   };
+
+  const adminChangeTeam = (e) => {
+    setSelectedDropDwonAdmin(e.target.value);
+  };
+
+  const valuesFilter = accessAllProjectToAdmin.filter(
+    (each) => each.status === selectedDropDwonAdmin
+  );
+
+  console.log(selectedDropDwonAdmin);
 
   return (
     <>
@@ -193,17 +227,132 @@ const Admin = () => {
             </div>
           )}
 
-          {/* <div className="charts-container">
-            <Chart
-              options={options}
-              series={series}
-              type="area"
-              width={1000}
-              height={400}
-            />
-          </div> */}
+          {/* all projects list show container */}
+
+          {accessAllProjectToAdmin.length !== 0 && (
+            <div className="selectAdminChangeValue">
+              <div className="selected dropdown">
+                <select onChange={adminChangeTeam}>
+                  <option disabled selected hidden>
+                    Please select status
+                  </option>
+                  {taskStatus.map((each) => (
+                    <option>{each}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          )}
+          <div>
+            {/* {valuesFilter.length !== 0()} */}
+
+            {valuesFilter.length !== 0 && (
+              <table className="content-table ee">
+                <thead>
+                  <tr>
+                    <th>ProjectId</th>
+                    <th>ProjectName</th>
+                    <th>UserName</th>
+                    <th>CreateDate</th>
+                    {/* <th>Update Date</th> */}
+                    <th>Expert Date</th>
+                    {/* <th>ActualComDate</th>
+                  <th>ActualExptDate</th> */}
+                    <th>Status</th>
+                    {/* <th>Details & Edit</th> */}
+                  </tr>
+                </thead>
+                <tbody>
+                  {valuesFilter.map((each, index) => (
+                    <tr
+                      key={index}
+                      // onClick={() =>
+                      //   getTeamTaskCalHour(
+                      //     each.createdate,
+                      //     each.date,
+                      //     // each.status === "completed" ? each.updatedAt : "",
+                      //     each.project_id,
+                      //     each.actualComDate && each.actualComDate,
+                      //     each.actualExptDate && each.actualExptDate
+                      //   )
+                      // }
+                    >
+                      <td>{each.project_id}</td>
+                      <td>{each.task}</td>
+                      <td>{each.username}</td>
+                      <td>{each.createdate}</td>
+                      {/* <td>{each.updatedAt.slice(0, 10)}</td> */}
+                      <td>{each.date}</td>
+                      {/* <td>{each.actualComDate}</td>
+                    <td>{each.actualExptDate}</td> */}
+                      <td>
+                        <div
+                          style={{
+                            backgroundColor:
+                              each.status === "completed"
+                                ? "#0e8214" //"#14e610"
+                                : each.status === "In-completed"
+                                ? "#b52134"
+                                : "#b8ad14",
+                            fontSize: "16px",
+                            fontWeight: 400,
+                            padding: "2px",
+                            color: "#ffffff",
+                            paddingLeft: "19px",
+                            borderTopRightRadius: "10px",
+                            borderBottomRightRadius: "10px",
+                            borderTopLeftRadius: "7px",
+                          }}
+                        >
+                          {each.status}
+                        </div>
+                      </td>
+                      {/* <td>
+                    <BiDetail id={each._id} onClick={detailsAndModel} />
+                    {UUU.role !== "admin" ? (
+                      <button
+                        id={each._id}
+                        onClick={editAndModel}
+                        disabled={each.status === "completed"}
+                        style={{
+                          background: "transparent",
+                          border: "none",
+                          width: "fit-content",
+                        }}
+                      >
+                        <FiEdit
+                          // id={each._id}
+                          // onClick={editAndModel}
+                          style={{ marginLeft: "50px" }}
+                        />
+                      </button>
+                    ) : (
+                      <>
+                        <RiDeleteBinLine
+                          id={each._id}
+                          style={{ margin: "0px 18px" }}
+                          onClick={teamDeleteTaskFromId}
+                        />
+                        <FiEdit
+                          id={each._id}
+                          onClick={adminClickEditAccDateSet}
+                          // style={{ marginLeft: "50px" }}
+                        />
+                      </>
+                    )}
+                  </td> */}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+
+          {/* all projects list show container end */}
         </div>
       </div>
+
+      {/* modal */}
       <AdminAddTeams
         setAddTeams={setAddTeams}
         addTeams={addTeams}

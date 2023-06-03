@@ -1,0 +1,70 @@
+.super-admin {
+  display: flex;
+  /* flex-direction: column; */
+  gap: 0.5rem;
+}
+
+.super-admin > :nth-child(1) {
+  flex: 1;
+}
+
+.super-admin-second-page {
+  flex: 5;
+  height: 97vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  /* border: 1px solid black; */
+  padding-top: 20px;
+  padding: 20px;
+}
+/* 
+.hea {
+  height: 10%;
+} */
+
+.hea {
+  height: 10vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.super-admin-img-container {
+  display: flex;
+  width: 25%;
+  gap: 0.3rem;
+  margin-top: 20px;
+  gap: 1rem;
+}
+
+.super-admin-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 5px;
+}
+
+.btndiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-right: 20px;
+
+  /* padding-top: 20px; */
+}
+
+.spabutton {
+  width: 120px;
+  height: 35px;
+  border: none;
+  outline: none;
+  color: white;
+  /* background-color: #16ab6d; */
+  background-color: rgb(37, 51, 58);
+  border-radius: 7px;
+  font-size: 16px;
+  font-weight: 600;
+}

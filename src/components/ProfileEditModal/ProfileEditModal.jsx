@@ -40,7 +40,7 @@ const ProfileEditModal = ({ editProfileModal, setEditProfileModal }) => {
 
   const theme = useMantineTheme();
 
-  console.log(userEdit);
+  // console.log(userEdit);
 
   return (
     <>

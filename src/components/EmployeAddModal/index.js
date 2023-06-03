@@ -135,7 +135,7 @@ const EmployeAddModal = ({
           >
             <label htmlFor="birthday">Create Date : </label>
             <input
-              type="date"
+              type="datetime-local"
               id="birthday"
               name="createdate"
               onChange={taskAddFun}
@@ -148,7 +148,7 @@ const EmployeAddModal = ({
           >
             <label htmlFor="birthday">Expert Date : </label>
             <input
-              type="date"
+              type="datetime-local"
               id="birthday"
               name="date"
               onChange={taskAddFun}

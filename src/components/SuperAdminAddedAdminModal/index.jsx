@@ -8,7 +8,11 @@ import "./index.css";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
+const SuperAdminAddedAdminModal = ({
+  superAdminModal,
+  setSuperAdminModal,
+  getAllTeamsByAdmin,
+}) => {
   const UUU = useSelector((state) => state.authReducer.authData);
 
   //   console.log(UUU);
@@ -59,9 +63,10 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
     API.post("/auth/register", user)
       .then((res) => {
         //console.log(`api data ${res.data}`);
-        setAddTeams(false);
+        setSuperAdminModal(false);
         // setAddUserModal(false);
         // getTeamOfEmployee();
+        // getAllTeamsByAdmin();
         getAllTeamsByAdmin();
       })
       .catch((e) => {
@@ -85,8 +90,8 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
     <>
       <Modal
         centered
-        opened={addTeams}
-        onClose={() => setAddTeams(false)}
+        opened={superAdminModal}
+        onClose={() => setSuperAdminModal(false)}
         title="Register"
         overlayProps={{
           color:
@@ -192,7 +197,7 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
               <option disabled selected hidden>
                 Please select role of Employee
               </option>
-              <option value="teamleader">Team Leades</option>
+              <option value="admin">Admin</option>
             </select>
           </div>
           {user.name !== "" &&
@@ -200,7 +205,7 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
             user.username !== "" &&
             user.password && (
               <button className="signup-btn new-add-signup-btn" type="submit">
-                Add team
+                Add Admin
               </button>
             )}
         </form>
@@ -209,4 +214,4 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
   );
 };
 
-export default AdminAddTeams;
+export default SuperAdminAddedAdminModal;

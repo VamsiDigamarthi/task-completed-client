@@ -219,11 +219,25 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
 
   let uniqueObject = {};
 
-  for (let i in timeValuesCalProject) {
-    const objTitle = timeValuesCalProject[i]["taskValue"];
+  // for (let i in timeValuesCalProject) {
+  //   const objTitle = timeValuesCalProject[i]["taskValue"];
 
-    uniqueObject[objTitle] = timeValuesCalProject[i];
-  }
+  //   uniqueObject[objTitle] = timeValuesCalProject[i];
+  // }
+
+  timeValuesCalProject?.map((each, i) => {
+    // if (each.timer.split("-")[1] === 0) {
+    //   console.log("r is zero");
+    // }
+    //console.log(each.timer);
+    if (each.timer?.split("-")[1] === "0") {
+      console.log("jjjj");
+    } else {
+      const objTitle = timeValuesCalProject[i]["taskValue"];
+
+      uniqueObject[objTitle] = timeValuesCalProject[i];
+    }
+  });
 
   for (let i in uniqueObject) {
     newArray.push(uniqueObject[i]);
@@ -260,30 +274,63 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
     basedOnProjectUserGet(id);
     basedOnProjectClickCorreTimerGet(id);
     // console.log(r, p);
-    const date1 = new Date(create).getTime();
-    const date2 = new Date(up).getTime();
+    const date1 = new Date(create);
+    const date2 = new Date(up);
     // const diffTime = Math.abs(date2 - date1);
     // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
     // console.log(actualComDate);
     // console.log(actualExptDate);
 
-    const actualStart = new Date(actualComDate).getDate();
+    const actualStart = new Date(actualComDate);
 
-    const actualEnd = new Date(actualExptDate).getDate();
-    console.log(actualStart);
+    const actualEnd = new Date(actualExptDate);
+    //console.log(actualStart);
 
     if (actualComDate) {
-      const diffTime = Math.abs(actualEnd - actualStart);
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      // total = diffDays * 8;
-      console.log("is not emplty if");
-      setTotalCalHour(diffDays * 8);
+      let diff = (actualEnd.getTime() - actualStart.getTime()) / 1000;
+      diff /= 60 * 60;
+      let timerOfValue = Math.abs(Math.round(diff));
+
+      if (timerOfValue < 8) {
+        setTotalCalHour(timerOfValue);
+      } else {
+        let divideByTwintyFour = Math.floor(timerOfValue / 24);
+        let multipleOfElight = divideByTwintyFour * 8;
+        let reminderOfTwintyFour = timerOfValue % 24;
+        let totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+        //console.log(totalHourTwinty);
+        setTotalCalHour(totalHourTwinty);
+      }
+
+      // old calculations ------------------------------
+      // const diffTime = Math.abs(actualEnd - actualStart);
+      // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      // // total = diffDays * 8;
+      // console.log("is not emplty if");
+      // setTotalCalHour(diffDays * 8);
     } else {
-      const diffTime = Math.abs(date2 - date1);
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      console.log("is  emplty else");
-      setTotalCalHour(diffDays * 8);
+      let diff = (date2.getTime() - date1.getTime()) / 1000;
+      diff /= 60 * 60;
+      let timerOfValue = Math.abs(Math.round(diff));
+      //console.log(timerOfValue);
+
+      if (timerOfValue < 8) {
+        setTotalCalHour(timerOfValue);
+      } else {
+        let divideByTwintyFour = Math.floor(timerOfValue / 24);
+        let multipleOfElight = divideByTwintyFour * 8;
+        let reminderOfTwintyFour = timerOfValue % 24;
+        let totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+        //console.log(totalHourTwinty);
+        setTotalCalHour(totalHourTwinty);
+      }
+
+      // old calculations===============================================
+      // const diffTime = Math.abs(date2 - date1);
+      // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      // console.log("is  emplty else");
+      // setTotalCalHour(diffDays * 8);
     }
 
     //setTotalCalHour(diffDays * 8);
@@ -389,7 +436,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
 
   // searchTaskBasedOnProject
 
-  console.log(filterEmployeeTask);
+  //console.log(filterEmployeeTask);
 
   return (
     <div className="TeamLeadTaska">
@@ -400,7 +447,12 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
       <div {...getCollapseProps()}>
         <div className="employee-serach-container">
           <div>
-            <input type="text" onChange={searchInput} />
+            <input
+              className="change"
+              type="text"
+              onChange={searchInput}
+              placeholder="search based on status"
+            />
             <div>
               <BiSearchAlt className="employee-seacrh-icon" />
             </div>
@@ -649,15 +701,17 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
               ))}
             </ul>
           )}
-          {timerStoreEmployeeTask.length !== 0 && (
+          {timerStoreEmployeeTask?.length !== 0 && (
             <div className="employee-cont">
-              {timerStoreEmployeeTask.map((each) => (
+              {timerStoreEmployeeTask?.map((each) => (
                 <div>
                   <p className="para-total-hour">
                     Total Hours :{" "}
-                    <span className="total-span fff">{each.totalHour}</span>
+                    <span className="total-span fff">
+                      {each.totalHour && each.totalHour}
+                    </span>
                   </p>
-                  {each.timer.split("-")[0] === "R" ? (
+                  {each.timer?.split("-")[0] === "R" ? (
                     <p className="para-total-hour">
                       Running Hour :{" "}
                       <span className="total-span fff">
@@ -667,7 +721,9 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                   ) : (
                     <p className="para-total-hour">
                       Completed Hours :{" "}
-                      <span className="total-span fff">{each.timer}</span>{" "}
+                      <span className="total-span fff">
+                        {each.timer && each.timer}
+                      </span>{" "}
                     </p>
                   )}
                 </div>
@@ -689,18 +745,24 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
         <div></div>
 
         {/* seacrh constainer start */}
-
-        <div
-          className="employee-serach-container"
-          style={{ marginTop: "20px" }}
-        >
-          <div>
-            <input type="text" onChange={employeeTaskSeacrhBasedOnProjectId} />
+        {teamAllTask.length !== 0 && (
+          <div
+            className="employee-serach-container"
+            style={{ marginTop: "20px" }}
+          >
             <div>
-              <BiSearchAlt className="employee-seacrh-icon" />
+              <input
+                type="text"
+                className="change"
+                onChange={employeeTaskSeacrhBasedOnProjectId}
+                placeholder="Search based on projectId"
+              />
+              <div>
+                <BiSearchAlt className="employee-seacrh-icon" />
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* seacrh container end */}
 

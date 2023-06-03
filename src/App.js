@@ -11,15 +11,17 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
+import SuperAdmin from "./components/SuperAdmin";
 
 // import Protected from "./components/ProtectedRoute";
 
 var USER_TYPE = {
   EMPLOYEE: "employee",
-  TEAM_LEADER: "software team",
+  TEAM_LEADER: "teamleader",
   ADMIN: "admin",
   TEAM_LEADER_2: "market team",
   TEAMS: [],
+  SUPER_ADMIN: "superadmin",
 };
 
 function App() {
@@ -37,59 +39,67 @@ function App() {
     // console.log(CURRENT_USER);
   }
 
-  const addNamesInArray = () => {
-    allTeamMembers?.forEach((each) => {
-      USER_TYPE.TEAMS.push(each.role);
-      // console.log("attakjhd");
-    });
-  };
+  // const addNamesInArray = () => {
+  //   allTeamMembers?.forEach((each) => {
+  //     USER_TYPE.TEAMS.push(each.role);
+  //     // console.log("attakjhd");
+  //   });
 
-  useEffect(() => {
-    addNamesInArray();
-  }, [allTeamMembers]);
+  //   localStorage.setItem("teamleaderlist", JSON.stringify(USER_TYPE.TEAMS));
+  // };
 
-  useEffect(() => {
-    // login admin fetch all teams api start
+  // useEffect(() => {
+  //   addNamesInArray();
+  // }, [allTeamMembers]);
 
-    const fetchAllTeam = () => {
-      const adminrole = { role: "admin" };
+  // let stringifiedTodoList = localStorage.getItem("teamleaderlist");
+  // let parsedTodoList = JSON.parse(stringifiedTodoList);
 
-      const getAllTeamsByAdmin = async () => {
-        const API = axios.create({ baseURL: "http://localhost:5000" });
+  // console.log(parsedTodoList);
 
-        // API.post("/team/user", adminrole)
-        //   .then((res) => {
-        //     setAllTeamMembers(res.data);
-        //   })
+  // useEffect(() => {
+  //   // login admin fetch all teams api start
 
-        //   .catch((e) => {
-        //     console.log(e);
-        //   });
+  //   const fetchAllTeam = () => {
+  //     const adminrole = { role: "admin" };
 
-        // =========================================================
+  //     const getAllTeamsByAdmin = async () => {
+  //       const API = axios.create({ baseURL: "http://localhost:5000" });
 
-        //const id = "645dc464cdd5dfd4dea8ba4f";
+  //       // API.post("/team/user", adminrole)
+  //       //   .then((res) => {
+  //       //     setAllTeamMembers(res.data);
+  //       //   })
 
-        // cloud admin id 64631c576371d794c57a3f27
+  //       //   .catch((e) => {
+  //       //     console.log(e);
+  //       //   });
 
-        await API.get("team/admin/team/646350516371d794c57a4005")
-          .then((res) => {
-            // setTeamUserList(res.data);
-            setAllTeamMembers(res.data);
-          })
+  //       // =========================================================
 
-          .catch((e) => {
-            console.log(e);
-          });
-      };
-      getAllTeamsByAdmin();
-    };
+  //       //const id = "645dc464cdd5dfd4dea8ba4f";
 
-    fetchAllTeam();
-    // login admin fetch all teams api end
-  }, []);
+  //       // cloud admin id 64631c576371d794c57a3f27
 
-  addNamesInArray();
+  //       // await API.get("team/admin/team/646350516371d794c57a4005")
+  //       await API.get(`team/admin/team/${UUU._id}`)
+  //         .then((res) => {
+  //           // setTeamUserList(res.data);
+  //           setAllTeamMembers(res.data);
+  //         })
+
+  //         .catch((e) => {
+  //           console.log(e);
+  //         });
+  //     };
+  //     getAllTeamsByAdmin();
+  //   };
+
+  //   fetchAllTeam();
+  //   // login admin fetch all teams api end
+  // }, []);
+
+  // addNamesInArray();
 
   // console.log(USER_TYPE.TEAMS);
 
@@ -98,7 +108,12 @@ function App() {
 
   // console.log(USER_TYPE.TEAMS.includes(CURRENT_USER));
 
-  console.log(USER_TYPE.TEAMS);
+  //console.log(USER_TYPE.TEAMS);
+
+  // let stringifiedTodoList = localStorage.getItem("teamleaderlist");
+  // let parsedTodoList = JSON.parse(stringifiedTodoList);
+
+  //console.log(parsedTodoList);
 
   return (
     <div className="App">
@@ -114,7 +129,7 @@ function App() {
             UUU ? (
               CURRENT_USER === USER_TYPE.EMPLOYEE ? (
                 <Navigate to="/employee" />
-              ) : USER_TYPE.TEAMS.includes(CURRENT_USER) ? (
+              ) : CURRENT_USER === USER_TYPE.TEAM_LEADER ? (
                 <Navigate to="/teams" />
               ) : (
                 <Navigate to="/dashboard" />
@@ -131,6 +146,21 @@ function App() {
             UUU ? (
               CURRENT_USER === USER_TYPE.ADMIN ? (
                 <Admin />
+              ) : (
+                <NotAccess />
+              )
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route
+          path="/superadmin"
+          element={
+            UUU ? (
+              CURRENT_USER === USER_TYPE.SUPER_ADMIN ? (
+                <SuperAdmin />
               ) : (
                 <NotAccess />
               )
@@ -161,7 +191,7 @@ function App() {
           path="/teams"
           element={
             UUU ? (
-              USER_TYPE.TEAMS.includes(CURRENT_USER) ||
+              CURRENT_USER === USER_TYPE.TEAM_LEADER ||
               CURRENT_USER === USER_TYPE.ADMIN ? (
                 <Teams />
               ) : (

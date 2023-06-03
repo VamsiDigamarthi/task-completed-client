@@ -13,10 +13,10 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  border: 1px solid #151a4d;
-  height: 45%;
+
+  /* height: 45%;
   width: 250px;
-  border-radius: 7px;
+  border-radius: 7px; */
   margin-top: 20px;
   overflow: hidden;
 }
@@ -52,4 +52,17 @@
   font-size: 20px;
   color: rgb(37, 51, 58);
   /* fill: rgb(37, 51, 58); */
+}
+
+.change::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: #cdcae3;
+}
+
+.eeeeee {
+  margin-bottom: 5px;
+}
+
+.colors {
+  color: #bb7b28;
 }

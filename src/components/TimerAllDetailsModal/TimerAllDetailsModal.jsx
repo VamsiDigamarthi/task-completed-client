@@ -10,17 +10,33 @@ const TimerAllDetailsModal = ({
 }) => {
   const theme = useMantineTheme();
 
-  //console.log(timeValuesCalProject);
+  console.log(timeValuesCalProject);
 
   let newArray = [];
 
   let uniqueObject = {};
 
-  for (let i in timeValuesCalProject) {
-    const objTitle = timeValuesCalProject[i]["taskValue"];
+  console.log(uniqueObject);
 
-    uniqueObject[objTitle] = timeValuesCalProject[i];
-  }
+  // for (let i in timeValuesCalProject) {
+  //   const objTitle = timeValuesCalProject[i]["taskValue"];
+
+  //   uniqueObject[objTitle] = timeValuesCalProject[i];
+  // }
+
+  timeValuesCalProject?.map((each, i) => {
+    // if (each.timer.split("-")[1] === 0) {
+    //   console.log("r is zero");
+    // }
+    //console.log(each.timer);
+    if (each.timer?.split("-")[1] === "0") {
+      console.log("jjjj");
+    } else {
+      const objTitle = timeValuesCalProject[i]["taskValue"];
+
+      uniqueObject[objTitle] = timeValuesCalProject[i];
+    }
+  });
 
   for (let i in uniqueObject) {
     newArray.push(uniqueObject[i]);

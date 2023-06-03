@@ -531,7 +531,7 @@ const Teams = () => {
                     Please select team
                   </option>
                   {adminTeams.map((each) => (
-                    <option>{each.role}</option>
+                    <option>{each.username}</option>
                   ))}
                 </select>
               </div>

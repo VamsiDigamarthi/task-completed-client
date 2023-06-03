@@ -1,5 +1,5 @@
 // import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { AiOutlineUser, AiOutlineAntDesign } from "react-icons/ai";
 import { HiOutlineMail } from "react-icons/hi";
@@ -37,6 +37,8 @@ const SignUp = () => {
 
   // const submitForm = (e) => {};
 
+  const navigate = useNavigate();
+
   const submitForm = async (e) => {
     e.preventDefault();
 
@@ -45,6 +47,7 @@ const SignUp = () => {
     API.post("/auth/register", user)
       .then((res) => {
         console.log(res.data);
+        navigate("/login", { replace: true });
       })
       .catch((e) => {
         console.log(e);
@@ -108,7 +111,7 @@ const SignUp = () => {
             />
           </div>
 
-          <div className="form-input-container">
+          {/* <div className="form-input-container">
             <RiTeamLine className="form-icons" />
             <input
               placeholder="role"
@@ -118,7 +121,7 @@ const SignUp = () => {
               name="role"
               value={user.role}
             />
-          </div>
+          </div> */}
 
           <div className="form-input-container">
             <AiOutlineAntDesign className="form-icons" />
@@ -138,6 +141,19 @@ const SignUp = () => {
             className="file-card"
             onDone={({ base64 }) => setUser({ ...user, profilePic: base64 })}
           />
+
+          <div className="form-input-container">
+            <select
+              className="employee-type"
+              name="role"
+              onChange={usernameChange}
+            >
+              <option disabled selected hidden>
+                Please select role of Employee
+              </option>
+              <option value="superadmin">Super Admin</option>
+            </select>
+          </div>
 
           {/* <div className="form-input-container">
             <select className="employee-type" onChange={employeeRole}>
