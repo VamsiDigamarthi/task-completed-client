@@ -181,11 +181,20 @@
   /* border: 1px solid black; */
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  align-items: flex-end;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 28px;
+  padding: 10px;
+  margin-bottom: 5px;
 }
 
 .dropdown {
   width: 30%;
+}
+
+.admin-project-count {
+  margin-left: 10px;
+  color: #8a2c17;
+  font-size: 22px;
+  font-weight: 600;
 }

@@ -61,6 +61,15 @@ const Admin = () => {
 
   const [selectedDropDwonAdmin, setSelectedDropDwonAdmin] = useState("");
 
+  const [
+    adminClickSpecificTaskCoressTaskFetch,
+    setAdminClickSpecificTaskCoressTaskFetch,
+  ] = useState([]);
+
+  const [totalTaskProject, setTotalTaskProject] = useState("");
+
+  const [completedTaskProject, setCompletedTaskProject] = useState("");
+
   // const [options, setOptions] = useState({
   //   colors: ["#ff0000", "#f0f", "#ded821"],
   // });
@@ -151,7 +160,50 @@ const Admin = () => {
     (each) => each.status === selectedDropDwonAdmin
   );
 
-  console.log(selectedDropDwonAdmin);
+  const fetchTheOneOfTask = (id) => {
+    const API = axios.create({ baseURL: "http://localhost:5000" });
+    const sss = {
+      project_id: id,
+    };
+
+    API.post("/tasks/admin/project/idbase", sss)
+      .then((res) => {
+        // setTeamUserList(res.data);
+
+        setAdminClickSpecificTaskCoressTaskFetch(res.data);
+        //setLoading(false);
+      })
+
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  console.log(adminClickSpecificTaskCoressTaskFetch);
+
+  // adminClickSpecificTaskCoressTaskFetch?.shift();
+
+  let newArray = adminClickSpecificTaskCoressTaskFetch.slice(1);
+
+  console.log(newArray);
+
+  const newArrayLength = newArray.length;
+
+  const filterPieValue = newArray?.filter(
+    (each) => each.status === "completed"
+  );
+
+  // console.log(newArrayLength);
+
+  // console.log(filterPieValue.length);
+
+  // if (newArrayLength && filterPieValue) {
+  //   setTotalTaskProject(newArrayLength);
+  //   setCompletedTaskProject(filterPieValue.length);
+  // }
+
+  // console.log(totalTaskProject);
+
+  // console.log(completedTaskProject);
 
   return (
     <>
@@ -204,8 +256,8 @@ const Admin = () => {
             </div>
           ) : (
             <div className="admin-employee-f-container">
-              {adminAllTeams.map((each) => (
-                <div className="admin-employess-s-container">
+              {adminAllTeams.map((each, index) => (
+                <div className="admin-employess-s-container" key={index}>
                   <img
                     className="admin-employee-images-card"
                     src={each.profilePic}
@@ -229,15 +281,64 @@ const Admin = () => {
 
           {/* all projects list show container */}
 
+          {/* {newArrayLength.length !== 0 && (
+            <div>
+              <p>
+                Total task
+                <span>{newArrayLength}</span>
+              </p>
+              <p>
+                completed task
+                <span>{filterPieValue.length}</span>
+              </p>
+            </div>
+          )} */}
+
           {accessAllProjectToAdmin.length !== 0 && (
             <div className="selectAdminChangeValue">
+              <div style={{ width: "40%" }}>
+                {newArrayLength.length !== 0 && (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "100%",
+                    }}
+                  >
+                    <p
+                      style={{
+                        color: "#cec5b6",
+                        fontSize: "18px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      Total task
+                      <span className="admin-project-count">
+                        {newArrayLength}
+                      </span>
+                    </p>
+                    <p
+                      style={{
+                        color: "#cec5b6",
+                        fontSize: "18px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      completed task
+                      <span className="admin-project-count">
+                        {filterPieValue.length}
+                      </span>
+                    </p>
+                  </div>
+                )}
+              </div>
               <div className="selected dropdown">
                 <select onChange={adminChangeTeam}>
                   <option disabled selected hidden>
                     Please select status
                   </option>
-                  {taskStatus.map((each) => (
-                    <option>{each}</option>
+                  {taskStatus.map((each, index) => (
+                    <option key={index}>{each}</option>
                   ))}
                 </select>
               </div>
@@ -276,6 +377,7 @@ const Admin = () => {
                       //     each.actualExptDate && each.actualExptDate
                       //   )
                       // }
+                      onClick={() => fetchTheOneOfTask(each.project_id)}
                     >
                       <td>{each.project_id}</td>
                       <td>{each.task}</td>

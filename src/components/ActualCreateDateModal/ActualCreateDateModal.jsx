@@ -66,13 +66,14 @@ const ActualCreateDateModal = ({
         }}
       >
         <form onSubmit={actualDateAndExpertDateSubmit}>
-          {actualCompletedDateTaskDetails.map((each) => (
+          {actualCompletedDateTaskDetails.map((each, index) => (
             <div
               style={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
               }}
+              key={index}
             >
               <p>ProjectId : {each.project_id}</p>
               <p>TaskName : {each.task}</p>
@@ -90,7 +91,7 @@ const ActualCreateDateModal = ({
           >
             <label htmlFor="birthday">Actual Create Date : </label>
             <input
-              type="date"
+              type="datetime-local"
               id="birthday"
               name="actualComDate"
               onChange={actualChangeDate}
@@ -108,7 +109,7 @@ const ActualCreateDateModal = ({
           >
             <label htmlFor="birthday">Actual Expert Date : </label>
             <input
-              type="date"
+              type="datetime-local"
               id="birthday"
               name="actualExptDate"
               onChange={actualChangeDate}

@@ -10,13 +10,13 @@ const TimerAllDetailsModal = ({
 }) => {
   const theme = useMantineTheme();
 
-  console.log(timeValuesCalProject);
+  //console.log(timeValuesCalProject);
 
   let newArray = [];
 
   let uniqueObject = {};
 
-  console.log(uniqueObject);
+  //console.log(uniqueObject);
 
   // for (let i in timeValuesCalProject) {
   //   const objTitle = timeValuesCalProject[i]["taskValue"];
@@ -87,7 +87,7 @@ const TimerAllDetailsModal = ({
             </thead>
             <tbody>
               {newArray.map((each, index) => (
-                <tr>
+                <tr key={index}>
                   <td>{each.userName}</td>
                   <td>{each.taskName}</td>
                   <td>{each.totalHour}</td>

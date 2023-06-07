@@ -6,6 +6,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { LogIn } from "../../actions/AuthAction";
+import axios from "axios";
 import "./index.css";
 
 const Login = () => {
@@ -36,6 +37,48 @@ const Login = () => {
     e.preventDefault();
 
     dispatch(LogIn(user, navigate));
+
+    // login details api call start
+
+    const API = axios.create({ baseURL: "http://localhost:5000" });
+
+    const newDates = new Date();
+
+    // const strinDate = newDates.toString();
+
+    //const newStringDate = strinDate
+
+    // Extract the date and time components
+    const year = newDates.getFullYear();
+    const month = (newDates.getMonth() + 1).toString().padStart(2, "0"); // Months are zero-based, so we add 1 and pad with leading zeros
+    const day = newDates.getDate().toString().padStart(2, "0");
+    const hours = newDates.getHours().toString().padStart(2, "0");
+    const minutes = newDates.getMinutes().toString().padStart(2, "0");
+
+    // Create the final formatted string
+    const formattedDateString = `${year}-${month}-${day}T${hours}:${minutes}`;
+
+    // console.log(formattedDateString);
+
+    const values = {
+      userName: user.username,
+      dateField: formattedDateString,
+    };
+
+    // console.log(strinDate);
+    // console.log(typeof strinDate);
+
+    //console.log(values.dateField);
+
+    API.post("/login/details", values)
+      .then((res) => {
+        //console.log(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+
+    // login details api call end
 
     setUser({ username: "", password: "" });
   };

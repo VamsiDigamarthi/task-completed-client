@@ -292,15 +292,95 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
       diff /= 60 * 60;
       let timerOfValue = Math.abs(Math.round(diff));
 
-      if (timerOfValue < 8) {
+      if (timerOfValue < 9) {
         setTotalCalHour(timerOfValue);
+      } else if (timerOfValue > 9 && timerOfValue < 24) {
+        let newTotal;
+        let firstNewDate = actualStart.toString().slice(0, 15);
+        let newFirstValue = `${firstNewDate} 18:30`;
+        let firstD = new Date(newFirstValue);
+
+        let firstDiff = (firstD.getTime() - actualStart.getTime()) / 1000;
+        firstDiff /= 60 * 60;
+        let actualNewFirstValue = Math.abs(Math.round(firstDiff));
+
+        // another second date calculations
+
+        let secondNewDate = actualEnd.toString().slice(0, 15);
+        let newSecondValue = `${secondNewDate} 9:30`;
+        let secondD = new Date(newSecondValue);
+
+        let secondDiff = (actualEnd.getTime() - secondD.getTime()) / 1000;
+
+        secondDiff /= 60 * 60;
+
+        let actualNewSecondValue = Math.abs(Math.round(secondDiff));
+
+        newTotal = actualNewFirstValue + actualNewSecondValue;
+        setTotalCalHour(newTotal);
+        // total = newTotal;
       } else {
+        let totalHourTwinty;
         let divideByTwintyFour = Math.floor(timerOfValue / 24);
-        let multipleOfElight = divideByTwintyFour * 8;
+        let multipleOfElight = divideByTwintyFour * 9;
         let reminderOfTwintyFour = timerOfValue % 24;
-        let totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+        // let totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
         //console.log(totalHourTwinty);
-        setTotalCalHour(totalHourTwinty);
+
+        //
+        //
+
+        if (reminderOfTwintyFour <= 9) {
+          totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+          setTotalCalHour(totalHourTwinty);
+        } else if (reminderOfTwintyFour > 9 && reminderOfTwintyFour < 24) {
+          let previousDate1 = new Date(actualEnd);
+          previousDate1.setDate(previousDate1.getDate() - 1);
+
+          let preVTime = previousDate1.toString().slice(0, 15);
+
+          let creatV = actualStart.toString().slice(15, 24);
+
+          let oldValue = `${preVTime}${creatV}`;
+
+          let oldValueNewDate = new Date(oldValue);
+
+          let oldSecondValue = `${preVTime} 18:30:00`;
+
+          let oldSecondNewDate = new Date(oldSecondValue);
+
+          let secondDiffss =
+            (oldValueNewDate.getTime() - oldSecondNewDate.getTime()) / 1000;
+
+          secondDiffss /= 60 * 60;
+
+          let actualNewSecondValuess = Math.abs(Math.round(secondDiffss));
+
+          let morningTime = actualEnd.toString().slice(0, 15);
+
+          let newSecondValue = `${morningTime} 9:30`;
+          let secondD = new Date(newSecondValue);
+
+          //let newValueDate = new Date();
+
+          let secondDiff = (actualEnd.getTime() - secondD.getTime()) / 1000;
+
+          secondDiff /= 60 * 60;
+
+          let actualNewSecondValue = Math.abs(Math.round(secondDiff));
+          totalHourTwinty =
+            multipleOfElight + (actualNewSecondValue + actualNewSecondValuess);
+          //console.log(actualNewSecondValue);
+          setTotalCalHour(totalHourTwinty);
+        } else {
+          totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+          setTotalCalHour(totalHourTwinty);
+        }
+
+        //
+        //
+
+        //setTotalCalHour(totalHourTwinty);
       }
 
       // old calculations ------------------------------
@@ -315,15 +395,92 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
       let timerOfValue = Math.abs(Math.round(diff));
       //console.log(timerOfValue);
 
-      if (timerOfValue < 8) {
+      if (timerOfValue < 9) {
         setTotalCalHour(timerOfValue);
+      } else if (timerOfValue > 9 && timerOfValue < 24) {
+        let newTotal;
+        let firstNewDate = date1.toString().slice(0, 15);
+        let newFirstValue = `${firstNewDate} 18:30`;
+        let firstD = new Date(newFirstValue);
+
+        let firstDiff = (firstD.getTime() - date1.getTime()) / 1000;
+        firstDiff /= 60 * 60;
+        let actualNewFirstValue = Math.abs(Math.round(firstDiff));
+
+        // another second date calculations
+
+        let secondNewDate = date2.toString().slice(0, 15);
+        let newSecondValue = `${secondNewDate} 9:30`;
+        let secondD = new Date(newSecondValue);
+
+        let secondDiff = (date2.getTime() - secondD.getTime()) / 1000;
+
+        secondDiff /= 60 * 60;
+
+        let actualNewSecondValue = Math.abs(Math.round(secondDiff));
+
+        newTotal = actualNewFirstValue + actualNewSecondValue;
+        setTotalCalHour(newTotal);
+        // total = newTotal;
       } else {
+        let totalHourTwinty;
         let divideByTwintyFour = Math.floor(timerOfValue / 24);
-        let multipleOfElight = divideByTwintyFour * 8;
+        let multipleOfElight = divideByTwintyFour * 9;
         let reminderOfTwintyFour = timerOfValue % 24;
-        let totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+        // let totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
         //console.log(totalHourTwinty);
-        setTotalCalHour(totalHourTwinty);
+        //
+        //
+
+        if (reminderOfTwintyFour <= 9) {
+          totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+          setTotalCalHour(totalHourTwinty);
+        } else if (reminderOfTwintyFour > 9 && reminderOfTwintyFour < 24) {
+          let previousDate1 = new Date(date2);
+          previousDate1.setDate(previousDate1.getDate() - 1);
+
+          let preVTime = previousDate1.toString().slice(0, 15);
+
+          let creatV = date1.toString().slice(15, 24);
+
+          let oldValue = `${preVTime}${creatV}`;
+
+          let oldValueNewDate = new Date(oldValue);
+
+          let oldSecondValue = `${preVTime} 18:30:00`;
+
+          let oldSecondNewDate = new Date(oldSecondValue);
+
+          let secondDiffss =
+            (oldValueNewDate.getTime() - oldSecondNewDate.getTime()) / 1000;
+
+          secondDiffss /= 60 * 60;
+
+          let actualNewSecondValuess = Math.abs(Math.round(secondDiffss));
+
+          let morningTime = date2.toString().slice(0, 15);
+
+          let newSecondValue = `${morningTime} 9:30`;
+          let secondD = new Date(newSecondValue);
+
+          //let newValueDate = new Date();
+
+          let secondDiff = (date2.getTime() - secondD.getTime()) / 1000;
+
+          secondDiff /= 60 * 60;
+
+          let actualNewSecondValue = Math.abs(Math.round(secondDiff));
+          totalHourTwinty =
+            multipleOfElight + (actualNewSecondValue + actualNewSecondValuess);
+          //console.log(actualNewSecondValue);
+          setTotalCalHour(totalHourTwinty);
+        } else {
+          totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+          setTotalCalHour(totalHourTwinty);
+        }
+        //
+        //
+        // setTotalCalHour(totalHourTwinty);
       }
 
       // old calculations===============================================
@@ -491,7 +648,8 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                   <td>{each.project_id}</td>
                   <td>{each.task}</td>
                   <td>{each.createdate}</td>
-                  <td>{each.updatedAt.slice(0, 10)}</td>
+                  {/* <td>{each.updatedAt.slice(0, 10)}</td> */}
+                  <td>{each.updatedDate}</td>
                   <td>{each.date}</td>
                   <td>{each.actualComDate}</td>
                   <td>{each.actualExptDate}</td>
@@ -669,9 +827,10 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                     justifyContent: "space-between",
                     alignItems: "center",
                   }}
+                  key={index}
                 >
                   <li
-                    key={index}
+                    //key={index}
                     className="user-card-container"
                     onClick={() => getData(i.username)}
                     // style={{
@@ -703,8 +862,8 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
           )}
           {timerStoreEmployeeTask?.length !== 0 && (
             <div className="employee-cont">
-              {timerStoreEmployeeTask?.map((each) => (
-                <div>
+              {timerStoreEmployeeTask?.map((each, index) => (
+                <div key={index}>
                   <p className="para-total-hour">
                     Total Hours :{" "}
                     <span className="total-span fff">
@@ -783,12 +942,16 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
                 </tr>
               </thead>
               <tbody>
-                {filterEmployeeTask.map((each) => (
-                  <tr onClick={() => fetchTheTimersBasedOnTask(each._id)}>
+                {filterEmployeeTask.map((each, index) => (
+                  <tr
+                    key={index}
+                    onClick={() => fetchTheTimersBasedOnTask(each._id)}
+                  >
                     <td>{each.project_id}</td>
                     <td>{each.task}</td>
                     <td>{each.createdate}</td>
-                    <td>{each.updatedAt.slice(0, 10)}</td>
+                    {/* <td>{each.updatedAt.slice(0, 10)}</td> */}
+                    <td>{each.updatedDate}</td>
                     <td>{each.date}</td>
                     <td>{each.actualComDate}</td>
                     <td>{each.actualExptDate}</td>

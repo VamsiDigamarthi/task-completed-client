@@ -102,8 +102,8 @@ const SuperAdmin = () => {
             </button>
           </div>
           <div className="admin-employee-f-container">
-            {allAdmindata.map((each) => (
-              <div className="admin-employess-s-container">
+            {allAdmindata.map((each, index) => (
+              <div key={index} className="admin-employess-s-container">
                 <img
                   className="admin-employee-images-card"
                   src={each.profilePic}

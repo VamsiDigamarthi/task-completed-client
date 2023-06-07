@@ -69,10 +69,13 @@ const ProjectIdModal = ({
 
   //console.log(projectSetUserId);
 
+  //console.log(teamLeaderTask);
+
   return (
     <>
       <Modal
         centered
+        size="55%"
         opened={projectModal}
         onClose={() => setProjectModal(false)}
         title="Project"
@@ -93,15 +96,17 @@ const ProjectIdModal = ({
         <form onSubmit={editSubmitTask}>
           <h4>All project Ids</h4>
           <div className="inp-check ">
-            {teamLeaderTask.map((each) => (
-              <div className="inp-div">
+            {teamLeaderTask.map((each, index) => (
+              <div key={index} className="inp-div">
                 <input
                   onChange={(e) => setInputValue(e.target.value)}
                   value={each.project_id}
                   type="checkbox"
                   id="inp"
                 />
-                <label>{each.project_id}</label>
+                <label>
+                  {each.project_id} ({each.task})
+                </label>
               </div>
             ))}
           </div>
@@ -111,8 +116,8 @@ const ProjectIdModal = ({
         </form>
         <div>
           <h5>which project assign</h5>
-          {rrr?.map((each) => (
-            <p>{each}</p>
+          {rrr?.map((each, index) => (
+            <p key={index}>{each}</p>
           ))}
           {/* {Array(employees).map((each) => (
             <ul>

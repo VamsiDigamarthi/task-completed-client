@@ -21,7 +21,7 @@ const EmployeAddModal = ({
     username: "",
     description: "",
     date: "",
-    head: UUU.role,
+    head: UUU._id,
     createdate: "",
     project_id: "",
   });
@@ -119,8 +119,8 @@ const EmployeAddModal = ({
                 <option>{each.name}</option>
               ))} */}
               {/* new added task based on username */}
-              {teamUserList.map((each) => (
-                <option>{each.username}</option>
+              {teamUserList.map((each, index) => (
+                <option key={index}>{each.username}</option>
               ))}
             </select>
           </div>
@@ -164,12 +164,14 @@ const EmployeAddModal = ({
               name="project_id"
               onChange={taskAddFun}
             >
-              {teamLeaderTask?.map((each) => (
+              {teamLeaderTask?.map((each, index) => (
                 <>
                   <option disabled selected hidden>
                     Please select project Id
                   </option>
-                  <option value={each.project_id}>{each.project_id}</option>
+                  <option key={index} value={each.project_id}>
+                    {each.project_id}
+                  </option>
                 </>
               ))}
             </select>

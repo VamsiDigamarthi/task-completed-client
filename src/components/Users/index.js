@@ -354,11 +354,65 @@ const Users = () => {
 
           total = newTotal;
         } else {
+          let totalHourTwinty;
           let divideByTwintyFour = Math.floor(timerOfValue / 24);
           let multipleOfElight = divideByTwintyFour * 9;
+
           let reminderOfTwintyFour = timerOfValue % 24;
-          let totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
-          total = totalHourTwinty;
+
+          //
+          //
+
+          if (reminderOfTwintyFour <= 9) {
+            totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+            total = totalHourTwinty;
+          } else if (reminderOfTwintyFour > 9 && reminderOfTwintyFour < 24) {
+            let previousDate1 = new Date(actualExpt);
+            previousDate1.setDate(previousDate1.getDate() - 1);
+
+            let preVTime = previousDate1.toString().slice(0, 15);
+
+            let creatV = actualDate.toString().slice(15, 24);
+
+            let oldValue = `${preVTime}${creatV}`;
+
+            let oldValueNewDate = new Date(oldValue);
+
+            let oldSecondValue = `${preVTime} 18:30:00`;
+
+            let oldSecondNewDate = new Date(oldSecondValue);
+
+            let secondDiffss =
+              (oldValueNewDate.getTime() - oldSecondNewDate.getTime()) / 1000;
+
+            secondDiffss /= 60 * 60;
+
+            let actualNewSecondValuess = Math.abs(Math.round(secondDiffss));
+
+            let morningTime = actualExpt.toString().slice(0, 15);
+
+            let newSecondValue = `${morningTime} 9:30`;
+            let secondD = new Date(newSecondValue);
+
+            //let newValueDate = new Date();
+
+            let secondDiff = (actualExpt.getTime() - secondD.getTime()) / 1000;
+
+            secondDiff /= 60 * 60;
+
+            let actualNewSecondValue = Math.abs(Math.round(secondDiff));
+            totalHourTwinty =
+              multipleOfElight +
+              (actualNewSecondValue + actualNewSecondValuess);
+            console.log(actualNewSecondValue);
+            total = totalHourTwinty;
+          } else {
+            totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+            total = totalHourTwinty;
+          }
+
+          // let totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+          //total = totalHourTwinty;
         }
       } else {
         // const diffTime = Math.abs(date2 - date1);
@@ -415,12 +469,61 @@ const Users = () => {
 
           total = newTotal;
         } else {
+          let totalHourTwinty;
           let divideByTwintyFour = Math.floor(timerOfValue / 24);
           let multipleOfElight = divideByTwintyFour * 9;
           let reminderOfTwintyFour = timerOfValue % 24;
-          let totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+
+          if (reminderOfTwintyFour <= 9) {
+            totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+            total = totalHourTwinty;
+          } else if (reminderOfTwintyFour > 9 && reminderOfTwintyFour < 24) {
+            let previousDate1 = new Date(date2);
+            previousDate1.setDate(previousDate1.getDate() - 1);
+
+            let preVTime = previousDate1.toString().slice(0, 15);
+
+            let creatV = date1.toString().slice(15, 24);
+
+            let oldValue = `${preVTime}${creatV}`;
+
+            let oldValueNewDate = new Date(oldValue);
+
+            let oldSecondValue = `${preVTime} 18:30:00`;
+
+            let oldSecondNewDate = new Date(oldSecondValue);
+
+            let secondDiffss =
+              (oldValueNewDate.getTime() - oldSecondNewDate.getTime()) / 1000;
+
+            secondDiffss /= 60 * 60;
+
+            let actualNewSecondValuess = Math.abs(Math.round(secondDiffss));
+
+            let morningTime = date2.toString().slice(0, 15);
+
+            let newSecondValue = `${morningTime} 9:30`;
+            let secondD = new Date(newSecondValue);
+
+            //let newValueDate = new Date();
+
+            let secondDiff = (date2.getTime() - secondD.getTime()) / 1000;
+
+            secondDiff /= 60 * 60;
+
+            let actualNewSecondValue = Math.abs(Math.round(secondDiff));
+            totalHourTwinty =
+              multipleOfElight +
+              (actualNewSecondValue + actualNewSecondValuess);
+            console.log(actualNewSecondValue);
+            total = totalHourTwinty;
+          } else {
+            totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+            total = totalHourTwinty;
+          }
+
+          // let totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
           //console.log(`24 above ${totalHourTwinty}`);
-          total = totalHourTwinty;
         }
       }
 
@@ -434,10 +537,10 @@ const Users = () => {
 
       if (date3) {
         if (actualDate) {
-          console.log("djkd");
+          //console.log("djkd");
           // let total;
           if (date3 >= actualDate) {
-            console.log("updated date big");
+            //console.log("updated date big");
             //
             // const diffTime = Math.abs(actualExpt - actualDate);
             // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -459,7 +562,7 @@ const Users = () => {
             if (timerOfValue < 9) {
               rr = timerOfValue;
             } else if (timerOfValue >= 9 && timerOfValue < 24) {
-              console.log("24 below and 9 above");
+              //console.log("24 below and 9 above");
               let newTotal;
               let firstNewDate = actualDate.toString().slice(0, 15);
 
@@ -491,10 +594,68 @@ const Users = () => {
 
               rr = newTotal;
             } else {
+              let totalHourTwinty;
               let divideByTwintyFour = Math.floor(timerOfValue / 24);
               let multipleOfElight = divideByTwintyFour * 9;
               let reminderOfTwintyFour = timerOfValue % 24;
-              let totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+
+              //
+              //
+              //
+
+              if (reminderOfTwintyFour <= 9) {
+                totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+              } else if (
+                reminderOfTwintyFour > 9 &&
+                reminderOfTwintyFour < 24
+              ) {
+                let previousDate1 = new Date(date3);
+                previousDate1.setDate(previousDate1.getDate() - 1);
+
+                let preVTime = previousDate1.toString().slice(0, 15);
+
+                let creatV = actualDate.toString().slice(15, 24);
+
+                let oldValue = `${preVTime}${creatV}`;
+
+                let oldValueNewDate = new Date(oldValue);
+
+                let oldSecondValue = `${preVTime} 18:30:00`;
+
+                let oldSecondNewDate = new Date(oldSecondValue);
+
+                let secondDiffss =
+                  (oldValueNewDate.getTime() - oldSecondNewDate.getTime()) /
+                  1000;
+
+                secondDiffss /= 60 * 60;
+
+                let actualNewSecondValuess = Math.abs(Math.round(secondDiffss));
+
+                let morningTime = date3.toString().slice(0, 15);
+
+                let newSecondValue = `${morningTime} 9:30`;
+                let secondD = new Date(newSecondValue);
+
+                //let newValueDate = new Date();
+
+                let secondDiff = (date3.getTime() - secondD.getTime()) / 1000;
+
+                secondDiff /= 60 * 60;
+
+                let actualNewSecondValue = Math.abs(Math.round(secondDiff));
+                totalHourTwinty =
+                  multipleOfElight +
+                  (actualNewSecondValue + actualNewSecondValuess);
+                console.log(actualNewSecondValue);
+              } else {
+                totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+              }
+
+              //
+              //
+              //
+
               rr = totalHourTwinty;
             }
 
@@ -529,7 +690,7 @@ const Users = () => {
             if (timerOfValue < 9) {
               rr = timerOfValue;
             } else if (timerOfValue >= 9 && timerOfValue < 24) {
-              console.log("24 below and 9 above");
+              //console.log("24 below and 9 above");
               let newTotal;
               let firstNewDate = date1.toString().slice(0, 15);
 
@@ -561,10 +722,69 @@ const Users = () => {
 
               rr = newTotal;
             } else {
+              let totalHourTwinty;
               let divideByTwintyFour = Math.floor(timerOfValue / 24);
               let multipleOfElight = divideByTwintyFour * 9;
               let reminderOfTwintyFour = timerOfValue % 24;
-              let totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+
+              //  new added remainder values start
+              //
+              //
+
+              if (reminderOfTwintyFour <= 9) {
+                totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+              } else if (
+                reminderOfTwintyFour > 9 &&
+                reminderOfTwintyFour < 24
+              ) {
+                let previousDate1 = new Date(date3);
+                previousDate1.setDate(previousDate1.getDate() - 1);
+
+                let preVTime = previousDate1.toString().slice(0, 15);
+
+                let creatV = date1.toString().slice(15, 24);
+
+                let oldValue = `${preVTime}${creatV}`;
+
+                let oldValueNewDate = new Date(oldValue);
+
+                let oldSecondValue = `${preVTime} 18:30:00`;
+
+                let oldSecondNewDate = new Date(oldSecondValue);
+
+                let secondDiffss =
+                  (oldValueNewDate.getTime() - oldSecondNewDate.getTime()) /
+                  1000;
+
+                secondDiffss /= 60 * 60;
+
+                let actualNewSecondValuess = Math.abs(Math.round(secondDiffss));
+
+                let morningTime = date3.toString().slice(0, 15);
+
+                let newSecondValue = `${morningTime} 9:30`;
+                let secondD = new Date(newSecondValue);
+
+                //let newValueDate = new Date();
+
+                let secondDiff = (date3.getTime() - secondD.getTime()) / 1000;
+
+                secondDiff /= 60 * 60;
+
+                let actualNewSecondValue = Math.abs(Math.round(secondDiff));
+                totalHourTwinty =
+                  multipleOfElight +
+                  (actualNewSecondValue + actualNewSecondValuess);
+                console.log(actualNewSecondValue);
+              } else {
+                totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+              }
+
+              //
+              //
+              //
+
+              // totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
               rr = totalHourTwinty;
             }
 
@@ -618,7 +838,7 @@ const Users = () => {
 
         // console.log(ISTDateTime);
 
-        console.log(datess);
+        //console.log(datess);
         // //
         // console.log(date1);
 
@@ -648,7 +868,7 @@ const Users = () => {
             if (timerOfValue < 9) {
               rr = `R-${timerOfValue}`;
             } else if (timerOfValue >= 9 && timerOfValue < 24) {
-              console.log("24 below and 9 above");
+              //console.log("24 below and 9 above");
               let newTotal;
               let firstNewDate = actualDate.toString().slice(0, 15);
               // let firstNewDate = (date1 + "").slice(0, 10);
@@ -680,10 +900,70 @@ const Users = () => {
 
               rr = `R-${newTotal}`;
             } else {
+              let totalHourTwinty;
               let divideByTwintyFour = Math.floor(timerOfValue / 24);
               let multipleOfElight = divideByTwintyFour * 9;
               let reminderOfTwintyFour = timerOfValue % 24;
-              let totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+
+              if (reminderOfTwintyFour <= 9) {
+                totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+              } else if (
+                reminderOfTwintyFour > 9 &&
+                reminderOfTwintyFour < 24
+              ) {
+                let previousDate1 = new Date(datess);
+                previousDate1.setDate(previousDate1.getDate() - 1);
+
+                let preVTime = previousDate1.toString().slice(0, 15);
+
+                let creatV = actualDate.toString().slice(15, 24);
+
+                console.log(preVTime);
+
+                console.log(creatV);
+
+                let oldValue = `${preVTime}${creatV}`;
+
+                let oldValueNewDate = new Date(oldValue);
+
+                let oldSecondValue = `${preVTime} 18:30:00`;
+
+                let oldSecondNewDate = new Date(oldSecondValue);
+
+                let secondDiffss =
+                  (oldValueNewDate.getTime() - oldSecondNewDate.getTime()) /
+                  1000;
+
+                secondDiffss /= 60 * 60;
+
+                let actualNewSecondValuess = Math.abs(Math.round(secondDiffss));
+
+                console.log(oldValueNewDate);
+
+                console.log(oldSecondValue);
+
+                console.log(actualNewSecondValuess);
+
+                let morningTime = datess.toString().slice(0, 15);
+
+                let newSecondValue = `${morningTime} 9:30`;
+                let secondD = new Date(newSecondValue);
+                console.log(secondD);
+
+                //let newValueDate = new Date();
+
+                let secondDiff = (datess.getTime() - secondD.getTime()) / 1000;
+
+                secondDiff /= 60 * 60;
+
+                let actualNewSecondValue = Math.abs(Math.round(secondDiff));
+                totalHourTwinty =
+                  multipleOfElight +
+                  (actualNewSecondValue + actualNewSecondValuess);
+                console.log(actualNewSecondValue);
+              } else {
+                totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+              }
               rr = `R-${totalHourTwinty}`;
             }
 
@@ -734,8 +1014,8 @@ const Users = () => {
 
             // new added hours
 
-            console.log(datess);
-            console.log(date1);
+            //console.log(datess);
+            //console.log(date1);
 
             let rr;
             //  changes new dates
@@ -748,21 +1028,21 @@ const Users = () => {
             if (timerOfValue < 9) {
               rr = `R-${timerOfValue}`;
             } else if (timerOfValue >= 9 && timerOfValue < 24) {
-              console.log("24 below and 9 above");
+              //console.log("24 below and 9 above");
               let newTotal;
               let firstNewDate = date1.toString().slice(0, 15);
               // let firstNewDate = (date1 + "").slice(0, 10);
               let newFirstValue = `${firstNewDate} 18:30:00`;
               let firstD = new Date(newFirstValue);
 
-              console.log(firstNewDate);
-              console.log(firstD);
+              //console.log(firstNewDate);
+              //console.log(firstD);
 
               let firstDiff = (firstD.getTime() - date1.getTime()) / 1000;
               firstDiff /= 60 * 60;
               let actualNewFirstValue = Math.abs(Math.round(firstDiff));
 
-              console.log(actualNewFirstValue);
+              //console.log(actualNewFirstValue);
 
               // another second date calculations
 
@@ -770,8 +1050,8 @@ const Users = () => {
               let newSecondValue = `${secondNewDate} 9:30`;
               let secondD = new Date(newSecondValue);
 
-              console.log(secondNewDate);
-              console.log(secondD);
+              //console.log(secondNewDate);
+              //console.log(secondD);
 
               let secondDiff = (datess.getTime() - secondD.getTime()) / 1000;
 
@@ -779,16 +1059,81 @@ const Users = () => {
 
               let actualNewSecondValue = Math.abs(Math.round(secondDiff));
 
-              console.log(actualNewSecondValue);
+              //console.log(actualNewSecondValue);
 
               newTotal = actualNewFirstValue + actualNewSecondValue;
 
               rr = `R-${newTotal}`;
             } else {
+              let totalHourTwinty;
               let divideByTwintyFour = Math.floor(timerOfValue / 24);
+              console.log(divideByTwintyFour);
               let multipleOfElight = divideByTwintyFour * 9;
+              console.log(multipleOfElight);
               let reminderOfTwintyFour = timerOfValue % 24;
-              let totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+              // reminder is less than 9
+              if (reminderOfTwintyFour <= 9) {
+                totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+              } else if (
+                reminderOfTwintyFour > 9 &&
+                reminderOfTwintyFour < 24
+              ) {
+                let previousDate1 = new Date(datess);
+                previousDate1.setDate(previousDate1.getDate() - 1);
+
+                let preVTime = previousDate1.toString().slice(0, 15);
+
+                let creatV = date1.toString().slice(15, 24);
+
+                console.log(preVTime);
+
+                console.log(creatV);
+
+                let oldValue = `${preVTime}${creatV}`;
+
+                let oldValueNewDate = new Date(oldValue);
+
+                let oldSecondValue = `${preVTime} 18:30:00`;
+
+                let oldSecondNewDate = new Date(oldSecondValue);
+
+                let secondDiffss =
+                  (oldValueNewDate.getTime() - oldSecondNewDate.getTime()) /
+                  1000;
+
+                secondDiffss /= 60 * 60;
+
+                let actualNewSecondValuess = Math.abs(Math.round(secondDiffss));
+
+                console.log(oldValueNewDate);
+
+                console.log(oldSecondValue);
+
+                console.log(actualNewSecondValuess);
+
+                let morningTime = datess.toString().slice(0, 15);
+
+                let newSecondValue = `${morningTime} 9:30`;
+                let secondD = new Date(newSecondValue);
+                console.log(secondD);
+
+                //let newValueDate = new Date();
+
+                let secondDiff = (datess.getTime() - secondD.getTime()) / 1000;
+
+                secondDiff /= 60 * 60;
+
+                let actualNewSecondValue = Math.abs(Math.round(secondDiff));
+                totalHourTwinty =
+                  multipleOfElight +
+                  (actualNewSecondValue + actualNewSecondValuess);
+                console.log(actualNewSecondValue);
+              } else {
+                totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
+              }
+              //console.log(reminderOfTwintyFour);
+
+              //console.log(`total ${totalHourTwinty}`);
               rr = `R-${totalHourTwinty}`;
             }
 
@@ -825,7 +1170,7 @@ const Users = () => {
 
     API.get(`/time/taskvalue/${id}`)
       .then((res) => {
-        console.log(res.data[0]);
+        //console.log(res.data[0]);
         const arrayOfObject = res.data[0];
         const array = Array(arrayOfObject);
         //

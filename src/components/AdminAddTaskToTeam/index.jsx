@@ -58,7 +58,7 @@ const AdminAddTaskToTeam = ({
 
   const theme = useMantineTheme();
 
-  console.log(taskAdd);
+  //console.log(taskAdd);
 
   return (
     <>
