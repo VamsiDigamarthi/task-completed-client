@@ -320,9 +320,35 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
         setTotalCalHour(newTotal);
         // total = newTotal;
       } else {
+        // ignore sundays start container
+
+        let currentDate = new Date(actualStart);
+        let nonWorkingHours = [0];
+
+        while (currentDate <= actualEnd) {
+          if (!nonWorkingHours.includes(currentDate.getDay())) {
+            console.log("not sunday");
+          } else {
+            // currentDate.setDate(currentDate.getDate() + 1)
+            console.log("sunday");
+            timerOfValue -= 24;
+            //sundayCount += 1
+          }
+          currentDate.setDate(currentDate.getDate() + 1);
+        }
+
+        // ignore sundays start container
+
         let totalHourTwinty;
+        let multipleOfElight;
         let divideByTwintyFour = Math.floor(timerOfValue / 24);
-        let multipleOfElight = divideByTwintyFour * 9;
+
+        if (divideByTwintyFour < 1) {
+          multipleOfElight = 0;
+        } else {
+          multipleOfElight = divideByTwintyFour * 9;
+        }
+
         let reminderOfTwintyFour = timerOfValue % 24;
         // let totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
         //console.log(totalHourTwinty);
@@ -336,6 +362,10 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
         } else if (reminderOfTwintyFour > 9 && reminderOfTwintyFour < 24) {
           let previousDate1 = new Date(actualEnd);
           previousDate1.setDate(previousDate1.getDate() - 1);
+
+          if (previousDate1.getDay() == 0) {
+            previousDate1.setDate(previousDate1.getDate() - 1);
+          }
 
           let preVTime = previousDate1.toString().slice(0, 15);
 
@@ -423,13 +453,41 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
         setTotalCalHour(newTotal);
         // total = newTotal;
       } else {
+        //
+        // ignore sunday in hour calculations
+        //
+
+        let currentDate = new Date(date1);
+        let nonWorkingHours = [0];
+
+        while (currentDate <= date2) {
+          if (!nonWorkingHours.includes(currentDate.getDay())) {
+            console.log("not sunday");
+          } else {
+            // currentDate.setDate(currentDate.getDate() + 1)
+            console.log("sunday");
+            timerOfValue -= 24;
+            //sundayCount += 1
+          }
+          currentDate.setDate(currentDate.getDate() + 1);
+        }
+
+        //
+        // ignore sundays in hour calculations
+
         let totalHourTwinty;
+        let multipleOfElight;
         let divideByTwintyFour = Math.floor(timerOfValue / 24);
-        let multipleOfElight = divideByTwintyFour * 9;
+
+        if (divideByTwintyFour < 1) {
+          multipleOfElight = 0;
+        } else {
+          multipleOfElight = divideByTwintyFour * 9;
+        }
+
         let reminderOfTwintyFour = timerOfValue % 24;
         // let totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
         //console.log(totalHourTwinty);
-        //
         //
 
         if (reminderOfTwintyFour <= 9) {
@@ -438,6 +496,10 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
         } else if (reminderOfTwintyFour > 9 && reminderOfTwintyFour < 24) {
           let previousDate1 = new Date(date2);
           previousDate1.setDate(previousDate1.getDate() - 1);
+
+          if (previousDate1.getDay() == 0) {
+            previousDate1.setDate(previousDate1.getDate() - 1);
+          }
 
           let preVTime = previousDate1.toString().slice(0, 15);
 

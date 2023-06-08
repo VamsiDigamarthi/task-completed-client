@@ -354,9 +354,36 @@ const Users = () => {
 
           total = newTotal;
         } else {
+          // ignore sundays in hour calculations start container
+          //
+
+          let currentDate = new Date(actualDate);
+          let nonWorkingHours = [0];
+
+          while (currentDate <= actualExpt) {
+            if (!nonWorkingHours.includes(currentDate.getDay())) {
+              console.log("not sunday");
+            } else {
+              // currentDate.setDate(currentDate.getDate() + 1)
+              console.log("sunday");
+              timerOfValue -= 24;
+              //sundayCount += 1
+            }
+            currentDate.setDate(currentDate.getDate() + 1);
+          }
+
+          //
+          // ignore sundays in hours calculations in end container
+
           let totalHourTwinty;
+          let multipleOfElight;
           let divideByTwintyFour = Math.floor(timerOfValue / 24);
-          let multipleOfElight = divideByTwintyFour * 9;
+
+          if (divideByTwintyFour < 1) {
+            multipleOfElight = 0;
+          } else {
+            multipleOfElight = divideByTwintyFour * 9;
+          }
 
           let reminderOfTwintyFour = timerOfValue % 24;
 
@@ -369,6 +396,10 @@ const Users = () => {
           } else if (reminderOfTwintyFour > 9 && reminderOfTwintyFour < 24) {
             let previousDate1 = new Date(actualExpt);
             previousDate1.setDate(previousDate1.getDate() - 1);
+
+            if (previousDate1.getDay() == 0) {
+              previousDate1.setDate(previousDate1.getDate() - 1);
+            }
 
             let preVTime = previousDate1.toString().slice(0, 15);
 
@@ -469,9 +500,36 @@ const Users = () => {
 
           total = newTotal;
         } else {
+          // ignore hours calculations start container
+          //
+          let currentDate = new Date(date1);
+          let nonWorkingHours = [0];
+
+          while (currentDate <= date2) {
+            if (!nonWorkingHours.includes(currentDate.getDay())) {
+              console.log("not sunday");
+            } else {
+              // currentDate.setDate(currentDate.getDate() + 1)
+              console.log("sunday");
+              timerOfValue -= 24;
+              //sundayCount += 1
+            }
+            currentDate.setDate(currentDate.getDate() + 1);
+          }
+
+          //
+          // ignore hours calculations end container
+
           let totalHourTwinty;
+          let multipleOfElight;
           let divideByTwintyFour = Math.floor(timerOfValue / 24);
-          let multipleOfElight = divideByTwintyFour * 9;
+
+          if (divideByTwintyFour < 1) {
+            multipleOfElight = 0;
+          } else {
+            multipleOfElight = divideByTwintyFour * 9;
+          }
+
           let reminderOfTwintyFour = timerOfValue % 24;
 
           if (reminderOfTwintyFour <= 9) {
@@ -480,6 +538,10 @@ const Users = () => {
           } else if (reminderOfTwintyFour > 9 && reminderOfTwintyFour < 24) {
             let previousDate1 = new Date(date2);
             previousDate1.setDate(previousDate1.getDate() - 1);
+
+            if (previousDate1.getDay() == 0) {
+              previousDate1.setDate(previousDate1.getDate() - 1);
+            }
 
             let preVTime = previousDate1.toString().slice(0, 15);
 
@@ -594,9 +656,37 @@ const Users = () => {
 
               rr = newTotal;
             } else {
+              // ignore sundays in hours calculations start container
+              //
+
+              let currentDate = new Date(actualDate);
+              let nonWorkingHours = [0];
+
+              while (currentDate <= date3) {
+                if (!nonWorkingHours.includes(currentDate.getDay())) {
+                  console.log("not sunday");
+                } else {
+                  // currentDate.setDate(currentDate.getDate() + 1)
+                  console.log("sunday");
+                  timerOfValue -= 24;
+                  //sundayCount += 1
+                }
+                currentDate.setDate(currentDate.getDate() + 1);
+              }
+
+              //
+              // ignore sundays in hours calculations end container
+
               let totalHourTwinty;
+              let multipleOfElight;
               let divideByTwintyFour = Math.floor(timerOfValue / 24);
-              let multipleOfElight = divideByTwintyFour * 9;
+
+              if (divideByTwintyFour < 1) {
+                multipleOfElight = 0;
+              } else {
+                multipleOfElight = divideByTwintyFour * 9;
+              }
+
               let reminderOfTwintyFour = timerOfValue % 24;
 
               //
@@ -611,6 +701,10 @@ const Users = () => {
               ) {
                 let previousDate1 = new Date(date3);
                 previousDate1.setDate(previousDate1.getDate() - 1);
+
+                if (previousDate1.getDay() == 0) {
+                  previousDate1.setDate(previousDate1.getDate() - 1);
+                }
 
                 let preVTime = previousDate1.toString().slice(0, 15);
 
@@ -722,9 +816,37 @@ const Users = () => {
 
               rr = newTotal;
             } else {
+              // ignore sundays in hours calculations start container
+              //
+
+              let currentDate = new Date(date1);
+              let nonWorkingHours = [0];
+
+              while (currentDate <= date3) {
+                if (!nonWorkingHours.includes(currentDate.getDay())) {
+                  console.log("not sunday");
+                } else {
+                  // currentDate.setDate(currentDate.getDate() + 1)
+                  console.log("sunday");
+                  timerOfValue -= 24;
+                  //sundayCount += 1
+                }
+                currentDate.setDate(currentDate.getDate() + 1);
+              }
+
+              //
+              // ignore sundays in hours calculations end container
+
               let totalHourTwinty;
+              let multipleOfElight;
               let divideByTwintyFour = Math.floor(timerOfValue / 24);
-              let multipleOfElight = divideByTwintyFour * 9;
+
+              if (divideByTwintyFour < 1) {
+                multipleOfElight = 0;
+              } else {
+                multipleOfElight = divideByTwintyFour * 9;
+              }
+
               let reminderOfTwintyFour = timerOfValue % 24;
 
               //  new added remainder values start
@@ -739,6 +861,10 @@ const Users = () => {
               ) {
                 let previousDate1 = new Date(date3);
                 previousDate1.setDate(previousDate1.getDate() - 1);
+
+                if (previousDate1.getDay() == 0) {
+                  previousDate1.setDate(previousDate1.getDate() - 1);
+                }
 
                 let preVTime = previousDate1.toString().slice(0, 15);
 
@@ -815,42 +941,6 @@ const Users = () => {
       } else {
         const datess = new Date();
 
-        // newlly addes dates in IST
-
-        // var currentDate = new Date();
-
-        // var options = {
-        //   timeZone: "Asia/Kolkata", // Set the time zone to IST
-        //   // weekday: "long", // Get the full name of the day
-        //   year: "numeric", // Get the full numeric representation of the year
-        //   month: "numeric", // Get the full name of the month
-        //   day: "numeric", // Get the day of the month (numeric)
-        //   hour: "numeric", // Get the hour (numeric)
-        //   minute: "numeric", // Get the minute (numeric)
-        //   second: "numeric", // Get the second (numeric)
-        // };
-
-        // var ISTDateTime = currentDate.toLocaleString("en-IN", options);
-
-        // var datess = new Date(ISTDateTime);
-
-        // //
-
-        // console.log(ISTDateTime);
-
-        //console.log(datess);
-        // //
-        // console.log(date1);
-
-        // // let diff = (datess.getTime() - date1.getTime()) / 1000;
-        // // diff /= 60 * 60;
-        // // let timerOfValue = Math.abs(Math.round(diff));
-
-        // // console.log(timerOfValue);
-        // if (datess.getTime() >= date1.getTime()) {
-        //   console.log("new date is greater than");
-        // }
-
         if (actualDate) {
           if (datess >= actualDate) {
             // const diffTime = Math.abs(datess - actualDate);
@@ -900,9 +990,36 @@ const Users = () => {
 
               rr = `R-${newTotal}`;
             } else {
+              // ignore sundays in hour calculations start container
+              //
+
+              let currentDate = new Date(actualDate);
+              let nonWorkingHours = [0];
+
+              while (currentDate <= datess) {
+                if (!nonWorkingHours.includes(currentDate.getDay())) {
+                  console.log("not sunday");
+                } else {
+                  // currentDate.setDate(currentDate.getDate() + 1)
+                  console.log("sunday");
+                  timerOfValue -= 24;
+                  //sundayCount += 1
+                }
+                currentDate.setDate(currentDate.getDate() + 1);
+              }
+
+              //
+              // ignore sundays in hour calculations end container
               let totalHourTwinty;
+              let multipleOfElight;
               let divideByTwintyFour = Math.floor(timerOfValue / 24);
-              let multipleOfElight = divideByTwintyFour * 9;
+
+              if (divideByTwintyFour < 1) {
+                multipleOfElight = 0;
+              } else {
+                multipleOfElight = divideByTwintyFour * 9;
+              }
+
               let reminderOfTwintyFour = timerOfValue % 24;
 
               if (reminderOfTwintyFour <= 9) {
@@ -913,6 +1030,10 @@ const Users = () => {
               ) {
                 let previousDate1 = new Date(datess);
                 previousDate1.setDate(previousDate1.getDate() - 1);
+
+                if (previousDate1.getDay() == 0) {
+                  previousDate1.setDate(previousDate1.getDate() - 1);
+                }
 
                 let preVTime = previousDate1.toString().slice(0, 15);
 
@@ -1065,12 +1186,38 @@ const Users = () => {
 
               rr = `R-${newTotal}`;
             } else {
+              // ignore sundays in hour calculations start container
+              //
+              let currentDate = new Date(date1);
+              let nonWorkingHours = [0];
+
+              while (currentDate <= datess) {
+                if (!nonWorkingHours.includes(currentDate.getDay())) {
+                  console.log("not sunday");
+                } else {
+                  // currentDate.setDate(currentDate.getDate() + 1)
+                  console.log("sunday");
+                  timerOfValue -= 24;
+                  //sundayCount += 1
+                }
+                currentDate.setDate(currentDate.getDate() + 1);
+              }
+
+              //
+              // ignore sundays in hour calculations end container
+
               let totalHourTwinty;
+              let multipleOfElight;
               let divideByTwintyFour = Math.floor(timerOfValue / 24);
-              console.log(divideByTwintyFour);
-              let multipleOfElight = divideByTwintyFour * 9;
-              console.log(multipleOfElight);
+
+              if (divideByTwintyFour < 1) {
+                multipleOfElight = 0;
+              } else {
+                multipleOfElight = divideByTwintyFour * 9;
+              }
+
               let reminderOfTwintyFour = timerOfValue % 24;
+
               // reminder is less than 9
               if (reminderOfTwintyFour <= 9) {
                 totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
@@ -1080,6 +1227,10 @@ const Users = () => {
               ) {
                 let previousDate1 = new Date(datess);
                 previousDate1.setDate(previousDate1.getDate() - 1);
+
+                if (previousDate1.getDay() == 0) {
+                  previousDate1.setDate(previousDate1.getDate() - 1);
+                }
 
                 let preVTime = previousDate1.toString().slice(0, 15);
 

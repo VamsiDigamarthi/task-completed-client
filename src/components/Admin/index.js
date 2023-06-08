@@ -19,28 +19,28 @@ import AdminDeleteTeamsModal from "../AdminDeleteTeamsModal";
 
 import { BiDetail } from "react-icons/bi";
 
-const employessTeams = [
-  {
-    title: "Software Team",
-    noOfEmployess: 8,
-    icons: <SiMulesoft />,
-  },
-  {
-    title: "Market Team",
-    noOfEmployess: 12,
-    icons: <SiMarketo />,
-  },
-  {
-    title: "Accounts Team",
-    noOfEmployess: 11,
-    icons: <MdAccountBalanceWallet />,
-  },
-  {
-    title: "Project Team",
-    noOfEmployess: 11,
-    icons: <SiPolymerproject />,
-  },
-];
+// const employessTeams = [
+//   {
+//     title: "Software Team",
+//     noOfEmployess: 8,
+//     icons: <SiMulesoft />,
+//   },
+//   {
+//     title: "Market Team",
+//     noOfEmployess: 12,
+//     icons: <SiMarketo />,
+//   },
+//   {
+//     title: "Accounts Team",
+//     noOfEmployess: 11,
+//     icons: <MdAccountBalanceWallet />,
+//   },
+//   {
+//     title: "Project Team",
+//     noOfEmployess: 11,
+//     icons: <SiPolymerproject />,
+//   },
+// ];
 
 const taskStatus = ["completed", "In-completed", "In-progress"];
 
