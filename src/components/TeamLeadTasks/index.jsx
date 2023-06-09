@@ -6,14 +6,12 @@ import { useEffect, useState } from "react";
 import UserModal from "../UserModal";
 import UserEditModal from "../UserEditModal";
 import { useSelector } from "react-redux";
-import { RiContactsBookLine, RiDeleteBinLine } from "react-icons/ri";
+import { RiDeleteBinLine } from "react-icons/ri";
 import TeamDeleteTaskModal from "../TeamDeleteTaskModal";
 import ReactApexChart from "react-apexcharts";
 
 import { AiOutlineDelete } from "react-icons/ai";
 import { GrView } from "react-icons/gr";
-
-import Chart from "react-apexcharts";
 
 import axios from "axios";
 import TimerAllDetailsModal from "../TimerAllDetailsModal/TimerAllDetailsModal";
@@ -260,6 +258,12 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
   // timer chat calculation change and duplicates remove form fetching data table
   // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   // new added timer values
+
+  // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+  // added function to calculate hours to reduce no of lines start container
+
+  // added function to calculate hours to reduce no of lines end container
+  // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
   const getTeamTaskCalHour = (
     create,

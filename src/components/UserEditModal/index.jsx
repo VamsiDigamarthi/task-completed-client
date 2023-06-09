@@ -62,25 +62,6 @@ const UserEditModal = ({
       >
         <form onSubmit={editSubmitTask}>
           <div className="edit-input-container">
-            <div
-              className="modal-input-text  date-input"
-              style={{
-                margin: "10px 0px",
-                height: "30px",
-                padding: "0px 5px",
-                display: "flex",
-                width: "96%",
-              }}
-            >
-              <label htmlFor="birthday">Create Date : </label>
-              <input
-                type="datetime-local"
-                id="birthday"
-                name="updatedDate"
-                onChange={usernameChange}
-                // className="modal-input-text  date-input"
-              />
-            </div>
             <select
               name="status"
               className="edit-selected"
@@ -93,6 +74,27 @@ const UserEditModal = ({
               <option value="In-completed">In-Completed</option>
               <option value="In-progress">In-Progress</option>
             </select>
+            {edit.status === "completed" && (
+              <div
+                className="modal-input-text  date-input"
+                style={{
+                  margin: "10px 0px",
+                  height: "30px",
+                  padding: "0px 5px",
+                  display: "flex",
+                  width: "96%",
+                }}
+              >
+                <label htmlFor="birthday">Create Date : </label>
+                <input
+                  type="datetime-local"
+                  id="birthday"
+                  name="updatedDate"
+                  onChange={usernameChange}
+                  // className="modal-input-text  date-input"
+                />
+              </div>
+            )}
             {edit && (
               <button disabled={edit === ""} className="edit-btn" type="submit">
                 Submit

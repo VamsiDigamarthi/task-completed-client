@@ -3,20 +3,22 @@ import "./index.css";
 // import { IoIosCloseCircleOutline } from "react-icons/io";
 import { Modal, useMantineTheme } from "@mantine/core";
 import FileBase64 from "react-file-base64";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser, AiOutlineAntDesign } from "react-icons/ai";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
 const ProfileEditModal = ({ editProfileModal, setEditProfileModal }) => {
+  const UUU = useSelector((state) => state.authReducer.authData);
   const [userEdit, setUserEdit] = useState({
-    profilePic: "",
+    profilePic: UUU.profilePic,
+    name: UUU.name,
+
+    designation: UUU.designation,
   });
 
-  //   const usernameChange = (e) => {
-  //     setUserEdit({ ...userEdit, [e.target.name]: e.target.value });
-  //   };
-
-  const UUU = useSelector((state) => state.authReducer.authData);
+  const usernameChange = (e) => {
+    setUserEdit({ ...userEdit, [e.target.name]: e.target.value });
+  };
 
   const editSubmitTask = (e) => {
     e.preventDefault();
@@ -35,12 +37,12 @@ const ProfileEditModal = ({ editProfileModal, setEditProfileModal }) => {
         console.log(e);
       });
 
-    setUserEdit({ profilePic: "" });
+    setUserEdit({ profilePic: "", name: "", designation: "" });
   };
 
   const theme = useMantineTheme();
 
-  // console.log(userEdit);
+  //console.log(userEdit);
 
   return (
     <>
@@ -75,10 +77,35 @@ const ProfileEditModal = ({ editProfileModal, setEditProfileModal }) => {
               value={userEdit.name}
             />
           </div> */}
+
+          <div className="form-input-container">
+            <AiOutlineUser className="form-icons" />
+            <input
+              placeholder="Name"
+              className="form-input"
+              type="text"
+              onChange={usernameChange}
+              name="name"
+              value={userEdit.name}
+            />
+          </div>
+          <div className="form-input-container">
+            <AiOutlineAntDesign className="form-icons" />
+            <input
+              placeholder="Designation"
+              className="form-input"
+              type="text"
+              onChange={usernameChange}
+              name="designation"
+              value={userEdit.designation}
+            />
+          </div>
+
           <FileBase64
             type="file"
             multiple={false}
             className="file-card"
+            value={userEdit.profilePic}
             onDone={({ base64 }) =>
               setUserEdit({ ...userEdit, profilePic: base64 })
             }

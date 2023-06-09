@@ -46,3 +46,9 @@ body.active-modal {
   width: 30px;
   color: red;
 }
+
+.desc-edit-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
