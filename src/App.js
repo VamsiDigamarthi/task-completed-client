@@ -8,8 +8,7 @@ import Login from "./components/Login";
 import Admin from "./components/Admin";
 import NotAccess from "./components/NotAccess";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
 import SuperAdmin from "./components/SuperAdmin";
 
@@ -26,8 +25,6 @@ var USER_TYPE = {
 
 function App() {
   const UUU = useSelector((state) => state.authReducer.authData);
-
-  const [allTeamMembers, setAllTeamMembers] = useState([]);
 
   // console.log(UUU);
 

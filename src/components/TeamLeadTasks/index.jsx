@@ -197,7 +197,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
     API.get(`/time/value/${id}`)
       .then((res) => {
         //setTeamUserList(res.data);
-        console.log(res.data);
+        // console.log(res.data);
         setTimeValuesCalProject(res.data);
       })
 
@@ -229,7 +229,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
     // }
     //console.log(each.timer);
     if (each.timer?.split("-")[1] === "0") {
-      console.log("jjjj");
+      console.log("j");
     } else {
       const objTitle = timeValuesCalProject[i]["taskValue"];
 
@@ -332,6 +332,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask }) {
         while (currentDate <= actualEnd) {
           if (!nonWorkingHours.includes(currentDate.getDay())) {
             console.log("not sunday");
+            //continue;
           } else {
             // currentDate.setDate(currentDate.getDate() + 1)
             console.log("sunday");

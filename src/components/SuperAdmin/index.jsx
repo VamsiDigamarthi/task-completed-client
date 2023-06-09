@@ -17,7 +17,7 @@ const SuperAdmin = () => {
 
   const UUU = useSelector((state) => state.authReducer.authData);
 
-  console.log(UUU?._id);
+  //console.log(UUU?._id);
 
   const superAdminAddedAdmin = (e) => {
     e.preventDefault();
@@ -42,6 +42,8 @@ const SuperAdmin = () => {
   useEffect(() => {
     getAllTeamsByAdmin();
   }, []);
+
+  //console.log(UUU);
 
   return (
     <>

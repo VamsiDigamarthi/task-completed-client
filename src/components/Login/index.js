@@ -5,6 +5,7 @@ import { useState } from "react";
 import { HiOutlineMail } from "react-icons/hi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
+import { AiOutlineEye } from "react-icons/ai";
 import { LogIn } from "../../actions/AuthAction";
 import axios from "axios";
 import "./index.css";
@@ -14,6 +15,8 @@ const Login = () => {
     username: "",
     password: "",
   });
+
+  const [eyeIconsValue, setEyeIconsValue] = useState(true);
 
   //console.log(UUU?.response);
 
@@ -86,11 +89,7 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login">
-        <img
-          className="login-img"
-          src="./images/undraw_Mobile_re_q4nk.png"
-          alt="loginimage"
-        />
+        <img className="login-img" src="./images/login.png" alt="loginimage" />
         <form onSubmit={submitForm} className="login-form">
           <h1 className="form-heading">Login</h1>
 
@@ -110,10 +109,15 @@ const Login = () => {
             <input
               placeholder="Password"
               className="form-input"
-              type="text"
+              type={eyeIconsValue ? "password" : "text"}
               onChange={usernameChange}
               name="password"
               value={user.password}
+            />
+            <AiOutlineEye
+              onClick={() => setEyeIconsValue(!eyeIconsValue)}
+              className="eye-icon"
+              style={{ marginRight: "7px" }}
             />
           </div>
           <button className="login-btn" type="submit">
@@ -127,7 +131,12 @@ const Login = () => {
               </Link>
             </p> */}
             <p className="reset-pass">
-              <Link to="/resetpassword">Reset your password</Link>
+              <Link
+                to="/resetpassword"
+                style={{ textDecoration: "none", color: "#f5bf36" }}
+              >
+                Reset your password
+              </Link>
             </p>
           </div>
         </form>

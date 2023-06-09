@@ -202,7 +202,7 @@ const Users = () => {
               console.log("not sunday");
             } else {
               // currentDate.setDate(currentDate.getDate() + 1)
-              console.log("sunday");
+              // console.log("sunday");
               timerOfValue -= 24;
               //sundayCount += 1
             }
@@ -272,7 +272,7 @@ const Users = () => {
             totalHourTwinty =
               multipleOfElight +
               (actualNewSecondValue + actualNewSecondValuess);
-            console.log(actualNewSecondValue);
+            // console.log(actualNewSecondValue);
             total = totalHourTwinty;
           } else {
             totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
@@ -347,7 +347,7 @@ const Users = () => {
               console.log("not sunday");
             } else {
               // currentDate.setDate(currentDate.getDate() + 1)
-              console.log("sunday");
+              // console.log("sunday");
               timerOfValue -= 24;
               //sundayCount += 1
             }
@@ -414,7 +414,7 @@ const Users = () => {
             totalHourTwinty =
               multipleOfElight +
               (actualNewSecondValue + actualNewSecondValuess);
-            console.log(actualNewSecondValue);
+            // console.log(actualNewSecondValue);
             total = totalHourTwinty;
           } else {
             totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
@@ -496,7 +496,7 @@ const Users = () => {
                   console.log("not sunday");
                 } else {
                   // currentDate.setDate(currentDate.getDate() + 1)
-                  console.log("sunday");
+                  // console.log("sunday");
                   timerOfValue -= 24;
                   //sundayCount += 1
                 }
@@ -570,7 +570,7 @@ const Users = () => {
                 totalHourTwinty =
                   multipleOfElight +
                   (actualNewSecondValue + actualNewSecondValuess);
-                console.log(actualNewSecondValue);
+                // console.log(actualNewSecondValue);
               } else {
                 totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
               }
@@ -656,7 +656,7 @@ const Users = () => {
                   console.log("not sunday");
                 } else {
                   // currentDate.setDate(currentDate.getDate() + 1)
-                  console.log("sunday");
+                  // console.log("sunday");
                   timerOfValue -= 24;
                   //sundayCount += 1
                 }
@@ -730,7 +730,7 @@ const Users = () => {
                 totalHourTwinty =
                   multipleOfElight +
                   (actualNewSecondValue + actualNewSecondValuess);
-                console.log(actualNewSecondValue);
+                // console.log(actualNewSecondValue);
               } else {
                 totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
               }
@@ -830,7 +830,7 @@ const Users = () => {
                   console.log("not sunday");
                 } else {
                   // currentDate.setDate(currentDate.getDate() + 1)
-                  console.log("sunday");
+                  // console.log("sunday");
                   timerOfValue -= 24;
                   //sundayCount += 1
                 }
@@ -888,17 +888,17 @@ const Users = () => {
 
                 let actualNewSecondValuess = Math.abs(Math.round(secondDiffss));
 
-                console.log(oldValueNewDate);
+                // console.log(oldValueNewDate);
 
-                console.log(oldSecondValue);
+                // console.log(oldSecondValue);
 
-                console.log(actualNewSecondValuess);
+                // console.log(actualNewSecondValuess);
 
                 let morningTime = datess.toString().slice(0, 15);
 
                 let newSecondValue = `${morningTime} 9:30`;
                 let secondD = new Date(newSecondValue);
-                console.log(secondD);
+                // console.log(secondD);
 
                 //let newValueDate = new Date();
 
@@ -910,7 +910,7 @@ const Users = () => {
                 totalHourTwinty =
                   multipleOfElight +
                   (actualNewSecondValue + actualNewSecondValuess);
-                console.log(actualNewSecondValue);
+                // console.log(actualNewSecondValue);
               } else {
                 totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
               }
@@ -973,7 +973,7 @@ const Users = () => {
             diff /= 60 * 60;
             let timerOfValue = Math.abs(Math.round(diff));
 
-            console.log(timerOfValue);
+            // console.log(timerOfValue);
 
             if (timerOfValue < 9) {
               rr = `R-${timerOfValue}`;
@@ -1025,7 +1025,7 @@ const Users = () => {
                   console.log("not sunday");
                 } else {
                   // currentDate.setDate(currentDate.getDate() + 1)
-                  console.log("sunday");
+                  // console.log("sunday");
                   timerOfValue -= 24;
                   //sundayCount += 1
                 }
@@ -1065,9 +1065,9 @@ const Users = () => {
 
                 let creatV = date1.toString().slice(15, 24);
 
-                console.log(preVTime);
+                // console.log(preVTime);
 
-                console.log(creatV);
+                // console.log(creatV);
 
                 let oldValue = `${preVTime}${creatV}`;
 
@@ -1085,17 +1085,17 @@ const Users = () => {
 
                 let actualNewSecondValuess = Math.abs(Math.round(secondDiffss));
 
-                console.log(oldValueNewDate);
+                // console.log(oldValueNewDate);
 
-                console.log(oldSecondValue);
+                // console.log(oldSecondValue);
 
-                console.log(actualNewSecondValuess);
+                // console.log(actualNewSecondValuess);
 
                 let morningTime = datess.toString().slice(0, 15);
 
                 let newSecondValue = `${morningTime} 9:30`;
                 let secondD = new Date(newSecondValue);
-                console.log(secondD);
+                // console.log(secondD);
 
                 //let newValueDate = new Date();
 
@@ -1107,7 +1107,7 @@ const Users = () => {
                 totalHourTwinty =
                   multipleOfElight +
                   (actualNewSecondValue + actualNewSecondValuess);
-                console.log(actualNewSecondValue);
+                // console.log(actualNewSecondValue);
               } else {
                 totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
               }
@@ -1169,7 +1169,7 @@ const Users = () => {
   return (
     <div className="users">
       <div className="blur blur-h"></div>
-      <div className="side-bar">
+      <div className="side-bar vv">
         <SideBar />
       </div>
       <div className="right-u">
@@ -1222,8 +1222,8 @@ const Users = () => {
 
           {userTasKTimer.length !== 0 && (
             <div className="employee-cont">
-              {userTasKTimer.map((each) => (
-                <div>
+              {userTasKTimer.map((each, index) => (
+                <div key={index}>
                   <p className="para-total-hour">
                     Total Hours :{" "}
                     <span className="total-span fff">{each.totalHour}</span>

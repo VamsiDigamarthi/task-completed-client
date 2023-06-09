@@ -3,11 +3,6 @@ import { SpinnerCircular } from "spinners-react";
 import "./index.css";
 import SideBar from "../SideBar";
 import Header from "../Header";
-import { SiMulesoft } from "react-icons/si";
-import { SiMarketo } from "react-icons/si";
-import { MdAccountBalanceWallet } from "react-icons/md";
-import { SiPolymerproject } from "react-icons/si";
-import Chart from "react-apexcharts";
 import AdminAddTeams from "../AdminAddTeams";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -16,31 +11,6 @@ import AdminAddTaskToTeam from "../AdminAddTaskToTeam";
 
 import { RiDeleteBin5Line } from "react-icons/ri";
 import AdminDeleteTeamsModal from "../AdminDeleteTeamsModal";
-
-import { BiDetail } from "react-icons/bi";
-
-// const employessTeams = [
-//   {
-//     title: "Software Team",
-//     noOfEmployess: 8,
-//     icons: <SiMulesoft />,
-//   },
-//   {
-//     title: "Market Team",
-//     noOfEmployess: 12,
-//     icons: <SiMarketo />,
-//   },
-//   {
-//     title: "Accounts Team",
-//     noOfEmployess: 11,
-//     icons: <MdAccountBalanceWallet />,
-//   },
-//   {
-//     title: "Project Team",
-//     noOfEmployess: 11,
-//     icons: <SiPolymerproject />,
-//   },
-// ];
 
 const taskStatus = ["completed", "In-completed", "In-progress"];
 
@@ -70,28 +40,7 @@ const Admin = () => {
 
   const [completedTaskProject, setCompletedTaskProject] = useState("");
 
-  // const [options, setOptions] = useState({
-  //   colors: ["#ff0000", "#f0f", "#ded821"],
-  // });
-
-  // const [series, setSeries] = useState([
-  //   {
-  //     name: "software team",
-  //     data: [100, 200, 400, 150],
-  //   },
-  //   {
-  //     name: "market team",
-  //     data: [80, 100, 300, 270],
-  //   },
-  //   {
-  //     name: "projects team",
-  //     data: [140, 500, 200, 80],
-  //   },
-  // ]);
-
   const UUU = useSelector((state) => state.authReducer.authData);
-
-  // const adminrole = { role: UUU.role };
 
   const adminrole = { role: UUU.role };
 
@@ -409,40 +358,6 @@ const Admin = () => {
                           {each.status}
                         </div>
                       </td>
-                      {/* <td>
-                    <BiDetail id={each._id} onClick={detailsAndModel} />
-                    {UUU.role !== "admin" ? (
-                      <button
-                        id={each._id}
-                        onClick={editAndModel}
-                        disabled={each.status === "completed"}
-                        style={{
-                          background: "transparent",
-                          border: "none",
-                          width: "fit-content",
-                        }}
-                      >
-                        <FiEdit
-                          // id={each._id}
-                          // onClick={editAndModel}
-                          style={{ marginLeft: "50px" }}
-                        />
-                      </button>
-                    ) : (
-                      <>
-                        <RiDeleteBinLine
-                          id={each._id}
-                          style={{ margin: "0px 18px" }}
-                          onClick={teamDeleteTaskFromId}
-                        />
-                        <FiEdit
-                          id={each._id}
-                          onClick={adminClickEditAccDateSet}
-                          // style={{ marginLeft: "50px" }}
-                        />
-                      </>
-                    )}
-                  </td> */}
                     </tr>
                   ))}
                 </tbody>

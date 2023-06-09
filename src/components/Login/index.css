@@ -13,6 +13,7 @@
   justify-content: center;
   align-items: center;
   border: 1px solid #f5bf36;
+  /* #f5bf36 */
   border-radius: 10px;
   overflow: hidden;
   padding: 20px;
@@ -47,8 +48,14 @@
 
 .already-sign {
   color: #cfb6f2;
+  text-decoration: none;
 }
 
 .reset-pass {
+  color: #f5bf36;
+  text-decoration: none !important;
+}
+
+.eye-icon {
   color: #f5bf36;
 }

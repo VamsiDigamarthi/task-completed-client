@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { HiOutlineMail } from "react-icons/hi";
 import { RiLockPasswordLine } from "react-icons/ri";
+import { AiOutlineEye } from "react-icons/ai";
 import axios from "axios";
 import "./index.css";
 const ResetPassword = () => {
@@ -9,6 +10,12 @@ const ResetPassword = () => {
     username: "",
     password: "",
   });
+
+  const [eyeIconsValue, setEyeIconsValue] = useState(true);
+
+  const [resetPassWordApi, setResetPassWordApi] = useState({});
+
+  const [acknow, setAcknow] = useState("");
 
   const usernameChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -22,13 +29,15 @@ const ResetPassword = () => {
     const API = axios.create({ baseURL: "http://localhost:5000" });
     API.put("/auth/reset/password", user)
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
+        setResetPassWordApi(res.data);
+        setAcknow(res.data.acknowledged);
       })
       .catch((e) => {
         console.log(e);
       });
 
-    // setUser({ username: "", password: "" });
+    setUser({ username: "", password: "" });
     // let res = await axios({
     //   method: 'PUT',
     //   data: user,
@@ -40,10 +49,20 @@ const ResetPassword = () => {
     // };
   };
 
+  // const eyeValueIcon = () => {
+  //   setEyeIconsValue(!false);
+  // };
+
+  //console.log(resetPassWordApi);
+
+  console.log(acknow);
+
   return (
     <div className="login-container">
       <form onSubmit={submitForm} className="login-form reset-form">
-        <h1 className="form-heading">Reset Your Password</h1>
+        <h1 className="form-heading" style={{ fontStyle: "italic" }}>
+          Reset Your Password
+        </h1>
 
         <div className="form-input-container">
           <HiOutlineMail className="form-icons" />
@@ -61,12 +80,18 @@ const ResetPassword = () => {
           <input
             placeholder="Password"
             className="form-input"
-            type="text"
+            type={eyeIconsValue ? "password" : "text"}
             onChange={usernameChange}
             name="password"
             value={user.password}
           />
+          <AiOutlineEye
+            onClick={() => setEyeIconsValue(!eyeIconsValue)}
+            className="eye-icon"
+          />
         </div>
+
+        {acknow && <p className="reset-msg">password reset successfully</p>}
 
         <button className="login-btn" type="submit">
           submit
@@ -74,7 +99,7 @@ const ResetPassword = () => {
         <div>
           <p>
             <Link to="/login" className="already-sign">
-              <span> back to login page</span>
+              <span className="reset-msg">back to login page</span>
             </Link>
           </p>
         </div>

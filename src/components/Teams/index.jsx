@@ -502,6 +502,8 @@ const Teams = () => {
 
   //console.log(teamLeaderTask);
 
+  //console.log(UUU);
+
   return (
     <div className="teams">
       <div className="side-bar-t">
@@ -548,7 +550,7 @@ const Teams = () => {
                 </div>
                 <button className="add-task-button">
                   <button onClick={() => setTaskAddModal(true)}>
-                    Add User Task
+                    Add Users Task
                   </button>
                 </button>
               </div>
